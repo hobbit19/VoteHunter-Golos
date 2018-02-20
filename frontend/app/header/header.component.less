@@ -1,0 +1,52 @@
+@import (reference) '../environment';
+
+.header {
+	height: @headerHeight;
+	border-top: 2px solid @color1;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.header__content {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.header__liveSearch {
+	width: 466px;
+	margin-left: 30px;
+}
+
+.header__left,
+.header__right {
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.header__left {
+	width: 100%;
+	flex-shrink: 1;
+}
+
+.header__right {
+	flex-shrink: 0;
+}
+
+.header__bell {
+	width: 21px;
+}
+
+.header__burger {
+	.m-burger(18px, 12px, 2px, #000);
+	cursor: pointer;
+}
+
+.header__login {
+	margin-right: 27px;
+	min-width: 105px;
+}
+
+.header__newPost {
+	margin: 0 25px;
+}

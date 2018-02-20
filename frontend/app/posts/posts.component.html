@@ -1,0 +1,8 @@
+<h2 class="h2 posts__heading" [innerHTML]="titleStr"></h2>
+<div class="posts__items">
+	<div class="posts__item" *ngFor="let item of items" [innerHTML]>
+		<div class="posts__img" [style.background-image]="'url(' + item.img + ')'"></div>
+		<div class="posts__title" [innerHTML]="item.title"></div>
+		<p class="paragraph posts__desc" [innerHTML]="item.desc"></p>
+	</div>
+</div>

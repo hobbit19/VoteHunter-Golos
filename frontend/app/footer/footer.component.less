@@ -1,0 +1,45 @@
+@import (reference) '../environment';
+
+.footer {
+	font-size: 15px;
+	border-top: 1px solid #ccc;
+	padding: 30px 0;
+	height: @footerHeight;
+}
+
+.footer__nav {
+	text-align: center;
+}
+
+.footer__ul {
+	display: inline-flex;
+}
+
+.footer__li {
+	padding: 0 16px;
+	position: relative;
+}
+
+.footer__li:not(:last-child):after {
+	position: absolute;
+	content: ' ';
+	display: block;
+	background-color: #8a8a8a;
+	right: 0;
+	top: 50%;
+	transform: translate(0, -50%);
+	width: 1px;
+	height: 14px;
+}
+
+.footer__link {
+	color: #8a8a8a;
+	text-decoration: none;
+}
+
+.footer__text {
+	margin-top: 14px;
+	color: #252a2b;
+	text-align: center;
+}
+

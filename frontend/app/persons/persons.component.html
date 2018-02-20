@@ -1,0 +1,7 @@
+<h3 class="h3 persons__heading" [innerHTML]="headingStr"></h3>
+<div class="persons__items">
+	<div class="persons__item" *ngFor="let item of items">
+		<div class="persons__avatar" [style.background-image]="'url(' + item.img + ')'"></div>
+		<div class="persons__fullname" [innerHTML]="item.fullname"></div>
+	</div>
+</div>

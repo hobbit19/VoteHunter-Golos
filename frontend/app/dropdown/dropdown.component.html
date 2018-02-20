@@ -1,0 +1,7 @@
+<div class="dropdown__title js-dropdown__title">
+	<ng-container *ngIf='title'>{{ title }}</ng-container>
+	<ng-container *ngIf='!title'>Select</ng-container>
+</div>
+<div class="dropdown__content js-dropdown__content panel__content js-panel__content js-panel__close">
+	<ng-content></ng-content>
+</div>

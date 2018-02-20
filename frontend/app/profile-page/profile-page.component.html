@@ -1,0 +1,156 @@
+<div class="bg1">
+	<div class="block">
+		<vh-main-nav></vh-main-nav>
+		<div class="profilePage__content">
+			<div class="profilePage__left">
+				<h2 class="h2">Редактирование профиля</h2>
+				<p class="desc paragraph">Заполните профайл создателя, создав первое отличное впечатление для сообщества</p>
+				<div class="section">
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Ваше имя</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" placeholder="Иван Кузнецов">
+						</div>
+					</div>
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Что будете публиковать?</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" placeholder="Видео обзоры оборудования для майнига">
+						</div>
+					</div>
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Промо видео</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" placeholder="https://www.youtube.com/watch?v=xxxxxxxx">
+						</div>
+					</div>
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Изображение профиля</div>
+						</div>
+						<div class="section__right">
+							<label class="profilePage__avatar">
+								<input class="input-file" type="file">
+							</label>
+						</div>
+					</div>
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Изображение обложки</div>
+						</div>
+						<div class="section__right">
+							<label class="profilePage__image">
+								<input class="input-file" type="file">
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Категория</div>
+						</div>
+						<div class="section__right">
+							<vh-dropdown [title]="selectedCategory.name" tabindex="1">
+								<vh-dropdown-option *ngFor="let category of categories" (click)="selectedCategory = category" [innerHTML]="category.name"></vh-dropdown-option>
+							</vh-dropdown>
+						</div>
+					</div>
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">URL-адрес профайла</div>
+						</div>
+						<div class="section__right">
+							<span class="section__fixedStr">totehunter.io/</span>
+							<input class="section__input" value="user234">
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">VK</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" placeholder="Ваш аккаунт">
+						</div>
+					</div>
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">YouTube</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" placeholder="Ваш аккаунт">
+						</div>
+					</div>
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Twitch</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" placeholder="Ваш аккаунт">
+						</div>
+					</div>
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Facebook</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" placeholder="Ваш аккаунт">
+						</div>
+					</div>
+				</div>
+				<div class="buttons">
+					<button class="button button-mode-2">Сохранить</button>
+				</div>
+			</div>
+			<div class="profilePage__right">
+				<h2 class="h2">Цель</h2>
+				<p class="desc paragraph">Сообщите сообществу каковы будут ваши действия при достижении определенной цели</p>
+				<div class="section">
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Кол-во голосов</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" type="number" value="0">
+						</div>
+					</div>
+					<div class="section__row">
+						<textarea class="section__textarea" placeholder="Когда я наберу 1000 голосов, я смогу создавать 2 видео в неделю вместо одного"></textarea>
+					</div>
+					<div class="section__basket"></div>
+				</div>
+				<div class="buttons">
+					<button class="button button-mode-2 profilePage__button">Сохранить</button>
+				</div>
+				<h2 class="h2 profilePage__heading1">Предложения</h2>
+				<p class="desc paragraph">Сообщите сообществу каковы будут ваши предложения для тех, кто больше всего поддерживает вас в творчестве</p>
+				<div class="section">
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Кол-во голосов</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" type="number" value="0">
+						</div>
+					</div>
+					<div class="section__row">
+						<textarea class="section__textarea" placeholder="Для Вас я смогу передать привет в следующем видео"></textarea>
+					</div>
+					<div class="section__basket"></div>
+				</div>
+				<div class="buttons">
+					<button class="button button-mode-2 profilePage__button">Сохранить</button>
+					<button class="button button-mode-4 profilePage__button">Добавить ещё</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

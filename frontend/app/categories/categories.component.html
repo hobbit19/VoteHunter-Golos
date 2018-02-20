@@ -1,0 +1,7 @@
+<h2 class="h2 categories__heading">Категории</h2>
+<div class="categories__items">
+	<div class="categories__item" *ngFor="let item of items">
+		<div class="categories__name" [innerHTML]="item.name"></div>
+		<div class="categories__authorsNum" [innerHTML]="'Авторов: ' + item.authorsNum"></div>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<div class="block">
+	<vh-main-nav></vh-main-nav>
+	<h2 class="h2">Моя активность</h2>
+	<div class="cabinetPage__content">
+		<div class="cabinetPage__left">
+			<vh-stats></vh-stats>
+			<vh-posts [titleStr]="'Мои посты (' + posts?.length + ')'" [items]="posts" className="cabinetPage__posts"></vh-posts>
+			<div class="buttons">
+				<button class="button button-mode-2" routerLink="/add-post">Новый пост</button>
+			</div>
+		</div>
+		<div class="cabinetPage__right">
+			<vh-persons [items]="bakers" [headingStr]="'Мои Бэкеры (' + bakers?.length + ')'" className="cabinetPage__bakers"></vh-persons>
+			<div class="buttons">
+				<button class="button button-mode-2">Смотреть всех</button>
+			</div>
+		</div>
+	</div>
+</div>

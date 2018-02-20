@@ -1,0 +1,10 @@
+<footer class="footer">
+	<nav class="footer__nav block">
+		<ul class="footer__ul">
+			<li class="footer__li" *ngFor="let item of items">
+				<a class="footer__link" [routerLink]="item.link" [innerHTML]="item.text"></a>
+			</li>
+		</ul>
+	</nav>
+	<div class="footer__text">© 2018 VoteHunter.io</div>
+</footer>

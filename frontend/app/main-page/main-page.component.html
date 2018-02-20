@@ -1,0 +1,22 @@
+<div class="bg1">
+	<nav class="nav block">
+		<a routerLink="#" class="nav__item">Все</a>
+		<a routerLink="#" class="nav__item">Популярные</a>
+		<a routerLink="#" class="nav__item">В тренде</a>
+	</nav>
+</div>
+<div class="block mainPage__content">
+	<div class="mainPage__left">
+		<vh-authors titleStr="Популярные авторы" [needFilters]="true" [items]="authors"></vh-authors>
+		<vh-categories className="mainPage__categories" [items]="categories"></vh-categories>
+		<vh-authors titleStr="Новые лица" [items]="newAuthors" className="mainPage__newAuthors"></vh-authors>
+	</div>
+	<div class="mainPage__right">
+		<h2 class="h2">Для авторов</h2>
+		<p class="paragraph mainPage__text1">Начните ваше творческое путешествие.</p>
+		<button class="button button-mode-2 mainPage__button1">Присоединиться</button>
+		<vh-persons [items]="newFaces" headingStr="Новые лица" className="mainPage__newFaces"></vh-persons>
+		<vh-persons [items]="bakers" headingStr="Топ Бэкеров" className="mainPage__bakers"></vh-persons>
+		<vh-socials className="mainPage__socials"></vh-socials>
+	</div>
+</div>

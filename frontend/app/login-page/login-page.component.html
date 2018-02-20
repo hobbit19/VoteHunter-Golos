@@ -1,0 +1,23 @@
+<form class="loginPage__form" (submit)="submit()">
+	<div class="section">
+		<div class="section__row">
+			<div class="section__left">
+				<div class="section__name">Логин</div>
+			</div>
+			<div class="section__right">
+				<input class="section__input" placeholder="Golos login" [(ngModel)]="login" name="login">
+			</div>
+		</div>
+		<div class="section__row">
+			<div class="section__left">
+				<div class="section__name">Пароль</div>
+			</div>
+			<div class="section__right">
+				<input class="section__input" placeholder="Private posting key or owner key" type="password" [(ngModel)]="password" name="password">
+			</div>
+		</div>
+	</div>
+	<div class="buttons">
+		<button class="button button-mode-2">Войти</button>
+	</div>
+</form>

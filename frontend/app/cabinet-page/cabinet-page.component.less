@@ -1,0 +1,38 @@
+.cabinetPage {
+	padding-bottom: 40px;
+	display: block;
+}
+
+.cabinetPage__content {
+	display: flex;
+	margin-top: 39px;
+}
+
+@cabinetPagePaddingRight: 77px;
+
+.cabinetPage__left {
+	width: 100%;
+	flex-shrink: 1;
+	position: relative;
+	padding-right: @cabinetPagePaddingRight;
+}
+
+.cabinetPage__left:after {
+	position: absolute;
+	content: ' ';
+	display: block;
+	top: 30px;
+	bottom: 30px;
+	width: 1px;
+	right: @cabinetPagePaddingRight / 2;
+	background: #e5e5e5;
+}
+
+.cabinetPage__right {
+	flex-shrink: 0;
+	width: 252px;
+}
+
+.cabinetPage__posts {
+	margin-top: 35px;
+}

@@ -1,0 +1,60 @@
+// https://github.com/kolosovskiy/kolos.mixins
+
+.placeholder(@color) {
+	// do not group this rules
+	&::-webkit-input-placeholder { color: @color; }
+	&::-moz-placeholder { color: @color; } // Firefox 19+
+	&:-moz-placeholder { color: @color; } // Firefox 18-
+	&:-ms-input-placeholder { color: @color; }
+
+	//&:extend(.placeholderFocus all);
+}
+
+.m-burger(@width, @height, @lineHeight, @lineBG) {
+	width: @width;
+	height: @height;
+
+	background: linear-gradient(
+			to bottom,
+			@lineBG 0,
+			@lineBG @lineHeight,
+			transparent @lineHeight,
+			transparent round((@height / 2) - (@lineHeight / 2)),
+			@lineBG round((@height / 2) - (@lineHeight / 2)),
+			@lineBG round((@height / 2) + (@lineHeight / 2)),
+			transparent round((@height / 2) + (@lineHeight / 2)),
+			transparent @height - @lineHeight,
+			@lineBG @height - @lineHeight,
+			@lineBG @height
+	);
+}
+
+.triangle(@direction; @width; @bg:#000; @height:round((sqrt(3)/2) * @width)) {
+	@cornerBorder: @width / 2 solid transparent;
+
+	display: inline-block;
+
+	& when (@direction = top) {
+		border-left: @cornerBorder;
+		border-right: @cornerBorder;
+		border-bottom: @height solid @bg;
+	}
+
+	& when (@direction = bottom) {
+		border-left: @cornerBorder;
+		border-right: @cornerBorder;
+		border-top: @height solid @bg;
+	}
+
+	& when (@direction = left) {
+		border-top: @cornerBorder;
+		border-bottom: @cornerBorder;
+		border-right: @height solid @bg;
+	}
+
+	& when (@direction = right) {
+		border-top: @cornerBorder;
+		border-bottom: @cornerBorder;
+		border-left: @height solid @bg;
+	}
+}

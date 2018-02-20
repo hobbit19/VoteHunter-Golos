@@ -1,0 +1,19 @@
+<header class="header">
+	<div class="block header__content">
+		<div class="header__left">
+			<vh-logo routerLink="/"></vh-logo>
+			<vh-live-search className="header__liveSearch"></vh-live-search>
+		</div>
+		<div class="header__right">
+			<img class="header__bell" src="/assets/images/bell.svg" alt="Иконка колокольчик">
+			<ng-container *ngIf="user.isLoggedIn">
+				<button class="button button-mode-1 header__newPost" routerLink="/add-post">+ Новый пост</button>
+			</ng-container>
+			<ng-container *ngIf="!user.isLoggedIn">
+				<button class="button">Присоединиться</button>
+				<button class="button button-mode-1 header__login" routerLink="/login">Войти</button>
+			</ng-container>
+			<div class="header__burger"></div>
+		</div>
+	</div>
+</header>

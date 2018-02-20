@@ -1,0 +1,62 @@
+@import (reference) '../environment';
+
+.profilePage {
+	padding-bottom: 40px;
+	display: block;
+}
+
+.profilePage__nav {
+	display: inline-flex;
+}
+
+.profilePage__nav .nav__item:last-child {
+	padding-right: 0;
+}
+
+.profilePage__content {
+	display: flex;
+	padding-top: 50px;
+}
+
+.profilePage__left {
+	width: 100%;
+	flex-shrink: 1;
+}
+
+.profilePage__right {
+	flex-shrink: 0;
+	width: 507px;
+	padding-left: 50px;
+}
+
+.profilePage__avatar,
+.profilePage__image {
+	background-color: #ebebeb;
+}
+
+.profilePage__avatar {
+	width: 108px;
+	height: 108px;
+	background-image: url(/assets/images/ava_placeholder.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	display: block;
+	border-radius: 50%;
+}
+
+.profilePage__image {
+	width: 100%;
+	height: 201px;
+	background-image: url(/assets/images/camera.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	display: block;
+}
+
+.profilePage__heading1 {
+	margin-top: 15px;
+}
+
+.profilePage__button {
+	min-width: 155px;
+}

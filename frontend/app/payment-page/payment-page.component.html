@@ -1,0 +1,23 @@
+<form class="paymentPage__form" (submit)="submit()">
+	<div class="section">
+		<div class="section__row" *ngIf="!user.isLoggedIn">
+			<div class="section__left">
+				<div class="section__name">Логин</div>
+			</div>
+			<div class="section__right">
+				<input class="section__input" name="login" [(ngModel)]="login">
+			</div>
+		</div>
+		<div class="section__row">
+			<div class="section__left">
+				<div class="section__name">Активный ключ</div>
+			</div>
+			<div class="section__right">
+				<input class="section__input" name="key" [(ngModel)]="key">
+			</div>
+		</div>
+	</div>
+	<div class="buttons">
+		<button class="button button-mode-2">Оплатить</button>
+	</div>
+</form>

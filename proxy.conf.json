@@ -1,0 +1,13 @@
+{
+        "//": "https://github.com/chimurai/http-proxy-middleware#http-proxy-options",
+        "**": {
+                "target": {
+                        "host": "votehunter.loc",
+                        "protocol": "http:",
+                        "port": 80
+                },
+                "changeOrigin": true,
+                "secure": false
+        }
+}
+

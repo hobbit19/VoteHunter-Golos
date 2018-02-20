@@ -1,0 +1,87 @@
+@import (reference) '../environment';
+
+@dropdownHeight: 24px;
+@dropdownPadding: 3px;
+@dropdownBorder: 1px solid #ccc;
+@dropdownTriangleWidth: 8px;
+@dropdownTriangleHeight: 6px;
+@dropdownItemPaddingRight: 24px;
+@dropdownItemPaddingLeft: 10px;
+
+.dropdown:extend(.unselect) {
+	display: inline-block;
+	margin-top: 1px;
+	margin-left: 1px;
+	position: relative;
+	cursor: pointer;
+	height: @dropdownHeight;
+	line-height: @dropdownHeight;
+	vertical-align: top;
+	background: #fff;
+	font-size: 13px;
+	padding: @dropdownPadding;
+	border: @dropdownBorder;
+	z-index: 1;
+}
+
+.dropdown.prop__value {
+	padding: @dropdownPadding;
+	border: @dropdownBorder;
+}
+
+.dropdown:after {
+	content: '';
+	position: absolute;
+	z-index: 1;
+	display: block;
+	.triangle(bottom, @dropdownTriangleWidth, #000, @dropdownTriangleHeight);
+	right: (@dropdownItemPaddingRight - @dropdownTriangleWidth) / 2;
+	top: (@dropdownHeight - (@dropdownTriangleHeight / 2)) / 2;
+}
+
+.dropdown:not(.dropdown-active) {
+	// dropdown__content have to affect no node out of dropdown with its height
+	overflow: hidden;
+}
+
+.dropdown.dropdown-active:after {
+	border-top: none;
+	border-bottom: @dropdownTriangleHeight solid #000;
+}
+
+.dropdown__title:extend(.flc all):extend(.ellipsis) {
+	padding-left: @dropdownItemPaddingLeft;
+	border-right: @dropdownItemPaddingRight solid #fff;
+	overflow: hidden;
+	height: 100%;
+}
+
+.dropdown__content {
+	position: relative;
+	z-index: 11111;
+	top: 1px;
+	background: #fff;
+	overflow-y: auto;
+	max-height: 300px;
+}
+
+.dropdown:not(.dropdown-active) .dropdown__content {
+	// dropdown__content must have a width in order to determine width of dropdown
+	visibility: hidden;
+}
+
+.panel-direction-top .dropdown__content {
+	position: absolute;
+	top: initial;
+	bottom: 100%;
+	left: 0;
+	right: 0;
+}
+
+.dropdown__option:extend(.flc all) {
+	padding: 5px @dropdownItemPaddingRight 5px @dropdownItemPaddingLeft;
+	line-height: 20px;
+	min-height: @dropdownHeight;
+	display: block;
+	box-sizing: border-box;
+}

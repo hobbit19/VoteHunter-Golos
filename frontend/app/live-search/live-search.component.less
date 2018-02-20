@@ -1,0 +1,29 @@
+@import (reference) '../environment';
+
+@liveSearchLoopRight: 8px;
+@liveSearchLoopSize: 21px;
+
+.liveSearch {
+	height: 33px;
+	position: relative;
+}
+
+.liveSearch__input {
+	height: 100%;
+	border: 1px solid #bdbdbd;
+	border-radius: 4px;
+	.placeholder(#c4c4c4);
+	width: 100%;
+	padding-left: 16px;
+	padding-right: @liveSearchLoopSize + (@liveSearchLoopRight * 2);
+	font-size: 14px;
+}
+
+.liveSearch__loop {
+	width: @liveSearchLoopSize;
+	height: @liveSearchLoopSize;
+	position: absolute;
+	right: @liveSearchLoopRight;
+	top: 50%;
+	transform: translate(0, -50%);
+}
