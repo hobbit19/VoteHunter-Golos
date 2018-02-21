@@ -51,7 +51,7 @@ class PostController extends Controller
         $objAnubis = new Anubis();
         $objAnubis->setKey($strKey);
         $strEncryptedData = base64_encode($objAnubis->encrypt(\Yii::$app->request->post('video_url')));
-        $strGolosPermLink = strtolower(preg_replace("/[^a-zA-Z0-9\s]/", '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));
+        $strGolosPermLink = strtolower(preg_replace("/[^a-zA-Z0-9]/", '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));
         //$strGolosPermLink = strtolower(str_replace([' ', '?', '!', ], '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));
         $objPost = Posts::findOne(['golos_permlink' => $strGolosPermLink, 'user_id' => \Yii::$app->user->getId()]);
         if(!is_object($objPost)) {
