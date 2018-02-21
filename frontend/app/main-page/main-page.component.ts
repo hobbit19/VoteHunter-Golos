@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiService } from "../api.service";
+let golos = require('golos-js');
 
 @Component({
   selector: 'vh-main-page',
@@ -19,7 +20,7 @@ export class MainPageComponent implements OnInit {
   categories: any[];
 
   ngOnInit() {
-    this.api.getAuthors().then((authors) => {
+      this.api.getAuthors().then((authors) => {
       this.authors = authors;
     });
 

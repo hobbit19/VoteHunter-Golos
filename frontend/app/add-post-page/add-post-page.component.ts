@@ -48,7 +48,7 @@ export class AddPostPageComponent implements OnInit {
 
       golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
         if (err) {
-          console.log("ERROR");
+          console.log(err);
 
           this.errors = ["Timeout limit"];
         } else {

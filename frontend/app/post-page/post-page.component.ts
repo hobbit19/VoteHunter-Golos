@@ -22,7 +22,8 @@ export class PostPageComponent implements OnInit {
   post: any;
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(params => {
+
+      this.activatedRoute.queryParams.subscribe(params => {
       /**
        * getContent() receiving a post
        * @param {String} author - author of the post
@@ -35,7 +36,6 @@ export class PostPageComponent implements OnInit {
       let permlink = params.p;
       golos.api.getContent(author, permlink, (err, post) => {
         if (!err) {
-          console.log(post);
           let postData = {
             author: author,
             permlink: permlink,
@@ -52,8 +52,6 @@ export class PostPageComponent implements OnInit {
                 postData['video_url'] = data.post.video_url;
               }
             }
-
-            console.log(postData);
             this.post = postData;
           });
         }
