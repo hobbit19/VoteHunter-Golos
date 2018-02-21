@@ -67,7 +67,7 @@ class PostController extends Controller
         $objPost->golos_permlink = $strGolosPermLink;
         $objPost->golos_parentPermlink = 'votehunter';
         if($objPost->save()) {
-            $strLink = "http://localhost:4200/post?a=".\Yii::$app->user->getIdentity()->golos_nick."&p=".$objPost->golos_permlink;
+            $strLink = "http://votehunter.io/post?a=".\Yii::$app->user->getIdentity()->golos_nick."&p=".$objPost->golos_permlink;
             $strBody = \Yii::$app->request->post('body','') .
                 "<br> !! Для просмотра зашифрованного контента нужно оплатить  ".$objPost->price.
                 " GOLOS автору: <a href='$strLink'>перейдите на VoteHunter</a>";
@@ -83,7 +83,7 @@ class PostController extends Controller
                         'tags' => [],
                         'encodedData' => $strEncryptedData
                     ],
-                    'post_link' => str_replace('http://localhost:4200','',$strLink)
+                    'post_link' => str_replace('http://votehunter.io','',$strLink)
                 ]
             ];
         }
