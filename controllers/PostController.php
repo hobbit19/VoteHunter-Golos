@@ -158,7 +158,7 @@ class PostController extends Controller
                 $strWifFrom,
                 $strUserFrom,
                 $strUserTo,
-                $fltSum * (1 - $fltPercent) . ' GOLOS',
+                sprintf('%01.3f GOLOS', $fltSum * (1 - $fltPercent)),
                 $strPostPermlink
             );
 
@@ -167,8 +167,8 @@ class PostController extends Controller
                 $strWifFrom,
                 $strUserFrom,
                 $strUserFee,
-                $fltSum * $fltPercent . ' GOLOS',
-                $strPostPermlink
+                sprintf('%01.3f GOLOS', $fltSum * $fltPercent),
+                'Fee from: ' . $strUserTo . '/' . $strPostPermlink
             );
 
             $objPaidPost = new PaidPosts();

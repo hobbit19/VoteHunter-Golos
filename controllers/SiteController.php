@@ -5,6 +5,8 @@ namespace app\controllers;
 use GrapheneNodeClient\Commands\Login\GetVersionCommand;
 use GrapheneNodeClient\Commands\DataBase\GetContentCommand;
 use GrapheneNodeClient\Tools\ChainOperations\OpComment;
+use GrapheneNodeClient\Tools\ChainOperations\OpTransfer;
+
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
