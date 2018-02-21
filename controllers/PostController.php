@@ -114,7 +114,14 @@ class PostController extends Controller
         $objAnubis = new Anubis();
         $objAnubis->setKey($objPost->secret_key);
         $strVideoUrl = $objAnubis->decrypt(base64_decode($strEncryptedData));
-        $boolShowVideoLink = !\Yii::$app->user->isGuest;
+        $objPaid = PaidPosts::findOne(['user_id' => \Yii::$app->user->getId(), 'post_id' => $objPost->id]);
+        $boolShowVideoLink = false;
+        if(!is_object($objPaid)) {
+            $boolShowVideoLink = true;
+        }
+        if(\Yii::$app->user->getId() == $objPost->user_id) {
+            $boolShowVideoLink = true;
+        }
         $arrPost = [
             'id' => $objPost->id,
             'body' => $strBody,
