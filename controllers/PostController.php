@@ -180,6 +180,7 @@ class PostController extends Controller
                 'status' => 'ok',
                 'author' => $objPost->author->golos_nick,
                 'permlink' => $objPost->golos_permlink,
+                'answer' => $answer,
             ];
         }catch (Exception $e){
             return [
