@@ -119,7 +119,7 @@ class PostController extends Controller
         if(is_object($objPaid)) {
             $boolShowVideoLink = true;
         }
-        if(\Yii::$app->user->getId() == $objPost->user_id) {
+        if(\Yii::$app->user->getId() === $objPost->user_id) {
             $boolShowVideoLink = true;
         }
         $arrPost = [

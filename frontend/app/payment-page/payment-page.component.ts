@@ -38,7 +38,7 @@ export class PaymentPageComponent implements OnInit {
               if ( ! err) {
                   let pubWif;
                   let resultWifToPublic = golos.auth.wifToPublic(this.key, pubWif);
-                  if (response[0].posting.key_auths[0][0] == resultWifToPublic) {
+                  if (response[0] && response[0].posting.key_auths[0][0] == resultWifToPublic) {
                       //for hackthone testing only save PK in localstorage
                       localStorage.setItem("privKey", this.key);
                       resolve(resultWifToPublic);
@@ -71,6 +71,8 @@ export class PaymentPageComponent implements OnInit {
                       // this.router.navigateByUrl('/profile');
                   }
               })
+          } else {
+              console.log('Not Logged');
           }
       });
     console.log({
