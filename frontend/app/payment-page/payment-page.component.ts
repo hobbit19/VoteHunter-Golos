@@ -31,6 +31,9 @@ export class PaymentPageComponent implements OnInit {
   submit() {
       let promises = [];
       let usernamesArr = [this.login];
+      if (this.user.isLoggedIn) {
+          usernamesArr = [this.user.golos_nick];
+      }
       let pubKey = null;
       promises.push(new Promise((resolve) => {
           golos.api.getAccounts(usernamesArr, (err, response) => {
@@ -38,7 +41,7 @@ export class PaymentPageComponent implements OnInit {
               if ( ! err) {
                   let pubWif;
                   let resultWifToPublic = golos.auth.wifToPublic(this.key, pubWif);
-                  if (typeof response[0] != 'undefined' && response[0].posting.key_auths[0][0] == resultWifToPublic) {
+                  if (typeof response[0] !== 'undefined' && response[0].posting.key_auths[0][0] == resultWifToPublic) {
                       //for hackthone testing only save PK in localstorage
                       localStorage.setItem("privKey", this.key);
                       resolve(resultWifToPublic);

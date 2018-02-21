@@ -24,7 +24,8 @@ class UserController extends Controller
         }
         return [
             'status' => 'ok',
-            'user_id' => \Yii::$app->user->getId()
+            'user_id' => \Yii::$app->user->getId(),
+            'golos_nick' => \Yii::$app->user->getIdentity()->golos_nick,
         ];
     }
     public function beforeAction($action)
