@@ -14,6 +14,6 @@ export class UserService {
       if (this.isLoggedIn) {
           this.golos_nick = data.golos_nick;
       }
-    });
+    }, (data) => {});
   }
 }
