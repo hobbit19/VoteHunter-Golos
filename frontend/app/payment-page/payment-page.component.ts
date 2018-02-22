@@ -42,7 +42,7 @@ export class PaymentPageComponent implements OnInit {
                   let pubWif;
                   let resultWifToPublic = golos.auth.wifToPublic(this.key, pubWif);
                   if (typeof response[0] !== 'undefined' && response[0].posting.key_auths[0][0] == resultWifToPublic) {
-                      //for hackthone testing only save PK in localstorage
+                      // for hackthone testing only save PK in localstorage
                       localStorage.setItem("privKey", this.key);
                       resolve(resultWifToPublic);
                   }
@@ -51,20 +51,20 @@ export class PaymentPageComponent implements OnInit {
           })}));
 
       Promise.all(promises).then((pubKey) => {
-          if(pubKey !== null) {
+          if (pubKey !== null) {
               this.api.login({
                   golos_nick: this.login,
                   golos_pub_key: pubKey[0]
               }).then((data) => {
                   console.log(data);
-                  if(data.status == 'ok') {
+                  if (data.status === 'ok') {
                       this.api.postPay(
                           {
                               post_id: this.id,
                               active_wif: this.key,
                           }
                       ).then((data) => {
-                            if(data.status == 'ok') {
+                            if (data.status === 'ok') {
                                 this.router.navigateByUrl('/post?a=' + data.author + '&p=' + data.permlink);
                             }
                       });

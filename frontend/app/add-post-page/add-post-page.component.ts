@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
-import { ApiService } from "../api.service";
-import { Router } from "@angular/router";
+import { ApiService } from '../api.service';
+import { Router } from '@angular/router';
 let golos = require('golos-js');
 
 @Component({
