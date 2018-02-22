@@ -29,8 +29,6 @@ export class LoginPageComponent implements OnInit {
 
   submit() {
     let promises = [];
-    //let userName = 'votehunter';// login
-    //let privWif = '5JidAoVJn2ZBGPeHS66y5QS4tVvJJuMMqSCssUDi6kauSLScpku'; // private key
     let usernamesArr = [this.login];
     let pubKey = null;
     promises.push(new Promise((resolve) => {
