@@ -1,12 +1,12 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'vh-profile-page',
-  templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.less'],
+  selector: 'vh-edit-profile-page',
+  templateUrl: './edit-profile-page.component.html',
+  styleUrls: ['./edit-profile-page.component.less'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProfilePageComponent implements OnInit {
+export class EditProfilePageComponent implements OnInit {
 
   constructor() { }
 
@@ -14,7 +14,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   @HostBinding('class') get classStr() {
-    return 'profilePage bg1';
+    return 'editProfilePage bg1';
   }
 
   categories = [

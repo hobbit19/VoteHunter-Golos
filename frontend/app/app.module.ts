@@ -14,7 +14,7 @@ import { ApiService } from "./api.service";
 import { PersonsComponent } from './persons/persons.component';
 import { SocialsComponent } from './socials/socials.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.component';
 import { UserService } from "./user.service";
 import { HttpClientModule } from "@angular/common/http";
 import { DropdownComponent } from './dropdown/dropdown.component';
@@ -30,8 +30,8 @@ import { PaymentPageComponent } from './payment-page/payment-page.component';
 
 const appRoutes: Routes = [
   {
-    path: 'profile',
-    component: ProfilePageComponent,
+    path: 'edit-profile',
+    component: EditProfilePageComponent,
   },
   {
     path: 'cabinet',
@@ -72,7 +72,7 @@ const appRoutes: Routes = [
     PersonsComponent,
     SocialsComponent,
     CategoriesComponent,
-    ProfilePageComponent,
+    EditProfilePageComponent,
     DropdownComponent,
     DropdownOptionComponent,
     AddPostPageComponent,
