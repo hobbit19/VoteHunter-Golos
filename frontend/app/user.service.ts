@@ -5,6 +5,7 @@ import { ApiService } from "./api.service";
 export class UserService {
   isLoggedIn = false;
   golos_nick = '';
+  id?: number;
 
   constructor(
     public api: ApiService

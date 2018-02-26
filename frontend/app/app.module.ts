@@ -27,11 +27,17 @@ import { StatsComponent } from './stats/stats.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostPageComponent } from './post-page/post-page.component';
 import { PaymentPageComponent } from './payment-page/payment-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { ProfileBannerComponent } from './profile-banner/profile-banner.component';
 
 const appRoutes: Routes = [
   {
     path: 'edit-profile',
     component: EditProfilePageComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfilePageComponent,
   },
   {
     path: 'cabinet',
@@ -83,6 +89,8 @@ const appRoutes: Routes = [
     PostsComponent,
     PostPageComponent,
     PaymentPageComponent,
+    ProfilePageComponent,
+    ProfileBannerComponent,
   ],
   imports: [
     BrowserModule,

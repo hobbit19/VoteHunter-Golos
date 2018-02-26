@@ -206,7 +206,19 @@ export class ApiService {
   }
 
   getProfile(id: number) {
-    return this.get('/profile/get',{id: id});
+    //return this.get('/profile/get',{id: id});
+    return Promise.resolve({
+      fullname: 'Crypto YODA',
+      desc: 'еженедельные прогнозы криптовалютного рынка. 2018 год',
+      bannerImg: '/assets/images/profile-banner-example.png',
+      avatar: '/assets/images/profile-ava-example.png',
+      socialLinks: [
+        { name: 'twitter', link: '#' },
+        { name: 'facebook', link: '#' },
+        { name: 'youtube', link: '#' },
+      ],
+      badge: '/assets/images/badge-2000.png'
+    });
   }
 
   updateProfile(data: any) {
