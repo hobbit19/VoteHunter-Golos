@@ -27,8 +27,13 @@ import { StatsComponent } from './stats/stats.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostPageComponent } from './post-page/post-page.component';
 import { PaymentPageComponent } from './payment-page/payment-page.component';
-import { ProfilePageComponent } from './profile-page/profile-page.component';
-import { ProfileBannerComponent } from './profile-banner/profile-banner.component';
+import { CreatorPageComponent } from './creator-page/creator-page.component';
+import { CreatorBannerComponent } from './creator-banner/creator-banner.component';
+import { CreatorStatsComponent } from './creator-stats/creator-stats.component';
+import { CreatorGoalComponent } from './creator-goal/creator-goal.component';
+import { CreatorOverviewComponent } from './creator-overview/creator-overview.component';
+import { CreatorPostsComponent } from './creator-posts/creator-posts.component';
+import { CreatorRewardsComponent } from './creator-rewards/creator-rewards.component';
 
 const appRoutes: Routes = [
   {
@@ -37,7 +42,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfilePageComponent,
+    component: CreatorPageComponent,
   },
   {
     path: 'cabinet',
@@ -89,8 +94,13 @@ const appRoutes: Routes = [
     PostsComponent,
     PostPageComponent,
     PaymentPageComponent,
-    ProfilePageComponent,
-    ProfileBannerComponent,
+    CreatorPageComponent,
+    CreatorBannerComponent,
+    CreatorStatsComponent,
+    CreatorGoalComponent,
+    CreatorOverviewComponent,
+    CreatorPostsComponent,
+    CreatorRewardsComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,3 +115,4 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+

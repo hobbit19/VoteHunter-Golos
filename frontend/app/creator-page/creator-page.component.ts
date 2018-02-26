@@ -3,19 +3,18 @@ import { ApiService } from "../api.service";
 import { UserService } from "../user.service";
 
 @Component({
-  selector: 'vh-profile-banner',
-  templateUrl: './profile-banner.component.html',
-  styleUrls: ['./profile-banner.component.less'],
+  selector: 'vh-creator-page',
+  templateUrl: './creator-page.component.html',
+  styleUrls: ['./creator-page.component.less'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProfileBannerComponent implements OnInit {
+export class CreatorPageComponent implements OnInit {
+  profile: any;
 
   constructor(
     public api: ApiService,
     public user: UserService,
   ) { }
-
-  profile?: any;
 
   ngOnInit() {
     this.api.getProfile(this.user.id).then((profile) => {
@@ -24,7 +23,7 @@ export class ProfileBannerComponent implements OnInit {
   }
 
   @HostBinding('class') get classStr() {
-    return 'profileBanner';
+    return 'creatorPage';
   }
 
 }

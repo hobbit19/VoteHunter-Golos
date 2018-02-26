@@ -1,0 +1,22 @@
+<div class="creatorPosts__item section" *ngFor="let post of posts">
+	<div class="creatorPosts__top">
+		<div class="creatorPosts__l">
+			<div class="creatorPosts__ava" [style.background-image]="'url(' + post.avatar + ')'"></div>
+			<div class="creatorPosts__info">
+				<div class="creatorPosts__author" [innerHTML]="post.author"></div>
+				<div class="creatorPosts__date" [innerHTML]="post.date"></div>
+			</div>
+		</div>
+		<div class="creatorPosts__r">
+			<div class="creatorPosts__money" [innerHTML]="post.dollars + '$'"></div>
+			<div class="creatorPosts__curators" [innerHTML]="post.curators + ' кураторов'"></div>
+		</div>
+	</div>
+	<div class="creatorPosts__lock" *ngIf="post.isLocked">
+		<img class="creatorPosts__lockImage" src="/assets/images/lock.svg">
+		<div class="creatorPosts__lockTitle">Просмотр только для кураторов</div>
+		<button class="creatorPosts__button">Разблокировать</button>
+	</div>
+	<div class="creatorPosts__title" [innerHTML]="post.title"></div>
+	<p class="paragraph creatorPosts__desc" [innerHTML]="post.desc"></p>
+</div>

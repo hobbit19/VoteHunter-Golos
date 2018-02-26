@@ -1,0 +1,56 @@
+@import (reference) '../environment';
+
+.creatorPage {
+
+}
+
+@creatorPageOffset: 20px;
+
+.creatorPage__content {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 50px;
+}
+
+.creatorPage .section {
+	margin-top: @creatorPageOffset;
+}
+
+.creatorPage__col:not(:last-child) {
+	margin-right: @creatorPageOffset;
+}
+
+.creatorPage .section {
+	padding-left: 27px;
+	padding-right: 27px;
+}
+
+.creatorPage__col-left {
+	width: 266px;
+	flex-shrink: 0;
+}
+
+.creatorPage__col-center {
+	width: 100%;
+	flex-shrink: 1;
+}
+
+.creatorPage__col-right {
+	width: 266px;
+	flex-shrink: 0;
+}
+
+.creatorPage__money {
+	display: flex;
+	align-items: flex-end;
+}
+
+.creatorPage__num {
+	font-size: 23px;
+	color: @color1;
+}
+
+.creatorPage__currency {
+	font-size: 18px;
+	margin-left: 5px;
+}

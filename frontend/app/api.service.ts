@@ -217,7 +217,47 @@ export class ApiService {
         { name: 'facebook', link: '#' },
         { name: 'youtube', link: '#' },
       ],
-      badge: '/assets/images/badge-2000.png'
+      badge: '/assets/images/badge-2000.png',
+      stats: {
+        curators: 2034,
+        money: 7211
+      },
+      goal: {
+        num: '10k',
+        desc: 'Lorem ipsum dolor sit amet consectetur adipiscn ing elit sed diam nonummy nibh euismod tincidunt ut. \n Lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonummy nibh euismod tincidunt ut.'
+      },
+      lastPosts: [
+        {
+          author: 'Crypto Yoda',
+          avatar: '/assets/images/profile-ava-example.png',
+          date: '12.03.2018 14-00',
+          dollars: 1,
+          curators: 340,
+          title: 'Обучение майнинга для начинающих (2)',
+          desc: 'В этом выпуске я покажу как собрать и запустить...',
+          isLocked: true
+        },
+        {
+          author: 'Crypto Yoda',
+          avatar: '/assets/images/profile-ava-example.png',
+          date: '12.03.2018 14-00',
+          dollars: 2,
+          curators: 124,
+          title: 'Обучение майнинга для начинающих (3)',
+          desc: 'В этом выпуске я покажу как собрать и запустить...',
+          isLocked: true
+        }
+      ],
+      rewards: [
+        {
+          text: 'lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonummy nibh euismod tincidunt ut. lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonummy nibh euismod tincidunt ut.',
+          num: 100
+        },
+        {
+          text: 'lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonummy nibh euismod tincidunt ut. lorem ipsum dolor sit amet consectetur adipiscing elit sed diam nonummy nibh euismod tincidunt ut.',
+          num: 200
+        }
+      ]
     });
   }
 
