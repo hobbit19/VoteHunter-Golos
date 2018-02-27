@@ -27,7 +27,7 @@ export class AddPostPageComponent implements OnInit {
   }
 
   @HostBinding('class') get classStr() {
-    return 'addPostPage bg1';
+    return 'addPostPage';
   }
 
   errors = [];

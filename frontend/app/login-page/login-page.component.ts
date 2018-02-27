@@ -24,7 +24,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   @HostBinding('class') get classStr() {
-    return 'loginPage bg1';
+    return 'loginPage';
   }
 
   submit() {

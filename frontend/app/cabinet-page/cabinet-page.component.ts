@@ -27,7 +27,7 @@ export class CabinetPageComponent implements OnInit {
   }
 
   @HostBinding('class') get classStr() {
-    return 'cabinetPage bg1';
+    return 'cabinetPage';
   }
 
 }

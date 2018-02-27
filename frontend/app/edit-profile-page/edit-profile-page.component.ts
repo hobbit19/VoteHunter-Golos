@@ -14,7 +14,7 @@ export class EditProfilePageComponent implements OnInit {
   }
 
   @HostBinding('class') get classStr() {
-    return 'editProfilePage bg1';
+    return 'editProfilePage';
   }
 
   categories = [

@@ -85,7 +85,7 @@ export class PaymentPageComponent implements OnInit {
   }
 
   @HostBinding('class') get classStr() {
-    return 'paymentPage bg1';
+    return 'paymentPage';
   }
 
 }

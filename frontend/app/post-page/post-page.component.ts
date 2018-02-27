@@ -66,7 +66,7 @@ export class PostPageComponent implements OnInit {
   }
 
   @HostBinding('class') get classStr() {
-    return 'postPage bg1';
+    return 'postPage';
   }
 
   getVideoID() {
