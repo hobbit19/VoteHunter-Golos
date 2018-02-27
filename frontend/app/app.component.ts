@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { StateService } from "./state.service";
 let golos = require('golos-js');
 
 //tests
@@ -78,5 +79,9 @@ golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, tit
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
+  constructor(
+    public state: StateService
+  ) {
 
+  }
 }

@@ -34,38 +34,47 @@ import { CreatorGoalComponent } from './creator-goal/creator-goal.component';
 import { CreatorOverviewComponent } from './creator-overview/creator-overview.component';
 import { CreatorPostsComponent } from './creator-posts/creator-posts.component';
 import { CreatorRewardsComponent } from './creator-rewards/creator-rewards.component';
+import { StateService } from "./state.service";
 
 const appRoutes: Routes = [
   {
     path: 'edit-profile',
+    data: {name: 'editProfile'},
     component: EditProfilePageComponent,
   },
   {
     path: 'profile',
+    data: {name: 'profile'},
     component: CreatorPageComponent,
   },
   {
     path: 'cabinet',
+    data: {name: 'cabinet'},
     component: CabinetPageComponent,
   },
   {
     path: 'add-post',
+    data: {name: 'addPost'},
     component: AddPostPageComponent,
   },
   {
     path: 'login',
+    data: {name: 'login'},
     component: LoginPageComponent,
   },
   {
     path: 'post',
+    data: {name: 'post'},
     component: PostPageComponent,
   },
   {
     path: 'payment',
+    data: {name: 'payment'},
     component: PaymentPageComponent,
   },
   {
     path: '',
+    data: {name: 'mainPage'},
     component: MainPageComponent
   },
   //{ path: '**', component: PageNotFoundComponent }
@@ -110,7 +119,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     ApiService,
-    UserService
+    UserService,
+    StateService
   ],
   bootstrap: [AppComponent]
 })
