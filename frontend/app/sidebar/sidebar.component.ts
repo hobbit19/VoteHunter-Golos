@@ -7,7 +7,7 @@ import {
   transition
 } from '@angular/animations';
 import { MediatorService } from "../mediator.service";
-import { PanelComponent, PanelComponentStates } from "../../kolos.dom/panel.component";
+import { PanelComponent, PanelComponentStates } from "../../kolos.dom/src/panel.component";
 
 @Component({
   selector: 'vh-sidebar',
