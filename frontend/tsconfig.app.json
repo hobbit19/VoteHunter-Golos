@@ -12,9 +12,5 @@
   "exclude": [
     "test.ts",
     "**/*.spec.ts"
-  ],
-  "include": [
-    "**/*",
-    "../node_modules/kolos.dom/**/*"
   ]
 }
