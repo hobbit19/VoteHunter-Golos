@@ -13,7 +13,7 @@
 				<button class="button">Присоединиться</button>
 				<button class="button button-mode-1 header__login" routerLink="/login">Войти</button>
 			</ng-container>
-			<div class="header__burger"></div>
+			<div class="header__burger" (click)="mediator.sidebar.toggle()"></div>
 		</div>
 	</div>
 </header>

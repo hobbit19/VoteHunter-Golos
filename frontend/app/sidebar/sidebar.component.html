@@ -1,0 +1,5 @@
+<div class="sidebar" [@state]="state">
+	<nav class="sidebar__items">
+		<a class="sidebar__item" *ngFor="let item of items" [routerLink]="item.link" [innerHTML]="item.str"></a>
+	</nav>
+</div>

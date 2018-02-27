@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -35,50 +36,9 @@ import { CreatorOverviewComponent } from './creator-overview/creator-overview.co
 import { CreatorPostsComponent } from './creator-posts/creator-posts.component';
 import { CreatorRewardsComponent } from './creator-rewards/creator-rewards.component';
 import { StateService } from "./state.service";
-
-const appRoutes: Routes = [
-  {
-    path: 'edit-profile',
-    data: {name: 'editProfile'},
-    component: EditProfilePageComponent,
-  },
-  {
-    path: 'profile',
-    data: {name: 'profile'},
-    component: CreatorPageComponent,
-  },
-  {
-    path: 'cabinet',
-    data: {name: 'cabinet'},
-    component: CabinetPageComponent,
-  },
-  {
-    path: 'add-post',
-    data: {name: 'addPost'},
-    component: AddPostPageComponent,
-  },
-  {
-    path: 'login',
-    data: {name: 'login'},
-    component: LoginPageComponent,
-  },
-  {
-    path: 'post',
-    data: {name: 'post'},
-    component: PostPageComponent,
-  },
-  {
-    path: 'payment',
-    data: {name: 'payment'},
-    component: PaymentPageComponent,
-  },
-  {
-    path: '',
-    data: {name: 'mainPage'},
-    component: MainPageComponent
-  },
-  //{ path: '**', component: PageNotFoundComponent }
-];
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { MediatorService } from "./mediator.service";
+import { appRoutes } from "./app.rotes";
 
 @NgModule({
   declarations: [
@@ -110,17 +70,20 @@ const appRoutes: Routes = [
     CreatorOverviewComponent,
     CreatorPostsComponent,
     CreatorRewardsComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ApiService,
     UserService,
-    StateService
+    StateService,
+    MediatorService
   ],
   bootstrap: [AppComponent]
 })
