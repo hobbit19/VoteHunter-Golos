@@ -27,6 +27,7 @@
     "golos-js": "^0.5.30",
     "pepjs": "0.4.3",
     "rxjs": "5.5.6",
+    "web-animations-js": "2.3.1",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
