@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import { MediatorService } from "./mediator.service";
 
 @Injectable()
 export class StateService {
@@ -14,6 +15,7 @@ export class StateService {
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
+    public mediator: MediatorService,
     rendererFactory: RendererFactory2
   ) {
     this.renderer = rendererFactory.createRenderer(null, null);
@@ -34,6 +36,10 @@ export class StateService {
       this.routeName = event.name;
 
       this.renderer.addClass(document.documentElement, 'html-route-' + this.routeName);
+
+      if (this.mediator.sidebar) {
+        this.mediator.sidebar.close();
+      }
     });
   }
 
