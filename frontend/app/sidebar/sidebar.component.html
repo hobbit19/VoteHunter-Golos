@@ -1,4 +1,5 @@
 <div class="sidebar" [@state]="state">
+	<div class="sidebar__cross" (click)="close()"></div>
 	<nav class="sidebar__items">
 		<a class="sidebar__item" *ngFor="let item of items" [routerLink]="item.link" [innerHTML]="item.str"></a>
 	</nav>

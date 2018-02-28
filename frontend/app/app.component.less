@@ -28,7 +28,6 @@ body, h1, h2, h3, h4, h5, h6, p, input, blockquote, ul, fieldset, form, ol, dl, 
 	background: @backgroundColor1;
 	padding-bottom: 70px;
 	flex: 1;
-	//min-height: calc(~"100vh - @{footerHeight} - @{headerHeight}");
 }
 
 img {
@@ -219,4 +218,31 @@ textarea {
 	height: 100%;
 }
 
+.vr-1 {
+	margin-top: 60px;
+}
+
+.vr-2 {
+	margin-top: 36px;
+}
+
+.vr-3 {
+	margin-top: 33px;
+}
+
+.ios,
+.ios * {
+	cursor: pointer;
+}
+
+.ios *:not(body) {
+	-webkit-tap-highlight-color: transparent;
+}
+
 @import "section";
+
+@media screen and (max-width: 500px) {
+	.vr-1 {
+		margin-top: 40px;
+	}
+}

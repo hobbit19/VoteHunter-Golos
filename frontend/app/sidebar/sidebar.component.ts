@@ -8,6 +8,7 @@ import {
 } from '@angular/animations';
 import { MediatorService } from "../mediator.service";
 import { PanelComponent, PanelComponentStates } from "../../kolos.dom/src/panel.component";
+import { StateService } from "../state.service";
 
 @Component({
   selector: 'vh-sidebar',
@@ -29,6 +30,8 @@ import { PanelComponent, PanelComponentStates } from "../../kolos.dom/src/panel.
 })
 export class SidebarComponent extends PanelComponent implements OnInit {
   items = [
+      { link: '#', str: 'Присоединиться' },
+      { link: '/login', str: 'Войти' },
       { link: '#', str: 'О проекте' },
       { link: '#', str: 'Как это работает' },
       { link: '#', str: 'Правила использования' },

@@ -6,7 +6,6 @@
 
 .mainPage__content {
 	display: flex;
-	padding-top: 36px;
 }
 
 .mainPage__left {
@@ -42,26 +41,31 @@
 	margin-top: 12px;
 }
 
-.mainPage__newFaces {
-	margin-top: 38px;
-}
-
-.mainPage__bakers {
-	margin-top: 33px;
-}
-
-.mainPage__socials {
-	margin-top: 23px;
-}
-
-.mainPage__categories {
-	margin-top: 65px;
-}
-
-.mainPage__newAuthors {
-	margin-top: 54px;
-}
-
 .mainPage .h2 {
 	color: #424242;
+}
+
+@media screen and (min-width: @mainPageThreshold1) {
+	.mainPage__right {
+		margin-top: 0;
+	}
+}
+
+@media screen and (max-width: @mainPageThreshold1) {
+	.mainPage__content {
+		flex-direction: column;
+	}
+
+	.mainPage__left {
+		padding-right: 0;
+	}
+
+	.mainPage__left:after {
+		display: none;
+	}
+
+	.mainPage__right {
+		padding-left: 0;
+		width: auto;
+	}
 }

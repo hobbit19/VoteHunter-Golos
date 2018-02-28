@@ -1,5 +1,6 @@
 import { Component, Renderer2, ViewEncapsulation } from '@angular/core';
 import { StateService } from "./state.service";
+import { DOMService } from "./dom.service";
 let golos = require('golos-js');
 
 //tests
@@ -81,6 +82,10 @@ golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, tit
 export class AppComponent {
   constructor(
     public state: StateService,
+    public domService: DOMService
   ) {
+    if (domService.IS_IOS) {
+      document.documentElement.classList.add('ios');
+    }
   }
 }

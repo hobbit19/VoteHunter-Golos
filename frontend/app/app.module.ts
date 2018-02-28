@@ -39,6 +39,7 @@ import { StateService } from "./state.service";
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MediatorService } from "./mediator.service";
 import { appRoutes } from "./app.rotes";
+import { DOMService } from "./dom.service";
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { appRoutes } from "./app.rotes";
     ApiService,
     UserService,
     StateService,
-    MediatorService
+    MediatorService,
+    DOMService
   ],
   bootstrap: [AppComponent]
 })

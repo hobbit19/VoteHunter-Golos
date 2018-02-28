@@ -8,14 +8,24 @@
 
 }
 
+@categoriesItemCornerMargin: 15px;
+
 .categories__items {
-	margin-top: 24px;
-	display: flex;
-	justify-content: space-between;
+	margin: 24px -@categoriesItemCornerMargin 0 -@categoriesItemCornerMargin;
 }
 
 .categories__item {
 	width: 170px;
+	display: inline-block;
+	margin: 0 @categoriesItemCornerMargin @categoriesItemCornerMargin @categoriesItemCornerMargin;
+}
+
+.categories__item:nth-child(even) .categories__name {
+	background-color: @color1;
+}
+
+.categories__item:nth-child(odd) .categories__name {
+	background-color: #808080;
 }
 
 .categories__name {
@@ -32,14 +42,6 @@
 	padding: 0 18px;
 	line-height: 1.4;
 	cursor: pointer;
-}
-
-.categories__item:nth-child(even) .categories__name {
-	background-color: @color1;
-}
-
-.categories__item:nth-child(odd) .categories__name {
-	background-color: #808080;
 }
 
 .categories__authorsNum {

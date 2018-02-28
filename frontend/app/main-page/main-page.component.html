@@ -5,18 +5,18 @@
 		<a routerLink="#" class="nav__item">В тренде</a>
 	</nav>
 </div>
-<div class="block mainPage__content">
+<div class="block mainPage__content vr-2">
 	<div class="mainPage__left">
 		<vh-authors titleStr="Популярные авторы" [needFilters]="true" [items]="authors"></vh-authors>
-		<vh-categories className="mainPage__categories" [items]="categories"></vh-categories>
-		<vh-authors titleStr="Новые лица" [items]="newAuthors" className="mainPage__newAuthors"></vh-authors>
+		<vh-categories className="vr-1" [items]="categories"></vh-categories>
+		<vh-authors titleStr="Новые лица" [items]="newAuthors" className="vr-1"></vh-authors>
 	</div>
-	<div class="mainPage__right">
+	<div class="mainPage__right vr-1">
 		<h2 class="h2">Для авторов</h2>
 		<p class="paragraph mainPage__text1">Начните ваше творческое путешествие.</p>
 		<button class="button button-mode-2 mainPage__button1">Присоединиться</button>
-		<vh-persons [items]="newFaces" headingStr="Новые лица" className="mainPage__newFaces"></vh-persons>
-		<vh-persons [items]="bakers" headingStr="Топ Бэкеров" className="mainPage__bakers"></vh-persons>
-		<vh-socials className="mainPage__socials"></vh-socials>
+		<vh-persons [items]="newFaces" headingStr="Новые лица" className="vr-3"></vh-persons>
+		<vh-persons [items]="bakers" headingStr="Топ Бэкеров" className="vr-3"></vh-persons>
+		<vh-socials className="vr-3"></vh-socials>
 	</div>
 </div>

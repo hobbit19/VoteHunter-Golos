@@ -3,8 +3,7 @@
 .footer {
 	font-size: 15px;
 	border-top: 1px solid #ccc;
-	padding: 30px 0;
-	height: @footerHeight;
+	padding: 23px 0;
 }
 
 .footer__nav {
@@ -13,11 +12,14 @@
 
 .footer__ul {
 	display: inline-flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .footer__li {
 	padding: 0 16px;
 	position: relative;
+	margin-top: 15px;
 }
 
 .footer__li:not(:last-child):after {
@@ -35,6 +37,7 @@
 .footer__link {
 	color: #8a8a8a;
 	text-decoration: none;
+	white-space: nowrap;
 }
 
 .footer__text {

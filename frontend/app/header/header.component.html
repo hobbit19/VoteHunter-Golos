@@ -10,10 +10,12 @@
 				<button class="button button-mode-1 header__newPost" routerLink="/add-post">+ Новый пост</button>
 			</ng-container>
 			<ng-container *ngIf="!user.isLoggedIn">
-				<button class="button">Присоединиться</button>
+				<button class="button header__join">Присоединиться</button>
 				<button class="button button-mode-1 header__login" routerLink="/login">Войти</button>
 			</ng-container>
-			<div class="header__burger" (click)="mediator.sidebar.toggle()"></div>
+			<div class="header__burgerWrap" (click)="mediator.sidebar.toggle()">
+				<div class="header__burger"></div>
+			</div>
 		</div>
 	</div>
 </header>

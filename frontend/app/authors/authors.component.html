@@ -2,8 +2,8 @@
 	<div class="authors__left">
 		<h2 class="h2 authors__heading" [innerHTML]="titleStr"></h2>
 	</div>
-	<div class="authors__right">
-		<div class="authors__filters" *ngIf="needFilters">
+	<div class="authors__right" *ngIf="needFilters">
+		<div class="authors__filters">
 			<div class="button button-mode-2 authors__filter">Сегодня</div>
 			<div class="button button-mode-3 authors__filter">Неделя</div>
 			<div class="button button-mode-3 authors__filter">Месяц</div>

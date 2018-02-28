@@ -1,12 +1,14 @@
 .sidebar {
 	position: fixed;
+	z-index: 1;
 	right: 0;
 	top: 0;
 	bottom: 0;
 	width: 300px;
 	background-color: #ffffff;
-	padding: 20px 0;
+	padding: (@sideBarCrossSize + (@sideBarCrossOffset * 2) + 10) 0 20px 0;
 	display: block;
+	overflow-y: auto;
 }
 
 .sidebar__items {
@@ -23,4 +25,28 @@
 
 .sidebar__item:not(:first-child) {
 	margin-top: 10px;
+}
+
+@sideBarCrossSize: 40px;
+@sideBarCrossOffset: 15px;
+
+.sidebar__cross {
+	width: @sideBarCrossSize;
+	height: @sideBarCrossSize;
+	cursor: pointer;
+	position: absolute;
+	top: @sideBarCrossOffset;
+	right: @sideBarCrossOffset;
+	background-image: url(/assets/images/cross.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 24px;
+	z-index: 1;
+}
+
+@media screen and (max-width: 400px) {
+	.sidebar {
+		left: 0;
+		width: auto;
+	}
 }
