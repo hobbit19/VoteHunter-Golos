@@ -76,7 +76,7 @@ Thumbs.db
 
 /web
 
-composer.lock
+#composer.lock
 controllers/TestController.php
 
 frontend/kolos.dom
