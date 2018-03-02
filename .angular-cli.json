@@ -13,7 +13,7 @@
         "robots.txt",
         "index.php"
       ],
-      "index": "index.html",
+      "index": "main.php",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
