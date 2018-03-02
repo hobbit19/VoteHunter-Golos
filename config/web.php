@@ -1,6 +1,14 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
+$strLocalParams = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'local' . DIRECTORY_SEPARATOR . 'params.php';
+if (file_exists($strLocalParams)) {
+    $arrLocalParams = require_once $strLocalParams;
+    if(is_array($arrLocalParams)) {
+        $params = array_replace_recursive($params, $arrLocalParams);
+    }
+}
+
 $db = require __DIR__ . '/db.php';
 
 $config = [
@@ -59,6 +67,17 @@ $config = [
                     '/payment' => 'site/index',
             ],
         ],
+//        'view' => [
+//            'theme' => [
+//                'basePath' => '@webroot',
+//                'pathMap' => [
+//                    '@app/views' => [
+//                        '@webroot'
+//                    ]
+//                ]
+//            ],
+//        ],
+
     ],
     'params' => $params,
 ];
