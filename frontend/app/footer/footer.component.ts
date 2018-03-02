@@ -20,4 +20,8 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
+  getCopyright() {
+    return `© ${new Date().getFullYear()} VoteHunter.io`;
+  }
+
 }
