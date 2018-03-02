@@ -1,7 +1,11 @@
 <div class="creatorBanner__top" [style.background-image]="'url(' + profile?.bannerImg + ')'">
 	<div class="block h100">
 		<div class="creatorBanner__layout1">
-			<div class="creatorBanner__title" [innerHTML]="profile?.fullname + ' создаёт ' + profile?.desc"></div>
+			<div class="creatorBanner__avatar" [style.background-image]="'url(' + profile?.avatar + ')'"></div>
+			<div class="creatorBanner__title">
+				<span class="creatorBanner__name" [innerHTML]="profile?.fullname + ' '"></span>
+				<span [innerHTML]="'создаёт ' + profile?.desc"></span>
+			</div>
 			<div class="creatorBanner__badgeWrap">
 				<img class="creatorBanner__badge" *ngIf="profile?.badge" [attr.src]="profile?.badge">
 			</div>
@@ -11,7 +15,6 @@
 <div class="bg2">
 	<div class="block">
 		<div class="creatorBanner__bottom">
-			<div class="creatorBanner__avatar" [style.background-image]="'url(' + profile?.avatar + ')'"></div>
 			<div class="creatorBanner__l">
 				<nav class="creatorBanner__nav">
 					<a class="creatorBanner__navItem creatorBanner__navItem-active">Основное</a>

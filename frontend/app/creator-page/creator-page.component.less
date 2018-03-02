@@ -15,8 +15,12 @@
 	margin-top: @creatorPageOffset;
 }
 
-.creatorPage__col:not(:last-child) {
+.creatorPage__col {
 	margin-right: @creatorPageOffset;
+}
+
+.creatorPage__col-right {
+	margin-right: 0;
 }
 
 .creatorPage .section {
@@ -52,4 +56,46 @@
 .creatorPage__currency {
 	font-size: 18px;
 	margin-left: 5px;
+}
+
+@media screen and (max-width: 1050px) {
+	@creatorPageAdaptiveState1LeftColWidth: 250px;
+	@creatorPageAdaptiveState1LeftColOffset: 25px;
+
+	.creatorPage__content {
+		display: block;
+	}
+
+	.creatorPage__col-left,
+	.creatorPage__col-right {
+		float: left;
+		margin-right: @creatorPageAdaptiveState1LeftColOffset;
+		width: @creatorPageAdaptiveState1LeftColWidth;
+	}
+
+	.creatorPage__col-center {
+		float: right;
+		margin-right: 0;
+		width: calc(~'100% - @{creatorPageAdaptiveState1LeftColWidth} - @{creatorPageAdaptiveState1LeftColOffset}');
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.creatorPage__content {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.creatorPage__col-left,
+	.creatorPage__col-right,
+	.creatorPage__col-center {
+		width: 100%;
+		margin-right: 0;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.creatorPage .section {
+		padding: 23px;
+	}
 }

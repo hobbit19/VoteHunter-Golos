@@ -244,6 +244,21 @@ textarea {
 	-webkit-tap-highlight-color: initial;
 }
 
+.clearfix:after {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 @import "section";
 
 @media screen and (max-width: 500px) {
@@ -252,7 +267,7 @@ textarea {
 	}
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 475px) {
 	.block {
 		padding-left: 15px;
 		padding-right: 15px;

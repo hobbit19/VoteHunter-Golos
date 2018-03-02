@@ -5,7 +5,8 @@
 }
 
 .creatorOverview__iframe {
-	width: 495px;
+	width: 100%;
+	max-width: 495px;
 	height: 272px;
 }
 
@@ -17,4 +18,10 @@
 
 .creatorOverview__paragraph {
 	margin-top: 17px;
+}
+
+@media screen and (max-width: 425px) {
+	.creatorOverview__iframe {
+		height: 200px;
+	}
 }

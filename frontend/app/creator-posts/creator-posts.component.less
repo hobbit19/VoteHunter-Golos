@@ -28,6 +28,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	white-space: nowrap;
 }
 
 .creatorPosts__author {
@@ -72,7 +73,7 @@
 	align-items: center;
 	justify-content: center;
 	margin-top: 18px;
-	height: 189px;
+	min-height: 189px;
 }
 
 .creatorPosts__lockImage {
@@ -83,6 +84,8 @@
 	font-size: 16px;
 	margin-top: 10px;
 	color: #fff;
+	padding: 0 10px;
+	text-align: center;
 }
 
 .creatorPosts__button {
@@ -103,4 +106,42 @@
 
 .creatorPosts__desc {
 	margin-top: 13px;
+}
+
+@media screen and (max-width: 569px) {
+	.creatorPosts__money {
+		font-size: 15px;
+	}
+
+	.creatorPosts__curators {
+		margin-left: 12px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.creatorPosts__top {
+		flex-direction: column;
+	}
+
+	.creatorPosts__r {
+		width: 100%;
+		padding-left: 0;
+		margin-top: 10px;
+	}
+
+	.creatorPosts__lock {
+		margin-top: 10px;
+	}
+}
+
+@media screen and (max-width: 415px) {
+	.creatorPosts__button {
+		min-width: 170px;
+		height: 38px;
+		line-height: 38px;
+	}
+
+	.creatorPosts__lock {
+		padding-bottom: 15px;
+	}
 }
