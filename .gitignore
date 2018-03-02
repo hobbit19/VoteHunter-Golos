@@ -80,3 +80,5 @@ composer.lock
 controllers/TestController.php
 
 frontend/kolos.dom
+
+config/local
