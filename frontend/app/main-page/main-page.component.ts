@@ -36,8 +36,9 @@ export class MainPageComponent implements OnInit {
       this.bakers = bakers;
     });
 
-    this.api.getCategories().then((categories) => {
-      this.categories = categories;
+    this.api.getCategories().then((data) => {
+      console.log(data);
+      this.categories = data.cats;
     });
   }
 

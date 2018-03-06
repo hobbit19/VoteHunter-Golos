@@ -1,4 +1,5 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'vh-edit-profile-page',
@@ -8,22 +9,40 @@ import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core
 })
 export class EditProfilePageComponent implements OnInit {
 
-  constructor() { }
+  categories: any[];
+  profile: any [];
+  constructor(
+      public api: ApiService,
+      ) {
+      console.log('333');
+  }
 
   ngOnInit() {
+      console.log('333');
+      this.getCategoriesList();
+      this.getProfile();
+
   }
 
   @HostBinding('class') get classStr() {
     return 'editProfilePage';
   }
 
-  categories = [
-    { name: 'Блокчейн' },
-    { name: 'Инвестиции' },
-    { name: 'Путешествия' },
-    { name: 'Образование' },
-    { name: 'Фотография' },
-  ];
+  getCategoriesList() {
+      this.api.getCategories().then((data) => {
+          this.categories = data.cats;
+      })
+  }
+
+  getProfile() {
+      this.api.getProfile().then((data) => {
+          this.profile = data.profile;
+          console.log(this.profile);
+      }, (data) => {
+         //show data.msg
+      });
+  }
+
 
   selectedCategory = this.categories[0];
 

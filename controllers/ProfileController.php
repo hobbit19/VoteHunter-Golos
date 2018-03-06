@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 
+use app\api\golos\GolosApi;
 use app\models\Profile;
 use yii\web\Controller;
 
@@ -23,20 +24,25 @@ class ProfileController extends Controller
     }
 
     public function actionGet() {
-        if(empty(\Yii::$app->request->get('id'))) {
+        if(\Yii::$app->user->isGuest) {
             return [
                 'status' => 'error',
-                'msg' => 'ID required'
+                'msg' => 'Not logged in'
             ];
         }
-        $objProfile = Profile::findOne((int)\Yii::$app->request->get('id'));
+        $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
         if(!is_object($objProfile)) {
-            return [
-                'status' => 'error',
-                'msg' => 'Profile not found'
-            ];
-
+            $objProfile = new Profile();
+            $objProfile->user_id = \Yii::$app->user->getId();
+            $objGolosApi = new GolosApi();
+            $arrBlockChainProfile = $objGolosApi->getAccount(\Yii::$app->user->identity->golos_nick);
+            $objProfile->name = isset($arrBlockChainProfile['name']) ? $arrBlockChainProfile['name'] : '';
+            $objProfile->about = isset($arrBlockChainProfile['about']) ? $arrBlockChainProfile['about'] : '';
+            $objProfile->profile_image = isset($arrBlockChainProfile['profile_image']) ? $arrBlockChainProfile['profile_image'] : '';
+            $objProfile->cover_image = isset($arrBlockChainProfile['cover_image']) ? $arrBlockChainProfile['cover_image'] : '';
+            $objProfile->save();
         }
+
         return [
             'status' => 'ok',
             'profile' => $objProfile->toArray()

@@ -65,6 +65,7 @@ $config = [
                     '/add-post' => 'site/index',
                     '/post' => 'site/index',
                     '/payment' => 'site/index',
+                    '/edit-profile' => 'site/index',
             ],
         ],
 //        'view' => [

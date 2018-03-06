@@ -17,7 +17,7 @@ export class CreatorPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.api.getProfile(this.user.id).then((profile) => {
+    this.api.getUserProfile(this.user.id).then((profile) => {
       this.profile = profile;
     });
   }

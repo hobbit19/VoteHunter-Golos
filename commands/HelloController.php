@@ -7,6 +7,7 @@
 
 namespace app\commands;
 
+use app\api\golos\GolosApi;
 use yii\console\Controller;
 
 /**
@@ -26,5 +27,11 @@ class HelloController extends Controller
     public function actionIndex($message = 'hello world')
     {
         echo $message . "\n";
+    }
+
+    public function actionTestApi()
+    {
+        $objGolos = new GolosApi();
+        print_r($objGolos->getAccount('roman-sitrota', GolosApi::ACC_GOLOS_PROFILE));
     }
 }

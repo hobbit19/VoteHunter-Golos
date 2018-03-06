@@ -9,10 +9,12 @@ use Yii;
  *
  * @property int $id
  * @property string $user_id
- * @property string $big_logo
  * @property string $about
- * @property string $fio
- * @property string $avatar
+ * @property string $name
+ * @property string $profile_image
+ * @property string $cover_image
+ * @property string $promo_video
+ * @property string $url
  * @property string $vk
  * @property string $youtube
  * @property string $twitter
@@ -36,7 +38,6 @@ class Profile extends \yii\db\ActiveRecord
         return [
             [['about'], 'string'],
             [['user_id', 'fio', 'vk', 'youtube', 'twitter', 'facebook'], 'string', 'max' => 256],
-            [['big_logo', 'avatar'], 'string', 'max' => 512],
         ];
     }
 
@@ -46,16 +47,6 @@ class Profile extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'big_logo' => 'Big Logo',
-            'about' => 'About',
-            'fio' => 'Fio',
-            'avatar' => 'Avatar',
-            'vk' => 'Vk',
-            'youtube' => 'Youtube',
-            'twitter' => 'Twitter',
-            'facebook' => 'Facebook',
         ];
     }
 }

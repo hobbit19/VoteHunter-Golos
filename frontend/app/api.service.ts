@@ -197,15 +197,16 @@ export class ApiService {
   }
 
   getCategories() {
-    return Promise.resolve([
-      { name: 'Блокчейн технологии', authorsNum: 20 },
-      { name: 'Майтинг / Инвестинг', authorsNum: 20 },
-      { name: 'Крипто валюты', authorsNum: 20 },
-      { name: 'ICO / Инвестиции', authorsNum: 20 },
-    ]);
+    return this.get('/cat/list');
+    // return Promise.resolve([
+    //   { name: 'Блокчейн технологии', authorsNum: 20 },
+    //   { name: 'Майтинг / Инвестинг', authorsNum: 20 },
+    //   { name: 'Крипто валюты', authorsNum: 20 },
+    //   { name: 'ICO / Инвестиции', authorsNum: 20 },
+    // ]);
   }
 
-  getProfile(id: number) {
+  getUserProfile(id: number) {
     //return this.get('/profile/get',{id: id});
     return Promise.resolve({
       fullname: 'Crypto YODA',
@@ -261,6 +262,10 @@ export class ApiService {
     });
   }
 
+  getProfile() {
+    return this.get('/profile/get');
+  }
+
   updateProfile(data: any) {
     return this.post('/profile/update', data);
   }
@@ -287,5 +292,9 @@ export class ApiService {
 
   postPay(data: any) {
     return this.post('/post/pay', data);
+  }
+
+  getCatList() {
+    return this.get('/cat/list');
   }
 }
