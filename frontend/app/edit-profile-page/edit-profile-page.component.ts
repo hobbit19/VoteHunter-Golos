@@ -14,7 +14,6 @@ export class EditProfilePageComponent implements OnInit {
   constructor(
       public api: ApiService,
       ) {
-      console.log('333');
   }
 
   ngOnInit() {
