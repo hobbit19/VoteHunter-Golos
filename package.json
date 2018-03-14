@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --delete-output-path=false --proxy-config=proxy.conf.json",
-    "build": "ng build",
+    "build": "ng build --output-path=web/bundles/ru/ --deploy-url=/bundles/ru/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
