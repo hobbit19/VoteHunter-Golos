@@ -7,12 +7,7 @@
     {
       "root": "frontend",
       "outDir": "web",
-      "assets": [
-        "assets",
-        "favicon.ico",
-        "robots.txt",
-        "index.php"
-      ],
+      "assets": [],
       "index": "main.php",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
