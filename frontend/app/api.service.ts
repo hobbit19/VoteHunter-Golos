@@ -74,19 +74,19 @@ export class ApiService {
 
   getMyBakers() {
     return Promise.resolve([
-      { fullname: 'Name Surname', votes: 4, img: '/assets/images/avatar.jpg' },
-      { fullname: 'Name Surname', votes: 3, img: '/assets/images/avatar.jpg' },
-      { fullname: 'Name Surname', votes: 1, img: '/assets/images/avatar.jpg' },
-      { fullname: 'Name Surname', votes: 2, img: '/assets/images/avatar.jpg' },
-      { fullname: 'Name Surname', votes: 3, img: '/assets/images/avatar.jpg' },
+      { fullname: 'Name Surname', votes: 4, img: '/images/avatar.jpg' },
+      { fullname: 'Name Surname', votes: 3, img: '/images/avatar.jpg' },
+      { fullname: 'Name Surname', votes: 1, img: '/images/avatar.jpg' },
+      { fullname: 'Name Surname', votes: 2, img: '/images/avatar.jpg' },
+      { fullname: 'Name Surname', votes: 3, img: '/images/avatar.jpg' },
     ]);
   }
 
   getMyPosts() {
     return Promise.resolve([
-      { img: '/assets/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
-      { img: '/assets/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
-      { img: '/assets/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
+      { img: '/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
+      { img: '/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
+      { img: '/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
     ]);
   }
 
@@ -95,17 +95,17 @@ export class ApiService {
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       },
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       },
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       },
     ]);
   }
@@ -116,32 +116,32 @@ export class ApiService {
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       },
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       },
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       },
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       },
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       },
       {
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/assets/images/author.jpg'
+        img: '/images/author.jpg'
       }
     ]);
   }
@@ -150,23 +150,23 @@ export class ApiService {
     return Promise.resolve([
       {
         fullname: 'Гильдия Мастеров',
-        img: '/assets/images/avatar_001.png'
+        img: '/images/avatar_001.png'
       },
       {
         fullname: 'Igor Alexeev',
-        img: '/assets/images/avatar_002.jpg'
+        img: '/images/avatar_002.jpg'
       },
       {
         fullname: 'Normies',
-        img: '/assets/images/avatar_003.jpg'
+        img: '/images/avatar_003.jpg'
       },
       {
         fullname: 'Rubin Reports',
-        img: '/assets/images/avatar_005.jpg'
+        img: '/images/avatar_005.jpg'
       },
       {
         fullname: 'Name Surname',
-        img: '/assets/images/avatar_006.jpg'
+        img: '/images/avatar_006.jpg'
       },
     ]);
   }
@@ -175,23 +175,23 @@ export class ApiService {
     return Promise.resolve([
       {
         fullname: 'Name Surname',
-        img: '/assets/images/avatar.jpg'
+        img: '/images/avatar.jpg'
       },
       {
         fullname: 'Name Surname',
-        img: '/assets/images/avatar.jpg'
+        img: '/images/avatar.jpg'
       },
       {
         fullname: 'Name Surname',
-        img: '/assets/images/avatar.jpg'
+        img: '/images/avatar.jpg'
       },
       {
         fullname: 'Name Surname',
-        img: '/assets/images/avatar.jpg'
+        img: '/images/avatar.jpg'
       },
       {
         fullname: 'Name Surname',
-        img: '/assets/images/avatar.jpg'
+        img: '/images/avatar.jpg'
       },
     ]);
   }
@@ -211,14 +211,14 @@ export class ApiService {
     return Promise.resolve({
       fullname: 'Crypto YODA',
       desc: 'еженедельные прогнозы криптовалютного рынка. 2018 год',
-      bannerImg: '/assets/images/profile-banner-example.png',
-      avatar: '/assets/images/profile-ava-example.png',
+      bannerImg: '/images/profile-banner-example.png',
+      avatar: '/images/profile-ava-example.png',
       socialLinks: [
         { name: 'twitter', link: '#' },
         { name: 'facebook', link: '#' },
         { name: 'youtube', link: '#' },
       ],
-      badge: '/assets/images/badge-2000.png',
+      badge: '/images/badge-2000.png',
       stats: {
         curators: 2034,
         money: 7211
@@ -230,7 +230,7 @@ export class ApiService {
       lastPosts: [
         {
           author: 'Crypto Yoda',
-          avatar: '/assets/images/profile-ava-example.png',
+          avatar: '/images/profile-ava-example.png',
           date: '12.03.2018 14-00',
           dollars: 1,
           curators: 340,
@@ -240,7 +240,7 @@ export class ApiService {
         },
         {
           author: 'Crypto Yoda',
-          avatar: '/assets/images/profile-ava-example.png',
+          avatar: '/images/profile-ava-example.png',
           date: '12.03.2018 14-00',
           dollars: 2,
           curators: 124,
