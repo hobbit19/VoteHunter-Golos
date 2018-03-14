@@ -12,8 +12,8 @@ use yii\web\UploadedFile;
  */
 class ImageHelper {
 
-    const COVER_IMAGES = '/assets/images/cover/';
-    const PROFILE_IMAGES = '/assets/images/profile/';
+    const COVER_IMAGES = '/users_content/cover/';
+    const PROFILE_IMAGES = '/users_content/profile/';
 
     public static function processCoverImage($objImage)
     {
