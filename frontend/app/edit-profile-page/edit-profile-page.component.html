@@ -1,7 +1,10 @@
+<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
 <div class="block">
 	<vh-main-nav></vh-main-nav>
 	<div class="editProfilePage__content">
 		<div class="editProfilePage__left">
+			<form class="editProfile__form" (submit)="submit()" *ngIf='profile'>
 			<h2 class="h2">Редактирование профиля</h2>
 			<p class="desc paragraph">Заполните профайл создателя, создав первое отличное впечатление для сообщества</p>
 			<div class="section">
@@ -10,7 +13,7 @@
 						<div class="section__name">Ваше имя</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" placeholder="Иван Кузнецов" name="name" value="this.profile.name">
+						<input class="section__input" placeholder="Иван Кузнецов" name="name" [(ngModel)]="profile.name">
 					</div>
 				</div>
 				<div class="section__row">
@@ -26,26 +29,38 @@
 						<div class="section__name">Промо видео</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" placeholder="https://www.youtube.com/watch?v=xxxxxxxx">
+						<input class="section__input" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" name="promo_video" [(ngModel)]="profile.promo_video">
 					</div>
 				</div>
+				<div class="section__row">
+					<div class="section__left">
+						<div class="section__name">Текст</div>
+					</div>
+					<div class="section__right">
+						<div id="editor">
+							<p>Hello World!</p>
+						</div>
+
+					</div>
+				</div>
+
 				<div class="section__row">
 					<div class="section__left">
 						<div class="section__name">Изображение профиля</div>
 					</div>
 					<div class="section__right">
-						<label class="editProfilePage__avatar">
-							<input class="input-file" type="file">
+						<label class="editProfilePage__avatar" [style.background-image]="'url(' + (profile.profile_image || '/assets/images/ava_placeholder.svg') + ')'" id="new_profile_image">
+							<input class="input-file" type="file" name="new_profile_image"  (change)="onAvaInputChange($event)">
 						</label>
 					</div>
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Изображение обложки</div>
+						<div class="section__name">Изображение обложки <br>(1600 x 400)</div>
 					</div>
 					<div class="section__right">
-						<label class="editProfilePage__image">
-							<input class="input-file" type="file">
+						<label class="editProfilePage__image" [style.background-image]="'url(' + (profile.cover_image || '/assets/images/camera.svg') + ')'" [style.background-size]="profile.cover_image? 'cover': 'auto'" id="new_cover_image">
+							<input class="input-file" type="file" name="new_cover_image" (change)="onCoverInputChange($event)">
 						</label>
 					</div>
 				</div>
@@ -56,7 +71,7 @@
 						<div class="section__name">Категория</div>
 					</div>
 					<div class="section__right">
-						<vh-dropdown [title]="selectedCategory.name" tabindex="1">
+						<vh-dropdown [title]="selectedCategory?.name" tabindex="1">
 							<vh-dropdown-option *ngFor="let category of categories" (click)="selectedCategory = category" [innerHTML]="category.name"></vh-dropdown-option>
 						</vh-dropdown>
 					</div>
@@ -67,7 +82,7 @@
 					</div>
 					<div class="section__right">
 						<span class="section__fixedStr">votehunter.io/</span>
-						<input class="section__input" value="user234">
+						<input class="section__input" name="url" [(ngModel)]="profile.url">
 					</div>
 				</div>
 			</div>
@@ -108,29 +123,34 @@
 			<div class="buttons">
 				<button class="button button-mode-2">Сохранить</button>
 			</div>
+			</form>
 		</div>
 		<div class="editProfilePage__right">
-			<h2 class="h2">Цель</h2>
-			<p class="desc paragraph">Сообщите сообществу каковы будут ваши действия при достижении определенной цели</p>
-			<div class="section">
-				<div class="section__row">
-					<div class="section__left">
-						<div class="section__name">Кол-во голосов</div>
+			<form class="editGoal__form" (submit)="submitGoals()" *ngIf='goals'>
+				<h2 class="h2">Цель</h2>
+				<p class="desc paragraph">Сообщите сообществу каковы будут ваши действия при достижении определенной цели</p>
+				<div class="section">
+					<div class="section__row">
+						<div class="section__left">
+							<div class="section__name">Кол-во голосов</div>
+						</div>
+						<div class="section__right">
+							<input class="section__input" type="number" value="0" name="goal.amount" [(ngModel)]="goals[0].amount">
+						</div>
 					</div>
-					<div class="section__right">
-						<input class="section__input" type="number" value="0">
+					<div class="section__row">
+						<textarea class="section__textarea" placeholder="Когда я наберу 1000 голосов, я смогу создавать 2 видео в неделю вместо одного" [(ngModel)]="goals[0].goal" name="goal.goal"></textarea>
 					</div>
+					<div class="section__basket"></div>
 				</div>
-				<div class="section__row">
-					<textarea class="section__textarea" placeholder="Когда я наберу 1000 голосов, я смогу создавать 2 видео в неделю вместо одного"></textarea>
+				<div class="buttons">
+					<button class="button button-mode-2 editProfilePage__button">Сохранить</button>
 				</div>
-				<div class="section__basket"></div>
-			</div>
-			<div class="buttons">
-				<button class="button button-mode-2 editProfilePage__button">Сохранить</button>
-			</div>
-			<h2 class="h2 editProfilePage__heading1">Предложения</h2>
-			<p class="desc paragraph">Сообщите сообществу каковы будут ваши предложения для тех, кто больше всего поддерживает вас в творчестве</p>
+			</form>
+			<h2 class="h2 editProfilePage__heading1">Вознаграждения</h2>
+			<p class="desc paragraph">Сообщите сообществу каковы будут ваши вознаграждения для тех, кто больше всего поддерживает вас в творчестве</p>
+
+			<div *ngFor="let reward of rewards">
 			<div class="section">
 				<div class="section__row">
 					<div class="section__left">
@@ -148,6 +168,7 @@
 			<div class="buttons">
 				<button class="button button-mode-2 editProfilePage__button">Сохранить</button>
 				<button class="button button-mode-4 editProfilePage__button">Добавить ещё</button>
+			</div>
 			</div>
 		</div>
 	</div>

@@ -42,4 +42,13 @@ class Categories extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
+    public static function updateUserCounters($intOld, $intNew) {
+        if($intOld != 0) {
+           \Yii::$app->db->createCommand('UPDATE categories SET users_cnt = users_cnt -1 WHERE id = :catId')->bindParam(':catId', $intOld)->execute();
+        }
+
+        if($intNew != 0) {
+            \Yii::$app->db->createCommand('UPDATE categories SET users_cnt = users_cnt + 1 WHERE id = :catId')->bindParam(':catId', $intNew)->execute();
+        }
+    }
 }
