@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
+import {DOMService} from './dom.service';
 
 @Injectable()
 export class ApiService {
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public domService: DOMService,) { }
 
   request(method: string, options: any): Promise<any> {
     let promise;
@@ -62,6 +63,20 @@ export class ApiService {
       data: data
     });
   }
+
+    postFormData(url, data): Promise<any> {
+        let fd = this.domService.convertToFormData(data);
+
+        return new Promise((resolve, reject) => {
+            this.http.post(url, fd).subscribe((data: any) => {
+                if (data.status === 'ok') {
+                    resolve(data);
+                } else if (data.status === 'error') {
+                    reject(data);
+                }
+            });
+        });
+    }
 
   getStats() {
     return Promise.resolve([
@@ -267,10 +282,15 @@ export class ApiService {
   }
 
   updateProfile(data: any) {
-    return this.post('/profile/update', data);
+    return this.postFormData('/profile/update', data);
   }
 
-  postAdd(data: any) {
+  updateGoals(data: any) {
+    return this.post('/profile/goals', data);
+  }
+
+
+    postAdd(data: any) {
     return this.post('/post/add', data);
   }
 

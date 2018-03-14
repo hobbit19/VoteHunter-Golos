@@ -7,16 +7,20 @@
  */
 namespace app\api\golos;
 
+use GrapheneNodeClient\Commands\Broadcast\BroadcastTransactionSynchronousCommand;
 use GrapheneNodeClient\Commands\CommandQueryData;
 use GrapheneNodeClient\Commands\DataBase\GetDiscussionsByCreatedCommand;
 use GrapheneNodeClient\Connectors\WebSocket\GolosWSConnector;
 use GrapheneNodeClient\Connectors\WebSocket\SteemitWSConnector;
+use GrapheneNodeClient\Tools\ChainOperations\ChainOperations;
+use GrapheneNodeClient\Tools\Transaction;
 
 class GolosApi
 {
-    const ACC_GOLOS_ALL = 'all';
-    const ACC_GOLOS_PROFILE = 'profile';
-    public function getAccount($strNickName, $returnType = self::ACC_GOLOS_ALL)
+    const ACCOUNT_GOLOS_ALL = 'all';
+    const ACCOUNT_GOLOS_PROFILE = 'profile';
+
+    public function getAccount($strNickName, $returnType = self::ACCOUNT_GOLOS_ALL)
     {
         $connector = new GolosWSConnector();
         $objCommand = new \GrapheneNodeClient\Commands\DataBase\GetAccountCommand($connector);
@@ -27,21 +31,42 @@ class GolosApi
         $commandQuery->setParams($data);
         $arrData = $objCommand->execute($commandQuery);
         switch ($returnType) {
-            case self::ACC_GOLOS_ALL:
+            case self::ACCOUNT_GOLOS_ALL:
                 return $arrData;
-            case self::ACC_GOLOS_PROFILE:
+            case self::ACCOUNT_GOLOS_PROFILE:
                 $arrProfile = json_decode($arrData['result'][0]['json_metadata'], true);
                 return $arrProfile['profile'];
         }
+        return $arrData;
 
-        /* ["json_metadata"]=>string(332)
-        "{"profile":
-        {"name":"Роман Сирота",
-        "profile_image":"https://images.golos.io/DQmc92P7Lxjgi4zW7p14E2HMPosPewr2Tbm1eCsejfivfB4/logo-mode-150x150.png",
-        "cover_image":"https://images.golos.io/DQmVtmCbCBGYbwic1uyxECBdicajp1A6nzpQqjtnnefAz2m/screenshot_1516805843.png",
-        "about":"Мой проект",
-        "website":"http://deskle.com"}}" */
+    }
 
+    public function comment(array $arrData)
+    {
+        $connector = new GolosWSConnector();
+        $tx = Transaction::init($connector);
+        $tx->setParamByKey(
+            '0:operations:0',
+            [
+                ChainOperations::OPERATION_COMMENT,
+                [
+                    'parent_author'    => '',
+                    'parent_permlink'   => 'votehunter',
+                    'author' =>  $arrData['author'],
+                    'permlink'   => $arrData['permlink'],
+                    'title'   => $arrData['title'],
+                    'body' => $arrData['body'],
+                    'json_metadata'   => empty($arrData['json_metadata']) ? json_encode([]) : json_encode($arrData['json_metadata'])
+                ]
+            ]
+        );
+        $command = new BroadcastTransactionSynchronousCommand($connector);
+        Transaction::sign('golos', $tx, ['posting' => '5KkZmMC9JN2Vsps4b3Vs8HWscKMTWbMK75E51RisEbSeeHzH2Tz']);
+
+        $answer = $command->execute(
+            $tx
+        );
+        var_dump($answer);
     }
 
 }

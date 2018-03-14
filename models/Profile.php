@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "profile".
  *
  * @property int $id
- * @property string $user_id
+ * @property integer $user_id
  * @property string $about
  * @property string $name
  * @property string $profile_image
@@ -19,6 +19,7 @@ use Yii;
  * @property string $youtube
  * @property string $twitter
  * @property string $facebook
+ * @property integer $cat_id
  */
 class Profile extends \yii\db\ActiveRecord
 {
@@ -36,8 +37,6 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['about'], 'string'],
-            [['user_id', 'fio', 'vk', 'youtube', 'twitter', 'facebook'], 'string', 'max' => 256],
         ];
     }
 
@@ -48,5 +47,15 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if(isset($changedAttributes['cat_id'])) {
+            //update cat counter
+            Categories::updateUserCounters($changedAttributes['cat_id'], $this->cat_id);
+        }
+
+        parent::afterSave($insert, $changedAttributes);
     }
 }

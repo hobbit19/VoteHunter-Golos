@@ -34,4 +34,12 @@ class HelloController extends Controller
         $objGolos = new GolosApi();
         print_r($objGolos->getAccount('roman-sitrota', GolosApi::ACC_GOLOS_PROFILE));
     }
+
+    public function actionTestComment()
+    {
+        $objGolos = new GolosApi();
+        $objGolos->comment();
+
+    }
+
 }
