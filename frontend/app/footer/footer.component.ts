@@ -21,7 +21,7 @@ export class FooterComponent implements OnInit {
   }
 
   getCopyright() {
-    return `© ${new Date().getFullYear()} VoteHunter.io`;
+    return `© ${new Date().getFullYear()} yousource.io`;
   }
 
 }
