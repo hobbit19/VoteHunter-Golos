@@ -56,7 +56,7 @@ export class LoginPageComponent implements OnInit {
           if(data.status == 'ok') {
             console.log('LOGGED', data.user_id);
             this.user.isLoggedIn = true;
-            this.router.navigateByUrl('/cabinet');
+            this.router.navigateByUrl('/dashboard');
           }
         })
       }
