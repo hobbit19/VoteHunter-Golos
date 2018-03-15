@@ -59,7 +59,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
 
-                    '/cabinet' => 'site/index',
+                    '/dashboard' => 'site/index',
                     '/profile' => 'site/index',
                     '/login' => 'site/index',
                     '/add-post' => 'site/index',
