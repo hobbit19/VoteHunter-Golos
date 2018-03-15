@@ -221,6 +221,9 @@ export class ApiService {
     // ]);
   }
 
+
+
+
   getUserProfile(id: number) {
     //return this.get('/profile/get',{id: id});
     return Promise.resolve({
@@ -275,6 +278,10 @@ export class ApiService {
         }
       ]
     });
+  }
+
+  getProfileByUrl(url: string) {
+      return this.get('/profile/get-by-url');
   }
 
   getProfile() {

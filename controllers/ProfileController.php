@@ -28,6 +28,23 @@ class ProfileController extends Controller
         return parent::beforeAction($action);
     }
 
+    public function actionGetByUrl(){
+        if(empty(\Yii::$app->request->get('url'))) {
+            return [
+                'status' => 'error',
+                'msg' => 'Not found'
+            ];
+        }
+        $strUrl = preg_replace("/[^0-9a-z\-\_]+/", "", \Yii::$app->request->get('url'));
+        $objProfile = Profile::findOne(['url' => $strUrl]);
+        if(is_object($objProfile)) {
+            return [
+                'status' => 'ok',
+                'profile' => $objProfile->toArray()
+            ];
+        }
+    }
+
     public function actionGet() {
         if(\Yii::$app->user->isGuest) {
             return [
