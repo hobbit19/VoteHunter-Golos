@@ -29,13 +29,20 @@ export class WysiwygComponent {
           this.onContentChanged.emit({
             editor: this.quillEditor,
             html: elem.children[0].innerHTML,
-            text: this.quillEditor.getText(),
+            contents: this.quillEditor.getContents(),
             delta: delta,
             oldDelta: oldDelta,
             source: source
           });
         }
       );
+
+      /*var ops = [
+        { insert: 'Hello ' },
+        { insert: 'World!', attributes: { bold: true } },
+        { insert: '\n' }
+      ];
+      this.quillEditor.setContents(ops, 'api');*/
     });
   }
 
