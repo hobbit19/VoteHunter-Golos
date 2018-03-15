@@ -108,16 +108,19 @@ export class ApiService {
   getNewAuthors() {
     return Promise.resolve([
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
         img: '/images/author.jpg'
       },
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
         img: '/images/author.jpg'
       },
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
         img: '/images/author.jpg'
@@ -129,33 +132,39 @@ export class ApiService {
   getAuthors() {
     return Promise.resolve([
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
+        desc: '4 часа назад / 0 покровителей',
         img: '/images/author.jpg'
       },
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
+        desc: '4 часа назад / 0 покровителей',
         img: '/images/author.jpg'
       },
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
+        desc: '4 часа назад / 0 покровителей',
         img: '/images/author.jpg'
       },
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
+        desc: '4 часа назад / 0 покровителей',
         img: '/images/author.jpg'
       },
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
+        desc: '4 часа назад / 0 покровителей',
         img: '/images/author.jpg'
       },
       {
+        name: 'Phillip DeFranco',
         title: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
+        desc: '4 часа назад / 0 покровителей',
         img: '/images/author.jpg'
       }
     ]);
