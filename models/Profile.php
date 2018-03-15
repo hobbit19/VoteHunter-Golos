@@ -19,6 +19,7 @@ use Yii;
  * @property string $youtube
  * @property string $twitter
  * @property string $facebook
+ * @property string $description
  * @property integer $cat_id
  */
 class Profile extends \yii\db\ActiveRecord
@@ -57,5 +58,10 @@ class Profile extends \yii\db\ActiveRecord
         }
 
         parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function getEditorContents()
+    {
+        return $this->hasOne(ProfileContents::className(),['profile_id' => 'id']);
     }
 }

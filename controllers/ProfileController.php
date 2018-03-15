@@ -13,6 +13,8 @@ use app\api\golos\GolosApi;
 use app\helpers\ImageHelper;
 use app\models\Goal;
 use app\models\Profile;
+use app\models\ProfileContents;
+use app\models\Rewards;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -46,10 +48,24 @@ class ProfileController extends Controller
             $objProfile->cat_id = 0;
             $objProfile->promo_video = '';
             $objProfile->url = \Yii::$app->user->getIdentity()->golos_nick;
-            $objProfile->save();
+            if($objProfile->save()) {
+                $objEditorContents = new ProfileContents();
+                $objEditorContents->profile_id = $objProfile->getPrimaryKey();
+                $objEditorContents->save();
+            }
+        }
+        if(!is_object($objProfile->editorContents)) {
+            $objEditorContents = new ProfileContents();
+            $objEditorContents->profile_id = $objProfile->getPrimaryKey();
+            if($objEditorContents->save()) {
+                $objProfile->refresh();
+            }
+
         }
 
         $arrGoals = Goal::find()->where(['user_id' => \Yii::$app->user->getId()])->asArray()->all();
+        $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->user->getId()])->asArray()->all();
+
         if(count($arrGoals) == 0) {
             $arrGoals[] = [
                 'amount' =>0,
@@ -57,11 +73,19 @@ class ProfileController extends Controller
                 ];
         }
 
+        if(count($arrRewards) == 0) {
+            $arrRewards[] = [
+                'amount' =>0,
+                'goal' => ''
+            ];
+        }
+
+
         return [
             'status' => 'ok',
-            'profile' => $objProfile->toArray(),
+            'profile' => $objProfile->toArray() + ['contents' => $objProfile->editorContents->contents],
             'goals' => $arrGoals,
-            'rewards' => [],
+            'rewards' => $arrRewards,
         ];
     }
 
@@ -83,9 +107,14 @@ class ProfileController extends Controller
 
         }
         $arrData = json_decode(\Yii::$app->request->post('profile'), true);
-        unset($arrData['id']);
+        $arrContents = $arrData['contents'];
+        unset($arrData['id'], $arrData['contents']);
         $objProfile->setAttributes($arrData, false);
         if($objProfile->save()) {
+
+            $objProfile->editorContents->contents = $arrContents;
+            $objProfile->editorContents->save();
+
             $objProfileImage = UploadedFile::getInstanceByName('new_profile_image');
             if(!is_null($objProfileImage)) {
                 ImageHelper::processProfileImage($objProfileImage);
@@ -132,6 +161,34 @@ class ProfileController extends Controller
         return [
             'status' => 'error',
             'msg' => 'Cannot update goal',
+        ];
+
+    }
+
+    public function actionRewards()
+    {
+        if(!empty(\Yii::$app->request->post('id'))) {
+            $objReward = Rewards::findOne((int) \Yii::$app->request->post('id'));
+        } else {
+            $objReward = new Rewards();
+            $objReward->user_id = \Yii::$app->user->getId();
+
+        }
+//        if(!is_object($objReward)) {
+//            $objReward = new Rewards();
+//            $objReward->user_id = \Yii::$app->user->getId();
+//        }
+        $objReward->amount = \Yii::$app->request->post('amount');
+        $objReward->reward = \Yii::$app->request->post('reward');
+        if($objReward->save()) {
+            return [
+                'status' => 'ok',
+                'reward' => $objReward->toArray(),
+            ];
+        }
+        return [
+            'status' => 'error',
+            'msg' => 'Cannot update reward',
         ];
 
     }

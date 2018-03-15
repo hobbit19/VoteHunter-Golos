@@ -63,7 +63,30 @@ export class EditProfilePageComponent implements OnInit {
       });
   }
 
-  getCategoriesList() {
+  submitReward(i) {
+      this.api.updateReward(this.rewards[i]).then((data) => {
+          //do something
+      }, (data) => {
+          console.log(data.msg);
+      });
+
+  }
+
+  addReward() {
+      this.rewards.push({
+          amount: 0.0,
+          reward: '',
+      })
+  }
+
+  delReward (i) {
+    if(confirm('Вы уверены?')) {
+
+    }
+  }
+
+
+    getCategoriesList() {
       this.api.getCategories().then((data) => {
           this.categories = data.cats;
           if(this.profile.cat_id == 0) {
@@ -83,6 +106,9 @@ export class EditProfilePageComponent implements OnInit {
           this.goals = data.goals;
           this.rewards = data.rewards
           this.getCategoriesList();
+          if(this.profile.contents) {
+
+          }
           console.log(data);
       }, (data) => {
          //show data.msg
@@ -122,7 +148,8 @@ export class EditProfilePageComponent implements OnInit {
   }
 
   onTextChanged(event) {
-    console.log(event);
+    this.profile.description = event.html;
+    this.profile.contents = event.contents;
   }
 
 }

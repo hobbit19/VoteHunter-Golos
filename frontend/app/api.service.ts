@@ -289,6 +289,11 @@ export class ApiService {
     return this.post('/profile/goals', data);
   }
 
+  updateReward(data: any) {
+    return this.post('/profile/rewards', data);
+  }
+
+
 
     postAdd(data: any) {
     return this.post('/post/add', data);
