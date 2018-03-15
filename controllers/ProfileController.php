@@ -43,6 +43,11 @@ class ProfileController extends Controller
                 'profile' => $objProfile->toArray()
             ];
         }
+        return [
+            'status' => 'error',
+            'msg' => 'Not found'
+        ];
+
     }
 
     public function actionGet() {
