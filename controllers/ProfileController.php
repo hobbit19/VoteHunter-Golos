@@ -38,9 +38,27 @@ class ProfileController extends Controller
         $strUrl = preg_replace("/[^0-9a-z\-\_]+/", "", \Yii::$app->request->get('url'));
         $objProfile = Profile::findOne(['url' => $strUrl]);
         if(is_object($objProfile)) {
+            $arrGoals = Goal::find()->where(['user_id' => $objProfile->user_id])->asArray()->all();
+            $arrRewards = Rewards::find()->where(['user_id' => $objProfile->user_id])->asArray()->all();
+
+            if(count($arrGoals) == 0) {
+                $arrGoals[] = [
+                    'amount' =>0,
+                    'goal' => ''
+                ];
+            }
+
+            if(count($arrRewards) == 0) {
+                $arrRewards[] = [
+                    'amount' =>0,
+                    'goal' => ''
+                ];
+            }
+
             return [
                 'status' => 'ok',
-                'profile' => $objProfile->toArray()
+                'profile' => $objProfile->toArray() + ['goals' => $arrGoals, 'rewards' => $arrRewards],
+
             ];
         }
         return [
