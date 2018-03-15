@@ -16,7 +16,7 @@ export const appRoutes: Routes = [
     component: EditProfilePageComponent,
   },
   {
-    path: 'cabinet',
+    path: 'dashboard',
     data: {name: 'cabinet'},
     component: CabinetPageComponent,
   },
