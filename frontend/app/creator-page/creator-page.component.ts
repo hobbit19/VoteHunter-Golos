@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiService } from "../api.service";
 import { UserService } from "../user.service";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'vh-creator-page',
@@ -14,9 +15,12 @@ export class CreatorPageComponent implements OnInit {
   constructor(
     public api: ApiService,
     public user: UserService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    console.log(this.route.snapshot.data.profile);
+
     this.api.getUserProfile(this.user.id).then((profile) => {
       this.profile = profile;
     });

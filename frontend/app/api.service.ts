@@ -281,7 +281,9 @@ export class ApiService {
   }
 
   getProfileByUrl(url: string) {
-      return this.get('/profile/get-by-url');
+      return this.get('/profile/get-by-url', {
+        url: url
+      });
   }
 
   getProfile() {

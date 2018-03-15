@@ -41,6 +41,7 @@ import { MediatorService } from "./mediator.service";
 import { appRoutes } from "./app.rotes";
 import { DOMService } from "./dom.service";
 import { WysiwygComponent } from './wysiwyg/wysiwyg.component';
+import {CreatorPageResolver} from './creator-page/creator-page-resolver.service';
 
 @NgModule({
   declarations: [
@@ -87,10 +88,12 @@ import { WysiwygComponent } from './wysiwyg/wysiwyg.component';
     UserService,
     StateService,
     MediatorService,
-    DOMService
+    DOMService,
+    CreatorPageResolver,
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
 
 

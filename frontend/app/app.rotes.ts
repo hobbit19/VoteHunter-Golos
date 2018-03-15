@@ -7,17 +7,13 @@ import { LoginPageComponent } from "./login-page/login-page.component";
 import { PostPageComponent } from "./post-page/post-page.component";
 import { PaymentPageComponent } from "./payment-page/payment-page.component";
 import { MainPageComponent } from "./main-page/main-page.component";
+import {CreatorPageResolver} from './creator-page/creator-page-resolver.service';
 
 export const appRoutes: Routes = [
   {
     path: 'edit-profile',
     data: {name: 'editProfile'},
     component: EditProfilePageComponent,
-  },
-  {
-    path: 'profile',
-    data: {name: 'profile'},
-    component: CreatorPageComponent,
   },
   {
     path: 'cabinet',
@@ -49,5 +45,10 @@ export const appRoutes: Routes = [
     data: {name: 'mainPage'},
     component: MainPageComponent
   },
-  //{ path: '**', component: PageNotFoundComponent }
+  {
+    path: '**',
+    data: {name: 'profile'},
+    component: CreatorPageComponent,
+    resolve: { profile: CreatorPageResolver }
+  },
 ];
