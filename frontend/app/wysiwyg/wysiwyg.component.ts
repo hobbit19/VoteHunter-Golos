@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, HostBinding, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'vh-wysiwyg',
@@ -8,6 +8,8 @@ import {Component, ElementRef, EventEmitter, HostBinding, OnInit, Output, ViewEn
 })
 export class WysiwygComponent {
   @Output() onContentChanged: EventEmitter<any> = new EventEmitter();
+
+  @Input() ops: string;
 
   constructor(public elementRef: ElementRef) { }
 
@@ -37,12 +39,9 @@ export class WysiwygComponent {
         }
       );
 
-      /*var ops = [
-        { insert: 'Hello ' },
-        { insert: 'World!', attributes: { bold: true } },
-        { insert: '\n' }
-      ];
-      this.quillEditor.setContents(ops, 'api');*/
+      if (this.ops) {
+        this.quillEditor.setContents(this.ops);
+      }
     });
   }
 

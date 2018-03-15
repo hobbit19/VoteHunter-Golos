@@ -37,7 +37,7 @@
 						<div class="section__name">Текст</div>
 					</div>
 					<div class="section__right">
-						<vh-wysiwyg (onContentChanged)="onTextChanged($event)"></vh-wysiwyg>
+						<vh-wysiwyg (onContentChanged)="onTextChanged($event)" [ops]="[ { insert: 'Hello ' }, { insert: 'World!', attributes: { bold: true } },  { insert: '\n' } ]"></vh-wysiwyg>
 					</div>
 				</div>
 
