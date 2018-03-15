@@ -37,10 +37,7 @@
 						<div class="section__name">Текст</div>
 					</div>
 					<div class="section__right">
-						<div id="editor">
-							<p>Hello World!</p>
-						</div>
-
+						<vh-wysiwyg (onContentChanged)="onTextChanged($event)"></vh-wysiwyg>
 					</div>
 				</div>
 

@@ -40,6 +40,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { MediatorService } from "./mediator.service";
 import { appRoutes } from "./app.rotes";
 import { DOMService } from "./dom.service";
+import { WysiwygComponent } from './wysiwyg/wysiwyg.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { DOMService } from "./dom.service";
     CreatorPostsComponent,
     CreatorRewardsComponent,
     SidebarComponent,
+    WysiwygComponent,
   ],
   imports: [
     BrowserModule,

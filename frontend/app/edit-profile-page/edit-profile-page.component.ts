@@ -121,4 +121,8 @@ export class EditProfilePageComponent implements OnInit {
       }
   }
 
+  onTextChanged(event) {
+    console.log(event);
+  }
+
 }
