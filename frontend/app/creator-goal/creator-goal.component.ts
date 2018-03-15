@@ -7,7 +7,7 @@ import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angul
   encapsulation: ViewEncapsulation.None
 })
 export class CreatorGoalComponent implements OnInit {
-  @Input() data: any;
+  @Input() goals: any;
 
   constructor() { }
 

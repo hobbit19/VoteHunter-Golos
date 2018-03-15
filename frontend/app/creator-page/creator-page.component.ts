@@ -19,11 +19,18 @@ export class CreatorPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.route.snapshot.data.profile);
+    //console.log(this.route.snapshot.data.profile);
+      this.profile = this.route.snapshot.data.profile;
+      if(this.profile.promo_video) {
+          this.profile.promo_video = this.profile.promo_video.replace('watch?v=', 'embed/')
+      }
 
+      console.log(this.profile);
+/*
     this.api.getUserProfile(this.user.id).then((profile) => {
       this.profile = profile;
     });
+*/
   }
 
   @HostBinding('class') get classStr() {

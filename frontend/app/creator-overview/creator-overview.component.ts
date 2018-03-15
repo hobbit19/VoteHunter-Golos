@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, HostBinding, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
@@ -8,10 +8,12 @@ import { DomSanitizer } from "@angular/platform-browser";
   encapsulation: ViewEncapsulation.None
 })
 export class CreatorOverviewComponent implements OnInit {
+  @Input() profile: any;
 
   constructor(
     public sanitizer: DomSanitizer
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }

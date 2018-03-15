@@ -1,10 +1,10 @@
-<div class="creatorBanner__top" [style.background-image]="'url(' + profile?.bannerImg + ')'">
+<div class="creatorBanner__top" [style.background-image]="'url(' + profile?.cover_image + ')'">
 	<div class="block h100">
 		<div class="creatorBanner__layout1">
-			<div class="creatorBanner__avatar" [style.background-image]="'url(' + profile?.avatar + ')'"></div>
+			<div class="creatorBanner__avatar" [style.background-image]="'url(' + profile?.profile_image + ')'"></div>
 			<div class="creatorBanner__title">
-				<span class="creatorBanner__name" [innerHTML]="profile?.fullname + ' '"></span>
-				<span [innerHTML]="'создаёт ' + profile?.desc"></span>
+				<span class="creatorBanner__name" [innerHTML]="profile?.name + ' '"></span>
+				<span [innerHTML]="'создаёт ' + profile?.about"></span>
 			</div>
 			<div class="creatorBanner__badgeWrap">
 				<img class="creatorBanner__badge" *ngIf="profile?.badge" [attr.src]="profile?.badge">

@@ -11,7 +11,7 @@
 <body>
 <vh-root class="root"></vh-root>
 <?php
-if (Yii::$app->params['isDevelopment']) {
+if (!empty(Yii::$app->params['isDevelopment'])) {
     echo "<script type=\"text/javascript\" src=\"inline.bundle.js\"></script>
 		<script type=\"text/javascript\" src=\"polyfills.bundle.js\"></script>
 		<script type=\"text/javascript\" src=\"styles.bundle.js\"></script>

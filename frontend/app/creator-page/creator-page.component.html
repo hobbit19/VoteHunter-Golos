@@ -2,15 +2,15 @@
 <div class="block">
 	<div class="creatorPage__content clearfix">
 		<div class="creatorPage__col creatorPage__col-left">
-			<vh-creator-stats [data]="profile?.stats"></vh-creator-stats>
-			<vh-creator-goal [data]="profile?.goal"></vh-creator-goal>
+			<vh-creator-stats [data]="{curators: 0, amount: 0}"></vh-creator-stats>
+			<vh-creator-goal [goals]="profile?.goals"></vh-creator-goal>
 		</div>
 		<div class="creatorPage__col creatorPage__col-center">
-			<vh-creator-overview></vh-creator-overview>
+			<vh-creator-overview [profile]="profile"></vh-creator-overview>
 			<vh-creator-posts [posts]="profile?.lastPosts"></vh-creator-posts>
 		</div>
 		<div class="creatorPage__col creatorPage__col-right">
-			<vh-creator-rewards [data]="{ rewards: profile?.rewards }"></vh-creator-rewards>
+			<vh-creator-rewards [rewards]="profile?.rewards"></vh-creator-rewards>
 		</div>
 	</div>
 </div>
