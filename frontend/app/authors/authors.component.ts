@@ -1,5 +1,4 @@
 import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import {promise} from "selenium-webdriver";
 import {ApiService} from '../api.service';
 
 let golos = require('golos-js');
@@ -18,12 +17,18 @@ export class AuthorsComponent implements OnInit {
   @Input() needFilters: boolean;
   @Input() items: any[];
 
+  filter = 'today';
+
   constructor(
       public api: ApiService,
   ) { }
 
   ngOnInit() {
 
+  }
+
+  applyFilter(filter: string) {
+    this.filter = filter;
   }
 
   @HostBinding('class') get classStr() {

@@ -51,8 +51,6 @@ export class EditProfilePageComponent implements OnInit {
       }, (data) => {
 
       });
-      console.log(data);
-      console.log(this.domService.convertToFormData(data));
   }
 
   submitGoals () {
@@ -109,7 +107,6 @@ export class EditProfilePageComponent implements OnInit {
           if(this.profile.contents) {
 
           }
-          console.log(data);
       }, (data) => {
          //show data.msg
       });
