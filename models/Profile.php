@@ -24,6 +24,8 @@ use Yii;
  */
 class Profile extends \yii\db\ActiveRecord
 {
+    const DEFAULT_LIST_LIMIT = 10;
+
     /**
      * @inheritdoc
      */

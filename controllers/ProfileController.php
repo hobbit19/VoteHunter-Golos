@@ -20,6 +20,7 @@ use yii\web\UploadedFile;
 
 class ProfileController extends Controller
 {
+
     public function beforeAction($action)
     {
         \Yii::$app->request->enableCsrfValidation = false;
@@ -231,5 +232,29 @@ class ProfileController extends Controller
             'msg' => 'Cannot update reward',
         ];
 
+    }
+
+    public function actionList()
+    {
+        $objQuery = Profile::find()->limit((int) \Yii::$app->request->get('limit', Profile::DEFAULT_LIST_LIMIT));
+        switch(\Yii::$app->request->get('order')) {
+            case 'last':
+                $objQuery->orderBy(['id' => SORT_DESC]);
+                break;
+            case 'popular':
+                $objQuery->orderBy(['id' => SORT_DESC]);
+                break;
+            default:
+                $objQuery->orderBy(['id' => SORT_DESC]);
+        }
+        $arrDbProfiles = $objQuery->all();
+        $arrProfiles = [];
+        foreach($arrDbProfiles as $objProfile) {
+            $arrProfiles[] = $objProfile->toArray(['user_id', 'url', 'profile_image', 'about', 'name', 'cover_image']);
+        }
+        return [
+            'status' => 'ok',
+            'authors' => $arrProfiles
+        ];
     }
 }
