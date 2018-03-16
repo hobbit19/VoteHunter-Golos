@@ -35,7 +35,6 @@ class Goal extends \yii\db\ActiveRecord
             [['added'], 'safe'],
             [['goal'], 'string'],
             [['collected'], 'number'],
-            [['reached'], 'string', 'max' => 1],
         ];
     }
 

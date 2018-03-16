@@ -39,7 +39,7 @@ export class AddPostPageComponent implements OnInit {
 
       let wif = localStorage.getItem('privKey');
       let parentAuthor = '';
-      let parentPermlink = 'votehunter';
+      let parentPermlink = 'test';
       let author = data.data.author;
       let permlink = data.data.permlink;
       let title = data.data.title;
