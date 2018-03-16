@@ -41,17 +41,21 @@
 	width: 21px;
 }
 
+@headerBurgerWrapWidth: 40px;
+
 .header__burgerWrap {
 	cursor: pointer;
-	width: 40px;
+	width: @headerBurgerWrapWidth;
 	height: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
+@headerBurgerWidth: 18px;
+
 .header__burger {
-	.m-burger(18px, 12px, 2px, #000);
+	.m-burger(@headerBurgerWidth, 12px, 2px, #000);
 }
 
 .header__login {
@@ -59,8 +63,18 @@
 	min-width: 105px;
 }
 
+@headerNewPostCornerMargin: 25px;
+
 .header__newPost {
-	margin: 0 25px;
+	margin: 0 @headerNewPostCornerMargin;
+}
+
+.header__profileLink {
+	background: url(/images/icon-profile.png) no-repeat center;
+	background-size: contain;
+	width: 33px;
+	height: 30px;
+	margin-right: @headerNewPostCornerMargin - ((@headerBurgerWrapWidth - @headerBurgerWidth) / 2);
 }
 
 @media screen and (max-width: 1090px) {
