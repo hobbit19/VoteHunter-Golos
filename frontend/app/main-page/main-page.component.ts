@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiService } from "../api.service";
+import {UserService} from '../user.service';
 let golos = require('golos-js');
 
 @Component({
@@ -10,6 +11,7 @@ let golos = require('golos-js');
 })
 export class MainPageComponent implements OnInit {
   constructor(
+    public user: UserService,
     public api: ApiService
   ) { }
 
