@@ -41,6 +41,10 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['url'], 'filter', 'filter' => function($value) {
+                return strtolower(trim(preg_replace("/[^0-9A-Z\-\_]/i","", $value)));
+            }],
+
         ];
     }
 
@@ -62,6 +66,7 @@ class Profile extends \yii\db\ActiveRecord
 
         parent::afterSave($insert, $changedAttributes);
     }
+
 
     public function getEditorContents()
     {
