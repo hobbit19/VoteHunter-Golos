@@ -80,10 +80,10 @@ export class ApiService {
 
   getStats() {
     return Promise.resolve([
-      { name: 'Posts', num: '7' },
-      { name: 'Golos', num: '2745' },
-      { name: 'Patrons', num: '7' },
-      { name: 'Sum', num: '184$' },
+      { name: 'Posts', num: '0' },
+      { name: 'Golos', num: '0' },
+      { name: 'Patrons', num: '0' },
+      { name: 'Sum', num: '0$' },
     ]);
   }
 

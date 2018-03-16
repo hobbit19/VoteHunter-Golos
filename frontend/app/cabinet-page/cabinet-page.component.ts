@@ -15,6 +15,7 @@ export class CabinetPageComponent implements OnInit {
 
   bakers: any[];
   posts: any[];
+  profile: any;
 
   ngOnInit() {
     this.api.getMyBakers().then((bakers) => {
@@ -24,6 +25,13 @@ export class CabinetPageComponent implements OnInit {
     this.api.getMyPosts().then((posts) => {
       this.posts = posts;
     });
+
+    this.api.getProfile().then((data) => {
+          this.profile = data.profile;
+        },
+        (data) => {
+
+        });
   }
 
   @HostBinding('class') get classStr() {

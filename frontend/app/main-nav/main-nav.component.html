@@ -6,6 +6,6 @@
     <a routerLink="/dashboard" class="nav__item" i18n="">Messages</a>
     <a routerLink="/dashboard" class="nav__item" i18n="">Settings</a>
     <a routerLink="/dashboard" class="nav__item" i18n="">Wallet</a>
-    <a routerLink="/dashboard" class="nav__item" i18n="">My profile</a>
+    <a [routerLink]="'/' + profileUrl" class="nav__item" i18n="">My profile</a>
   </nav>
 </div>

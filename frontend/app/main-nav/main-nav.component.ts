@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'vh-main-nav',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainNavComponent implements OnInit {
 
+  @Input() profileUrl: string;
+
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
