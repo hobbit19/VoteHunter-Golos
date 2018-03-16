@@ -53,6 +53,6 @@ class Categories extends \yii\db\ActiveRecord
     }
     public function getAuthors()
     {
-        return $this->hasMany(Profile::className(), ['id' => 'user_id']);
+        return $this->hasMany(Profile::className(), ['cat_id' => 'id']);
     }
 }
