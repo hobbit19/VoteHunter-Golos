@@ -74,6 +74,11 @@ input[type="search"]::-webkit-search-results-decoration {
 	display: none;
 }
 
+a.button:visited,
+.button {
+	color: #555;
+}
+
 .button {
 	text-align: center;
 	flex-shrink: 0;
@@ -87,7 +92,6 @@ input[type="search"]::-webkit-search-results-decoration {
 	position: relative;
 	border: none;
 	background-color: #fff;
-	color: #555;
 
 	// for links
 	display: inline-block;
@@ -101,20 +105,32 @@ input[type="search"]::-webkit-search-results-decoration {
 	border-radius: @buttonBorderRadius;
 }
 
+a.button-mode-2:visited,
 .button-mode-2 {
 	color: #fff;
+}
+
+.button-mode-2 {
 	background-color: @color1;
 	border-radius: @buttonBorderRadius;
+}
+
+a.button-mode-3:visited,
+.button-mode-3 {
+	color: #8a8a8a;
 }
 
 .button-mode-3 {
 	border: 1px solid #8a8a8a;
 	border-radius: @buttonBorderRadius;
-	color: #8a8a8a;
+}
+
+a.button-mode-4:visited,
+.button-mode-4 {
+	color: #fff;
 }
 
 .button-mode-4 {
-	color: #fff;
 	background-color: #949494;
 	border-radius: @buttonBorderRadius;
 }
@@ -161,7 +177,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .mainPage__navWrapper {
-	border-bottom: @headerBorderBottom;
+	border-bottom: 1px solid @headerBorderColor;
 }
 
 .nav__item {
@@ -268,6 +284,11 @@ input:focus,
 textarea:focus,
 *[routerlink]:focus {
 	outline: none;
+}
+
+a,
+a:visited {
+	color: inherit;
 }
 
 @import "section";

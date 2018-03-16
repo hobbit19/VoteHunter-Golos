@@ -81,7 +81,7 @@ export class ApiService {
   getStats() {
     return Promise.resolve([
       { name: 'Постов', num: '7' },
-      { name: 'GBG', num: '2745' },
+      { name: 'Golos', num: '2745' },
       { name: 'Кураторы', num: '7' },
       { name: 'Сумма', num: '184$' },
     ]);
@@ -105,31 +105,10 @@ export class ApiService {
     ]);
   }
 
-  getNewAuthors() {
-    return Promise.resolve([
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        profile_image: '/images/author.jpg'
-      },
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        profile_image: '/images/author.jpg'
-      },
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        profile_image: '/images/author.jpg'
-      },
-    ]);
-  }
+  getAuthors(params?: {limit?: number; order?: string}) {
+    return this.get('/profile/list', params);
 
-
-  getAuthors() {
+/*
     return Promise.resolve([
       {
         name: 'Phillip DeFranco',
@@ -168,56 +147,7 @@ export class ApiService {
         profile_image: '/images/author.jpg'
       }
     ]);
-  }
-
-  getNewFaces() {
-    return Promise.resolve([
-      {
-        fullname: 'Гильдия Мастеров',
-        img: '/images/avatar_001.png'
-      },
-      {
-        fullname: 'Igor Alexeev',
-        img: '/images/avatar_002.jpg'
-      },
-      {
-        fullname: 'Normies',
-        img: '/images/avatar_003.jpg'
-      },
-      {
-        fullname: 'Rubin Reports',
-        img: '/images/avatar_005.jpg'
-      },
-      {
-        fullname: 'Name Surname',
-        img: '/images/avatar_006.jpg'
-      },
-    ]);
-  }
-
-  getBakers() {
-    return Promise.resolve([
-      {
-        fullname: 'Name Surname',
-        img: '/images/avatar.jpg'
-      },
-      {
-        fullname: 'Name Surname',
-        img: '/images/avatar.jpg'
-      },
-      {
-        fullname: 'Name Surname',
-        img: '/images/avatar.jpg'
-      },
-      {
-        fullname: 'Name Surname',
-        img: '/images/avatar.jpg'
-      },
-      {
-        fullname: 'Name Surname',
-        img: '/images/avatar.jpg'
-      },
-    ]);
+*/
   }
 
   getCategories() {

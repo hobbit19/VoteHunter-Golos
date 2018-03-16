@@ -54,7 +54,6 @@ export class LoginPageComponent implements OnInit {
           golos_nick: this.login,
           golos_pub_key: pubKey[0]
         }).then((data) => {
-          console.log(data);
           if(data.status == 'ok') {
             console.log('LOGGED', data.user_id);
             this.user.isLoggedIn = true;

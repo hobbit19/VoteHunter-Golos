@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ApiService } from "../api.service";
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ApiService} from '../api.service';
 import {UserService} from '../user.service';
+
 let golos = require('golos-js');
 
 @Component({
@@ -10,36 +11,24 @@ let golos = require('golos-js');
   encapsulation: ViewEncapsulation.None,
 })
 export class MainPageComponent implements OnInit {
-  constructor(
-    public user: UserService,
-    public api: ApiService
-  ) { }
+  constructor(public user: UserService,
+              public api: ApiService) {
+  }
 
   authors: any[];
   newAuthors: any[];
-  newFaces: any[];
-  bakers: any[];
   categories: any[];
 
   ngOnInit() {
-      this.api.getAuthors().then((authors) => {
-      this.authors = authors;
+    this.api.getAuthors({order: 'last', limit: 6}).then((res) => {
+      this.authors = res.authors;
     });
 
-    this.api.getNewAuthors().then((authors) => {
-      this.newAuthors = authors;
-    });
-
-    this.api.getNewFaces().then((newFaces) => {
-      this.newFaces = newFaces;
-    });
-
-    this.api.getBakers().then((bakers) => {
-      this.bakers = bakers;
+    this.api.getAuthors({order: 'popular', limit: 6}).then((res) => {
+      this.newAuthors = res.authors;
     });
 
     this.api.getCategories().then((data) => {
-      console.log(data);
       this.categories = data.cats;
     });
   }

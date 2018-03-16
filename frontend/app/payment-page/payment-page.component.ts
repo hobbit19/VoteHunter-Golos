@@ -56,7 +56,6 @@ export class PaymentPageComponent implements OnInit {
                   golos_nick: this.login,
                   golos_pub_key: pubKey[0]
               }).then((data) => {
-                  console.log(data);
                   if (data.status === 'ok') {
                       this.api.postPay(
                           {
