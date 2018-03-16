@@ -109,21 +109,21 @@ export class ApiService {
     return Promise.resolve([
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       },
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       },
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: 'This Pop-Up for the #CheckYoSelf Campaign Encourages Self-Exams',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       },
     ]);
   }
@@ -133,39 +133,39 @@ export class ApiService {
     return Promise.resolve([
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: '4 часа назад / 0 покровителей',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       },
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: '4 часа назад / 0 покровителей',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       },
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: '4 часа назад / 0 покровителей',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       },
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: '4 часа назад / 0 покровителей',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       },
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: '4 часа назад / 0 покровителей',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       },
       {
         name: 'Phillip DeFranco',
-        title: 'Health-Focused Bounce Houses',
+        about: 'Health-Focused Bounce Houses',
         desc: '4 часа назад / 0 покровителей',
-        img: '/images/author.jpg'
+        profile_image: '/images/author.jpg'
       }
     ]);
   }

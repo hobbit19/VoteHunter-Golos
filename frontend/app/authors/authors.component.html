@@ -12,11 +12,11 @@
 </div>
 <div class="authors__items">
 	<div class="authors__item" *ngFor="let item of items">
-		<div [style.background-image]="'url(' + item.img + ')'" class="authors__img"></div>
+		<div [style.background-image]="'url(' + item.profile_image + ')'" class="authors__img"></div>
 		<div class="authors__title">
 			<span class="authors__name" [innerHTML]="item.name"></span>
 			<span>  is creating </span>
-			<span [innerHTML]="item.title"></span>
+			<span [innerHTML]="item.about"></span>
 		</div>
 		<div class="authors__desc" [innerHTML]="item.desc"></div>
 	</div>
