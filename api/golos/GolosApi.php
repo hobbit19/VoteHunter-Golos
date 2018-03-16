@@ -22,7 +22,8 @@ class GolosApi
 
     public function getAccount($strNickName, $returnType = self::ACCOUNT_GOLOS_ALL)
     {
-        $connector = new GolosWSConnector();
+        //$connector = new GolosWSConnector();
+        $connector = new GolosTestWSConnector();
         $objCommand = new \GrapheneNodeClient\Commands\DataBase\GetAccountCommand($connector);
         $commandQuery = new CommandQueryData();
         $data = [
@@ -35,7 +36,7 @@ class GolosApi
                 return $arrData;
             case self::ACCOUNT_GOLOS_PROFILE:
                 $arrProfile = json_decode($arrData['result'][0]['json_metadata'], true);
-                return $arrProfile['profile'];
+                return isset($arrProfile['profile']) ? $arrProfile['profile'] : [];
         }
         return $arrData;
 
