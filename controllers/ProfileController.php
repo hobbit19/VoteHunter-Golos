@@ -86,6 +86,7 @@ class ProfileController extends Controller
             $objProfile->about = isset($arrBlockChainProfile['about']) ? $arrBlockChainProfile['about'] : '';
             $objProfile->profile_image = isset($arrBlockChainProfile['profile_image']) ? $arrBlockChainProfile['profile_image'] : '';
             $objProfile->cover_image = isset($arrBlockChainProfile['cover_image']) ? $arrBlockChainProfile['cover_image'] : '';
+            $objProfile->list_image = '';
             $objProfile->cat_id = 0;
             $objProfile->promo_video = '';
             $objProfile->url = \Yii::$app->user->getIdentity()->golos_nick;
@@ -166,6 +167,13 @@ class ProfileController extends Controller
             if(!is_null($objCoverImage)) {
                 //process new cover image
                 ImageHelper::processCoverImage($objCoverImage);
+                $objProfile->refresh();
+            }
+
+            $objListImage = UploadedFile::getInstanceByName('new_list_image');
+            if(!is_null($objListImage)) {
+                //process new cover image
+                ImageHelper::processListImage($objListImage);
                 $objProfile->refresh();
             }
 
@@ -250,7 +258,7 @@ class ProfileController extends Controller
         $arrDbProfiles = $objQuery->all();
         $arrProfiles = [];
         foreach($arrDbProfiles as $objProfile) {
-            $arrProfiles[] = $objProfile->toArray(['user_id', 'url', 'profile_image', 'about', 'name', 'cover_image']);
+            $arrProfiles[] = $objProfile->toArray(['user_id', 'url', 'profile_image', 'about', 'name', 'cover_image', 'list_image']);
         }
         return [
             'status' => 'ok',
