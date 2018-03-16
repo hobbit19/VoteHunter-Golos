@@ -61,6 +61,16 @@
 						</label>
 					</div>
 				</div>
+				<div class="section__row">
+					<div class="section__left">
+						<div class="section__name">Изображение в списке</div>
+					</div>
+					<div class="section__right">
+						<label class="editProfilePage__image" [style.background-image]="'url(' + (profile.list_image || '/images/camera.svg') + ')'" [style.background-size]="profile.list_image? 'cover': 'auto'" id="new_list_image">
+							<input class="input-file" type="file" name="new_list_image" (change)="onListInputChange($event)">
+						</label>
+					</div>
+				</div>
 			</div>
 			<div class="section">
 				<div class="section__row">

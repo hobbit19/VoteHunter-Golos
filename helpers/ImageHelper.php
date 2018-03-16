@@ -14,22 +14,31 @@ class ImageHelper {
 
     const COVER_IMAGES = '/users_content/cover/';
     const PROFILE_IMAGES = '/users_content/profile/';
+    const LIST_IMAGES = '/users_content/list/';
 
     public static function processCoverImage($objImage)
     {
         /* @var $objImage UploadedFile*/
         $strFileName = \Yii::$app->user->getId().'/'.time().'.' . $objImage->extension;
-//        if(!is_dir(\Yii::getAlias('@app/frontend'). self::COVER_IMAGES. \Yii::$app->user->getId())) {
-//            mkdir(\Yii::getAlias('@app/frontend'). self::COVER_IMAGES. \Yii::$app->user->getId(),0777, true);
-//        }
         if(!is_dir(\Yii::getAlias('@webroot'). self::COVER_IMAGES. \Yii::$app->user->getId())) {
             mkdir(\Yii::getAlias('@webroot'). self::COVER_IMAGES. \Yii::$app->user->getId(),0777, true);
         }
-
-//        copy($objImage->tempName, \Yii::getAlias('@app/frontend'). self::COVER_IMAGES . $strFileName);
         copy($objImage->tempName, \Yii::getAlias('@webroot'). self::COVER_IMAGES . $strFileName);
         $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
         $objProfile->cover_image = self::COVER_IMAGES . $strFileName;
+        return $objProfile->save();
+    }
+
+    public static function processListImage($objImage)
+    {
+        /* @var $objImage UploadedFile*/
+        $strFileName = \Yii::$app->user->getId().'/'.time().'.' . $objImage->extension;
+        if(!is_dir(\Yii::getAlias('@webroot'). self::LIST_IMAGES. \Yii::$app->user->getId())) {
+            mkdir(\Yii::getAlias('@webroot'). self::LIST_IMAGES. \Yii::$app->user->getId(),0777, true);
+        }
+        copy($objImage->tempName, \Yii::getAlias('@webroot'). self::LIST_IMAGES . $strFileName);
+        $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
+        $objProfile->list_image = self::LIST_IMAGES . $strFileName;
         return $objProfile->save();
     }
 
@@ -37,13 +46,9 @@ class ImageHelper {
     {
         /* @var $objImage UploadedFile*/
         $strFileName = \Yii::$app->user->getId().'/'.time().'.' . $objImage->extension;
-//        if(!is_dir(\Yii::getAlias('@app/frontend'). self::PROFILE_IMAGES. \Yii::$app->user->getId())) {
-//            mkdir(\Yii::getAlias('@app/frontend'). self::PROFILE_IMAGES. \Yii::$app->user->getId(),0777, true);
-//        }
         if(!is_dir(\Yii::getAlias('@webroot'). self::PROFILE_IMAGES. \Yii::$app->user->getId())) {
             mkdir(\Yii::getAlias('@webroot'). self::PROFILE_IMAGES. \Yii::$app->user->getId(),0777, true);
         }
-//        copy($objImage->tempName, \Yii::getAlias('@app/frontend'). self::PROFILE_IMAGES . $strFileName);
         copy($objImage->tempName, \Yii::getAlias('@webroot'). self::PROFILE_IMAGES . $strFileName);
         $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
         $objProfile->profile_image = self::PROFILE_IMAGES . $strFileName;

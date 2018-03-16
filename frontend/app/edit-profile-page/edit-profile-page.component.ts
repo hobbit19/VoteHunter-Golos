@@ -17,6 +17,7 @@ export class EditProfilePageComponent implements OnInit {
   selectedCategory: any;
   new_cover_image: any;
   new_profile_image: any;
+  new_list_image: any;
 
   constructor(
       public api: ApiService,
@@ -37,12 +38,15 @@ export class EditProfilePageComponent implements OnInit {
       }
       let data = {
           profile: JSON.stringify(this.profile)
-      };
+      }
       if(this.new_profile_image) {
           data['new_profile_image'] = this.new_profile_image;
       }
       if(this.new_cover_image) {
           data['new_cover_image'] = this.new_cover_image;
+      }
+      if(this.new_list_image) {
+          data['new_list_image'] = this.new_list_image;
       }
       this.api.updateProfile(data).then((data) => {
 
@@ -136,6 +140,22 @@ export class EditProfilePageComponent implements OnInit {
               return (e) => {
                   document.getElementById('new_cover_image').style.backgroundImage = 'url(' + e.target.result + ')';
                   this.new_cover_image = f;
+              };
+          })(f);
+          reader.readAsDataURL(f);
+      }
+  }
+    onListInputChange($event) {
+      let files = $event.target.files;
+      for (let i = 0, f; f = files[i]; i++) {
+          if (!f.type.match('image.*')) {
+              continue;
+          }
+          let reader = new FileReader();
+          reader.onload = ((theFile) => {
+              return (e) => {
+                  document.getElementById('new_list_image').style.backgroundImage = 'url(' + e.target.result + ')';
+                  this.new_list_image = f;
               };
           })(f);
           reader.readAsDataURL(f);

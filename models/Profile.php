@@ -13,6 +13,7 @@ use Yii;
  * @property string $name
  * @property string $profile_image
  * @property string $cover_image
+ * @property string $list_image
  * @property string $promo_video
  * @property string $url
  * @property string $vk
