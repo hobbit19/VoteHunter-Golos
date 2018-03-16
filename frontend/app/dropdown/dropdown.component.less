@@ -1,12 +1,13 @@
 @import (reference) '../environment';
 
-@dropdownHeight: 24px;
+@dropdownHeight: 31px;
 @dropdownPadding: 3px;
 @dropdownBorder: 1px solid #ccc;
 @dropdownTriangleWidth: 8px;
 @dropdownTriangleHeight: 6px;
 @dropdownItemPaddingRight: 24px;
 @dropdownItemPaddingLeft: 10px;
+@dropdownZIndex: 1;
 
 .dropdown:extend(.unselect) {
 	display: inline-block;
@@ -19,9 +20,17 @@
 	vertical-align: top;
 	background: #fff;
 	font-size: 13px;
-	padding: @dropdownPadding;
-	border: @dropdownBorder;
-	z-index: 1;
+	box-shadow: inset 0 0 0 1px #ebebeb;
+	padding: 1px;
+	z-index: @dropdownZIndex;
+}
+
+.dropdown:focus {
+	outline: none;
+}
+
+.dropdown-active {
+	z-index: @dropdownZIndex + 1;
 }
 
 .dropdown.prop__value {
@@ -63,6 +72,10 @@
 	background: #fff;
 	overflow-y: auto;
 	max-height: 300px;
+	box-shadow: inset 0 0 0 1px #ebebeb;
+	width: calc(~"100% + 2px");
+	margin-left: -1px;
+	margin-top: -1px;
 }
 
 .dropdown:not(.dropdown-active) .dropdown__content {
