@@ -62,4 +62,12 @@ class UserController extends Controller
 
         return ['status' => 'ok', 'user_id' => \Yii::$app->user->getId()];
     }
+
+    public function actionLogout()
+    {
+        if(!\Yii::$app->user->isGuest) {
+            \Yii::$app->user->logout();
+        }
+        $this->redirect('/');
+    }
 }
