@@ -2,11 +2,21 @@
 
 .header {
 	height: @headerHeight;
-	border-bottom: @headerBorderBottom;
+	position: relative;
 }
 
-.html-route-profile .header {
-	border-bottom: none;
+@headerBorderBottomHeight: 1px;
+
+.header:after {
+	position: absolute;
+	content: ' ';
+	display: block;
+	left: 0;
+	right: 0;
+	top: 100%;
+	height: @headerBorderBottomHeight;
+	background-color: @headerBorderColor;
+	margin-bottom: @headerBorderBottomHeight;
 }
 
 .header__content {
