@@ -10,7 +10,6 @@ import {DOMService} from '../dom.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class EditProfilePageComponent implements OnInit {
-
   categories: any[];
   profile: any;
   goals: any;
@@ -23,8 +22,7 @@ export class EditProfilePageComponent implements OnInit {
   constructor(
       public api: ApiService,
       public domService: DOMService,
-      ) {
-  }
+      ) {}
 
   ngOnInit() {
       this.getProfile();

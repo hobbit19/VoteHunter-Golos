@@ -89,11 +89,11 @@ export class ApiService {
 
   getMyBakers() {
     return Promise.resolve([
-      { fullname: 'Name Surname', votes: 4, img: '/images/avatar.jpg' },
-      { fullname: 'Name Surname', votes: 3, img: '/images/avatar.jpg' },
-      { fullname: 'Name Surname', votes: 1, img: '/images/avatar.jpg' },
-      { fullname: 'Name Surname', votes: 2, img: '/images/avatar.jpg' },
-      { fullname: 'Name Surname', votes: 3, img: '/images/avatar.jpg' },
+      { name: 'Name Surname', votes: 4, profile_image: '/images/avatar.jpg' },
+      { name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg' },
+      { name: 'Name Surname', votes: 1, profile_image: '/images/avatar.jpg' },
+      { name: 'Name Surname', votes: 2, profile_image: '/images/avatar.jpg' },
+      { name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg' },
     ]);
   }
 
