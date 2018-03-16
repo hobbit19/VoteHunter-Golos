@@ -8,22 +8,26 @@ import { PostPageComponent } from "./post-page/post-page.component";
 import { PaymentPageComponent } from "./payment-page/payment-page.component";
 import { MainPageComponent } from "./main-page/main-page.component";
 import {CreatorPageResolver} from './creator-page/creator-page-resolver.service';
+import {AuthGuard} from './auth-guard.service';
 
 export const appRoutes: Routes = [
   {
     path: 'edit-profile',
     data: {name: 'editProfile'},
     component: EditProfilePageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'dashboard',
     data: {name: 'cabinet'},
     component: CabinetPageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-post',
     data: {name: 'addPost'},
     component: AddPostPageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -34,11 +38,13 @@ export const appRoutes: Routes = [
     path: 'post',
     data: {name: 'post'},
     component: PostPageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'payment',
     data: {name: 'payment'},
     component: PaymentPageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',

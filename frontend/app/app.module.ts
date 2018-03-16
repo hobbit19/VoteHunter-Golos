@@ -42,6 +42,7 @@ import { appRoutes } from "./app.rotes";
 import { DOMService } from "./dom.service";
 import { WysiwygComponent } from './wysiwyg/wysiwyg.component';
 import {CreatorPageResolver} from './creator-page/creator-page-resolver.service';
+import {AuthGuard} from './auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import {CreatorPageResolver} from './creator-page/creator-page-resolver.service'
     MediatorService,
     DOMService,
     CreatorPageResolver,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

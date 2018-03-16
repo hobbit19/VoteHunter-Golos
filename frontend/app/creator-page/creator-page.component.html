@@ -6,7 +6,7 @@
 			<vh-creator-goal [goals]="profile?.goals"></vh-creator-goal>
 		</div>
 		<div class="creatorPage__col creatorPage__col-center">
-			<vh-creator-overview [profile]="profile"></vh-creator-overview>
+			<vh-creator-overview [profile]="profile" *ngIf="profile"></vh-creator-overview>
 			<vh-creator-posts [posts]="profile?.lastPosts"></vh-creator-posts>
 		</div>
 		<div class="creatorPage__col creatorPage__col-right">

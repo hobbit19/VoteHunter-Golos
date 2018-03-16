@@ -8,9 +8,10 @@
 			<img class="header__bell" src="/images/bell.svg" alt="Иконка колокольчик">
 			<ng-container *ngIf="user.isLoggedIn">
 				<button class="button button-mode-1 header__newPost" routerLink="/add-post">+ Новый пост</button>
+				<a class="header__profileLink" routerLink="/dashboard"></a>
 			</ng-container>
 			<ng-container *ngIf="!user.isLoggedIn">
-				<button class="button header__join">Присоединиться</button>
+				<a class="button header__join" href="https://golos.io/" target="_blank">Присоединиться</a>
 				<button class="button button-mode-1 header__login" routerLink="/login">Войти</button>
 			</ng-container>
 			<div class="header__burgerWrap" (click)="mediator.sidebar.toggle()">
