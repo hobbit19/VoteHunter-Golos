@@ -19,6 +19,7 @@ export class WysiwygComponent {
   ngAfterViewInit() {
     require.ensure([], () => {
       let Quill = require('quill/dist/quill.min.js');
+
       let elem = this.elementRef.nativeElement.querySelector('.js-wysiwyg__container');
       let toolbarOptions = [
         ['bold', 'italic', 'underline'],        // toggled buttons

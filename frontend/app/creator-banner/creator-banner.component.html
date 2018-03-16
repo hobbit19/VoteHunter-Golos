@@ -4,7 +4,8 @@
 			<div class="creatorBanner__avatar" [style.background-image]="'url(' + profile?.profile_image + ')'"></div>
 			<div class="creatorBanner__title">
 				<span class="creatorBanner__name" [innerHTML]="profile?.name + ' '"></span>
-				<span [innerHTML]="'создаёт ' + profile?.about"></span>
+				<span i18n="">is creating </span>
+				<span [innerHTML]="profile?.about"></span>
 			</div>
 			<div class="creatorBanner__badgeWrap">
 				<img class="creatorBanner__badge" *ngIf="profile?.badge" [attr.src]="profile?.badge">
@@ -17,16 +18,16 @@
 		<div class="creatorBanner__bottom">
 			<div class="creatorBanner__l">
 				<nav class="creatorBanner__nav">
-					<a class="creatorBanner__navItem creatorBanner__navItem-active">Основное</a>
-					<a class="creatorBanner__navItem">Посты</a>
-					<a class="creatorBanner__navItem">Сообщество</a>
+					<a class="creatorBanner__navItem creatorBanner__navItem-active" i18n="">Profile</a>
+					<a class="creatorBanner__navItem" i18n="">Posts</a>
+					<a class="creatorBanner__navItem" i18n="">Community</a>
 				</nav>
 			</div>
 			<div class="creatorBanner__r">
 				<div class="creatorBanner__socials">
 					<a class="creatorBanner__social" *ngFor="let item of profile?.socialLinks" [attr.href]="item.link" [ngClass]="'creatorBanner__social-' + item.name"></a>
 				</div>
-				<button class="button button-mode-2 button-mode-5 creatorBanner__button">Стать куратором</button>
+				<button class="button button-mode-2 button-mode-5 creatorBanner__button">Become a patron</button>
 			</div>
 		</div>
 	</div>

@@ -80,10 +80,10 @@ export class ApiService {
 
   getStats() {
     return Promise.resolve([
-      { name: 'Постов', num: '7' },
+      { name: 'Posts', num: '7' },
       { name: 'Golos', num: '2745' },
-      { name: 'Кураторы', num: '7' },
-      { name: 'Сумма', num: '184$' },
+      { name: 'Patrons', num: '7' },
+      { name: 'Sum', num: '184$' },
     ]);
   }
 
@@ -99,9 +99,9 @@ export class ApiService {
 
   getMyPosts() {
     return Promise.resolve([
-      { img: '/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
-      { img: '/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
-      { img: '/images/yoda.png', title: 'Обучение майнинга для начинающих', desc: 'В этом выпуске я покажу как собрать и запустить ферм...' },
+      { img: '/images/yoda.png', title: 'Mining for Beginners', desc: "In this post, I'll show you how to build and run mining farm..." },
+      { img: '/images/yoda.png', title: 'Mining for Beginners', desc: "In this post, I'll show you how to build and run mining farm..." },
+      { img: '/images/yoda.png', title: 'Mining for Beginners', desc: "In this post, I'll show you how to build and run mining farm..." },
     ]);
   }
 

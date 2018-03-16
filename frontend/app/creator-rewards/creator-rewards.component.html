@@ -1,4 +1,4 @@
-<div class="creatorRewards__heading">Для кураторов</div>
+<div class="creatorRewards__heading">For patrons</div>
 <div class="creatorRewards__items">
 	<div class="creatorRewards__item" *ngFor="let reward of rewards">
 		<p class="paragraph creatorRewards__paragraph" [innerHTML]="reward.reward"></p>
@@ -7,7 +7,7 @@
 				<div class="creatorPage__num creatorRewards__num" [innerHTML]="reward?.amount"></div>
 				<div class="creatorPage__currency creatorRewards__currency">GOLOS</div>
 			</div>
-			<button class="button button-mode-4 button-mode-5 creatorRewards__button">Поддержать</button>
+			<button class="button button-mode-4 button-mode-5 creatorRewards__button" i18n="">Support</button>
 		</div>
 	</div>
 </div>
