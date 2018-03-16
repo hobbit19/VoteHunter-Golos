@@ -27,8 +27,6 @@ export class CreatorOverviewComponent {
 
       this.elementRef.nativeElement.querySelector('.js-creatorOverview__video').appendChild(iframe);
     }
-
-
   }
 
   @HostBinding('class') get classStr() {
