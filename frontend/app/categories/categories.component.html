@@ -1,7 +1,10 @@
-<h2 class="h2 categories__heading">Категории</h2>
+<h2 class="h2 categories__heading" i18n="">Categories</h2>
 <div class="categories__items">
 	<a class="categories__item" *ngFor="let item of items" [routerLink]="'/category/' + item.id">
 		<div class="categories__name" [innerHTML]="item.name"></div>
-		<div class="categories__authorsNum" [innerHTML]="'Авторов: ' + item.users_cnt"></div>
+		<div class="categories__authorsNum">
+			<span i18n="">Authors: </span>
+			<span [innerHTML]="item.users_cnt"></span>
+		</div>
 	</a>
 </div>

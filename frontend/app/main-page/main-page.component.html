@@ -1,23 +1,23 @@
 <div class="bg1 mainPage__navWrapper">
 	<nav class="nav block">
-		<a routerLink="#" class="nav__item">Все</a>
-		<a routerLink="#" class="nav__item">Популярные</a>
-		<a routerLink="#" class="nav__item">В тренде</a>
+		<a routerLink="#" class="nav__item" i18n="">All</a>
+		<a routerLink="#" class="nav__item" i18n="">Popular</a>
+		<a routerLink="#" class="nav__item" i18n="">Trending</a>
 	</nav>
 </div>
 <div class="block mainPage__content vr-2">
 	<div class="mainPage__left">
-		<vh-authors titleStr="Популярные авторы" [needFilters]="true" [items]="authors"></vh-authors>
+		<vh-authors i18n-titleStr="" titleStr="Popular authors" [needFilters]="true" [items]="authors"></vh-authors>
 		<vh-categories className="vr-1" [items]="categories"></vh-categories>
-		<vh-authors titleStr="Новые лица" [items]="newAuthors" className="vr-1"></vh-authors>
+		<vh-authors i18n-titleStr="" titleStr="New faces" [items]="newAuthors" className="vr-1"></vh-authors>
 	</div>
 	<div class="mainPage__right vr-1">
-		<h2 class="h2">Для авторов</h2>
-		<p class="paragraph mainPage__text1">Начните ваше творческое путешествие.</p>
-		<a class="button button-mode-2 mainPage__button1" href="https://golos.io/" target="_blank" *ngIf="!user.isLoggedIn">Присоединиться</a>
-		<a class="button button-mode-2 mainPage__button1" routerLink="/dashboard" *ngIf="user.isLoggedIn">В кабинет</a>
-		<vh-persons [items]="newAuthors" headingStr="Новые лица" className="vr-3"></vh-persons>
-		<vh-persons [items]="authors" headingStr="Популярные" className="vr-3"></vh-persons>
+		<h2 class="h2" i18n="">For authors</h2>
+		<p class="paragraph mainPage__text1" i18n="">Start your creative journey.</p>
+		<a class="button button-mode-2 mainPage__button1" href="https://golos.io/" target="_blank" *ngIf="!user.isLoggedIn" i18n="">Join</a>
+		<a class="button button-mode-2 mainPage__button1" routerLink="/dashboard" *ngIf="user.isLoggedIn" i18n="">Dashboard</a>
+		<vh-persons [items]="newAuthors" i18n-headingStr="" headingStr="New faces" className="vr-3"></vh-persons>
+		<vh-persons [items]="authors" i18n-headingStr="" headingStr="Popular" className="vr-3"></vh-persons>
 		<vh-socials className="vr-3"></vh-socials>
 	</div>
 </div>

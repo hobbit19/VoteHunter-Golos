@@ -10,7 +10,7 @@
 						<div class="section__name">Название</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" placeholder="Прогноз рынка криптовалют" [(ngModel)]="postData.title" name="title" (ngModelChange)="clearErrors()">
+						<input class="section__input" i18n-placeholder="" placeholder="Прогноз рынка криптовалют" [(ngModel)]="postData.title" name="title" (ngModelChange)="clearErrors()">
 					</div>
 				</div>
 				<div class="section__row">
@@ -18,7 +18,7 @@
 						<div class="section__name">Описание</div>
 					</div>
 					<div class="section__right">
-						<textarea class="section__textarea" placeholder="В этом видео я расскажу..." [(ngModel)]="postData.body" name="body" (ngModelChange)="clearErrors()"></textarea>
+						<textarea class="section__textarea" i18n-placeholder="" placeholder="В этом видео я расскажу..." [(ngModel)]="postData.body" name="body" (ngModelChange)="clearErrors()"></textarea>
 					</div>
 				</div>
 				<div class="section__row">
@@ -26,7 +26,7 @@
 						<div class="section__name">URL видео</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" [(ngModel)]="postData.video_url" name="video_url" (ngModelChange)="clearErrors()">
+						<input class="section__input" i18n-placeholder="" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" [(ngModel)]="postData.video_url" name="video_url" (ngModelChange)="clearErrors()">
 					</div>
 				</div>
 				<div class="section__row">

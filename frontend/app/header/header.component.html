@@ -7,12 +7,12 @@
 		<div class="header__right">
 			<img class="header__bell" src="/images/bell.svg" alt="Иконка колокольчик">
 			<ng-container *ngIf="user.isLoggedIn">
-				<button class="button button-mode-1 header__newPost" routerLink="/add-post">+ Новый пост</button>
+				<button class="button button-mode-1 header__newPost" routerLink="/add-post" i18n="">+ Add post</button>
 				<a class="header__profileLink" routerLink="/dashboard"></a>
 			</ng-container>
 			<ng-container *ngIf="!user.isLoggedIn">
-				<a class="button header__join" href="https://golos.io/" target="_blank">Присоединиться</a>
-				<button class="button button-mode-1 header__login" routerLink="/login">Войти</button>
+				<a class="button header__join" href="https://golos.io/" target="_blank" i18n="">Join</a>
+				<button class="button button-mode-1 header__login" routerLink="/login" i18n="">Login</button>
 			</ng-container>
 			<div class="header__burgerWrap" (click)="mediator.sidebar.toggle()">
 				<div class="header__burger"></div>
