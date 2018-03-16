@@ -11,10 +11,11 @@ export class CategoryPageResolverService implements Resolve<any> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|Promise<boolean>|boolean {
-    this.api.getCategory(route.params.id).then((data) => {
-      console.log(data);
+    return this.api.getCategory(route.params.id).then((data) => {
+      return data;
+    }, () => {
+      this.router.navigate(['/']);
+      return false;
     });
-
-    return true;
   }
 }

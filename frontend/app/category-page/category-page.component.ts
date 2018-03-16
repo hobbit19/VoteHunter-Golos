@@ -8,11 +8,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CategoryPageComponent implements OnInit {
 
+  data: {
+    name: string;
+    authors: {}[];
+  };
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    /*this.route.params.subscribe(params => {
-      console.log(params['id']);
-    });*/
+    this.data = this.route.snapshot.data.category;
   }
 }
