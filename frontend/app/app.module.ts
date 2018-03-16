@@ -43,6 +43,8 @@ import { DOMService } from "./dom.service";
 import { WysiwygComponent } from './wysiwyg/wysiwyg.component';
 import {CreatorPageResolver} from './creator-page/creator-page-resolver.service';
 import {AuthGuard} from './auth-guard.service';
+import { CategoryPageComponent } from './category-page/category-page.component';
+import {CategoryPageResolverService} from './category-page/category-page-resolver.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import {AuthGuard} from './auth-guard.service';
     CreatorRewardsComponent,
     SidebarComponent,
     WysiwygComponent,
+    CategoryPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +94,7 @@ import {AuthGuard} from './auth-guard.service';
     MediatorService,
     DOMService,
     CreatorPageResolver,
+    CategoryPageResolverService,
     AuthGuard,
   ],
   bootstrap: [AppComponent]

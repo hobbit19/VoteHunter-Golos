@@ -230,7 +230,9 @@ export class ApiService {
     // ]);
   }
 
-
+  getCategory(id) {
+    return this.get('/cat/get-authors', { id: id });
+  }
 
 
   getUserProfile(id: number) {

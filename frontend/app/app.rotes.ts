@@ -9,6 +9,8 @@ import { PaymentPageComponent } from "./payment-page/payment-page.component";
 import { MainPageComponent } from "./main-page/main-page.component";
 import {CreatorPageResolver} from './creator-page/creator-page-resolver.service';
 import {AuthGuard} from './auth-guard.service';
+import {CategoryPageComponent} from './category-page/category-page.component';
+import {CategoryPageResolverService} from './category-page/category-page-resolver.service';
 
 export const appRoutes: Routes = [
   {
@@ -45,6 +47,12 @@ export const appRoutes: Routes = [
     data: {name: 'payment'},
     component: PaymentPageComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'category/:id',
+    data: {name: 'category'},
+    component: CategoryPageComponent,
+    resolve: { category: CategoryPageResolverService }
   },
   {
     path: '',
