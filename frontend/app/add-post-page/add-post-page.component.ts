@@ -9,7 +9,7 @@ const POST_PRIVACY = [
 ];
 
 const POST_CONTENT_TYPES = [
-  { str: 'Text', value: 2 },
+  { str: 'Video', value: 1 },
 ];
 
 @Component({

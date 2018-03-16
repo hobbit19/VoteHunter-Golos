@@ -8,6 +8,8 @@
 @dropdownItemPaddingRight: 24px;
 @dropdownItemPaddingLeft: 10px;
 @dropdownZIndex: 1;
+@dropdownBorderColor: #ccc;
+@dropdownBorderWidth: 1px;
 
 .dropdown:extend(.unselect) {
 	display: inline-block;
@@ -20,7 +22,7 @@
 	vertical-align: top;
 	background: #fff;
 	font-size: 13px;
-	box-shadow: inset 0 0 0 1px #ebebeb;
+	box-shadow: inset 0 0 0 @dropdownBorderWidth @dropdownBorderColor;
 	padding: 1px;
 	z-index: @dropdownZIndex;
 }
@@ -65,6 +67,8 @@
 	height: 100%;
 }
 
+@dropdownBorderWidthDoubled: @dropdownBorderWidth * 2;
+
 .dropdown__content {
 	position: relative;
 	z-index: 11111;
@@ -72,9 +76,9 @@
 	background: #fff;
 	overflow-y: auto;
 	max-height: 300px;
-	box-shadow: inset 0 0 0 1px #ebebeb;
-	width: calc(~"100% + 2px");
-	margin-left: -1px;
+	box-shadow: inset 0 0 0 @dropdownBorderWidth @dropdownBorderColor;
+	width: calc(~"100% + @{dropdownBorderWidthDoubled}");
+	margin-left: -@dropdownBorderWidth;
 	margin-top: -1px;
 }
 
