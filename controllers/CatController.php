@@ -42,7 +42,7 @@ class CatController extends Controller
         }
         $arrAuthors = [];
         foreach($objCat->authors as $objAuthor) {
-            $arrAuthors[] = $objAuthor->toArray(['user_id', 'name', 'profile_image', 'url']);
+            $arrAuthors[] = $objAuthor->toArray(['user_id', 'name', 'profile_image', 'url', 'about']);
         }
         return [
             'status' => 'ok',
