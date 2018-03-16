@@ -18,6 +18,7 @@ export class EditProfilePageComponent implements OnInit {
   goals: any;
   rewards: any;
   selectedCategory: any;
+  selectedCoverTextColor: number;
   new_cover_image: any;
   new_profile_image: any;
   new_list_image: any;
@@ -121,7 +122,7 @@ export class EditProfilePageComponent implements OnInit {
       this.api.getProfile().then((data) => {
           this.profile = data.profile;
           this.goals = data.goals;
-          this.rewards = data.rewards
+          this.rewards = data.rewards;
           this.getCategoriesList();
           if(this.profile.contents) {
 
@@ -183,5 +184,5 @@ export class EditProfilePageComponent implements OnInit {
     this.profile.description = event.html;
     this.profile.contents = event.contents;
   }
-
+  coverTextColos = ['white', 'black'];
 }

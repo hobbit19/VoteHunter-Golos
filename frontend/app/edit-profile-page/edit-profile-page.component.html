@@ -71,6 +71,18 @@
 						</label>
 					</div>
 				</div>
+				<div class="section__row">
+					<div class="section__left">
+						<div class="section__name">Cover text color</div>
+					</div>
+					<div class="section__right">
+						<vh-dropdown [title]="profile?.cover_text_color" tabindex="1">
+							<vh-dropdown-option *ngFor="let color of coverTextColos" (click)="profile.cover_text_color = color" [innerHTML]="color"></vh-dropdown-option>
+						</vh-dropdown>
+
+					</div>
+				</div>
+
 			</div>
 			<div class="section">
 				<div class="section__row">

@@ -2,7 +2,7 @@
 	<div class="block h100">
 		<div class="creatorBanner__layout1">
 			<div class="creatorBanner__avatar" [style.background-image]="'url(' + profile?.profile_image + ')'"></div>
-			<div class="creatorBanner__title">
+			<div class="creatorBanner__title" [style.color]="profile.cover_text_color">
 				<span class="creatorBanner__name" [innerHTML]="profile?.name + ' '"></span>
 				<span i18n="">is creating </span>
 				<span [innerHTML]="profile?.about"></span>
