@@ -66,12 +66,12 @@ class PostController extends Controller
         $objPost->secret_key = $strKey;
         $objPost->user_id = \Yii::$app->user->getId();
         $objPost->golos_permlink = $strGolosPermLink;
-        $objPost->golos_parentPermlink = 'votehunter';
+        $objPost->golos_parentPermlink = 'yousource';
         if($objPost->save()) {
-            $strLink = "http://votehunter.io/post?a=".\Yii::$app->user->getIdentity()->golos_nick."&p=".$objPost->golos_permlink;
+            $strLink = "http://yousource.io/post?a=".\Yii::$app->user->getIdentity()->golos_nick."&p=".$objPost->golos_permlink;
             $strBody = \Yii::$app->request->post('body','') .
                 "<br> !! Для просмотра зашифрованного контента нужно оплатить  ".$objPost->price.
-                " GOLOS автору: <a href='$strLink'>перейдите на VoteHunter</a>";
+                " GOLOS автору: <a href='$strLink'>перейдите на YouSource</a>";
             return [
                 'status' => 'ok',
                 'data' => [
@@ -81,10 +81,10 @@ class PostController extends Controller
                     'author' => \Yii::$app->user->getIdentity()->golos_nick,
                     'permlink' => $objPost->golos_permlink,
                     'jsonMetadata' => [
-                        'tags' => [],
+                        'tags' => ['test'],
                         'encodedData' => $strEncryptedData
                     ],
-                    'post_link' => str_replace('http://votehunter.io','',$strLink)
+                    'post_link' => str_replace('http://yousource.io','',$strLink)
                 ]
             ];
         }
