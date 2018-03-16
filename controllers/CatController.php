@@ -30,4 +30,25 @@ class CatController extends Controller
             'cats' => $arrCats
         ];
     }
+    
+    public function actionGetAuthors()
+    {
+        $objCat = Categories::findOne(\Yii::$app->request->get('id'));
+        if(!is_object($objCat)) {
+            return [
+                'status' => 'error',
+                'msg' => 'Category not found'
+            ];       
+        }
+        $arrAuthors = [];
+        foreach($objCat->authors as $objAuthor) {
+            $arrAuthors[] = $objAuthor->toArray(['user_id', 'name', 'profile_image', 'url']);
+        }
+        return [
+            'status' => 'ok',
+            'name' => $objCat->name,
+            'authors' => $arrAuthors
+        ];
+        
+    }
 }

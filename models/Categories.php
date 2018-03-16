@@ -51,4 +51,8 @@ class Categories extends \yii\db\ActiveRecord
             \Yii::$app->db->createCommand('UPDATE categories SET users_cnt = users_cnt + 1 WHERE id = :catId')->bindParam(':catId', $intNew)->execute();
         }
     }
+    public function getAuthors()
+    {
+        return $this->hasMany(Profile::className(), ['id' => 'user_id']);
+    }
 }
