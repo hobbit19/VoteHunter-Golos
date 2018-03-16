@@ -22,6 +22,7 @@ class GolosApi
 
     public function getAccount($strNickName, $returnType = self::ACCOUNT_GOLOS_ALL)
     {
+        //TODO: uncomment in poduction
         //$connector = new GolosWSConnector();
         $connector = new GolosTestWSConnector();
         $objCommand = new \GrapheneNodeClient\Commands\DataBase\GetAccountCommand($connector);
@@ -68,6 +69,11 @@ class GolosApi
             $tx
         );
         var_dump($answer);
+    }
+
+    public function updateProfile($objProfile)
+    {
+
     }
 
 }

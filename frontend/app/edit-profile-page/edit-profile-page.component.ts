@@ -1,6 +1,9 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiService } from '../api.service';
 import {DOMService} from '../dom.service';
+let golos = require('golos-js');
+golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
+golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
 
 
 @Component({
@@ -33,6 +36,20 @@ export class EditProfilePageComponent implements OnInit {
   }
 
   submit() {
+/*
+      let dataJson = {
+          yousource: this.profile
+      }
+      let wif = golos.auth.toWif('valera', 'qwerty12345');
+
+      let resultWifToPrivate = golos.auth.getPrivateKeys('valera', 'qwerty12345');
+      console.log(resultWifToPrivate);
+      //"params": ["account", "owner", "active", "posting", "memo_key", "json_metadata"]
+      golos.broadcast.accountUpdate(wif, 'valera', resultWifToPrivate.owner, resultWifToPrivate.active, resultWifToPrivate.posting, resultWifToPrivate.memo, JSON.stringify(dataJson), function(err, result) {
+          console.log(err, result);
+      });
+      return;
+*/
       if(this.selectedCategory.id != 0) {
           this.profile.cat_id = this.selectedCategory.id;
       }

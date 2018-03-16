@@ -24,7 +24,7 @@ class CatController extends Controller
 
     public function actionList()
     {
-        $arrCats = Categories::find()->orderBy('name')->all();
+        $arrCats = Categories::find()->orderBy('id')->all();
         return [
             'status' => 'ok',
             'cats' => $arrCats
