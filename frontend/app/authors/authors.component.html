@@ -4,9 +4,9 @@
 	</div>
 	<div class="authors__right" *ngIf="needFilters">
 		<div class="authors__filters">
-			<div class="button authors__filter" (click)="applyFilter('today')" [ngClass]="{'button-mode-2': filter === 'today', 'button-mode-3': filter !== 'today'}">Сегодня</div>
-			<div class="button authors__filter" (click)="applyFilter('week')" [ngClass]="{'button-mode-2': filter === 'week', 'button-mode-3': filter !== 'week'}">Неделя</div>
-			<div class="button authors__filter" (click)="applyFilter('month')" [ngClass]="{'button-mode-2': filter === 'month', 'button-mode-3': filter !== 'month'}">Месяц</div>
+			<div class="button authors__filter" (click)="applyFilter('today')" [ngClass]="{'button-mode-2': filter === 'today', 'button-mode-3': filter !== 'today'}" i18n="">Today</div>
+			<div class="button authors__filter" (click)="applyFilter('week')" [ngClass]="{'button-mode-2': filter === 'week', 'button-mode-3': filter !== 'week'}" i18n="">Week</div>
+			<div class="button authors__filter" (click)="applyFilter('month')" [ngClass]="{'button-mode-2': filter === 'month', 'button-mode-3': filter !== 'month'}" i18n="">Month</div>
 		</div>
 	</div>
 </div>
@@ -15,7 +15,7 @@
 		<div [style.background-image]="'url(' + item.cover_image + ')'" class="authors__img"></div>
 		<div class="authors__title">
 			<span class="authors__name" [innerHTML]="item.name"></span>
-			<span>  is creating </span>
+			<span i18n="">  is creating </span>
 			<span [innerHTML]="item.about"></span>
 		</div>
 		<div class="authors__desc" [innerHTML]="item.desc"></div>

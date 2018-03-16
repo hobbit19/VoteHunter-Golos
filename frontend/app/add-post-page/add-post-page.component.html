@@ -1,45 +1,57 @@
 <div class="block">
 	<vh-main-nav></vh-main-nav>
 	<div class="addPostPage__content">
-		<h2 class="h2">Добавление видео поста</h2>
-		<p class="paragraph desc">Предварительно загрузите ваше видео на youtube с правами доступа "по ссылке".</p>
+		<h2 class="h2" i18n="">Create a post</h2>
+		<p class="paragraph desc" i18n="">Previously upload your video to youtube and set privacy to unlisted</p>
 		<form (submit)="post()">
 			<div class="section">
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Название</div>
+						<div class="section__name" i18n="">Name</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Прогноз рынка криптовалют" [(ngModel)]="postData.title" name="title" (ngModelChange)="clearErrors()">
+						<input class="section__input" i18n-placeholder="" placeholder="Forecast of the cryptocurrency market" [(ngModel)]="postData.title" name="title" (ngModelChange)="clearErrors()">
 					</div>
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Описание</div>
+						<div class="section__name" i18n="">Description</div>
 					</div>
 					<div class="section__right">
-						<textarea class="section__textarea" i18n-placeholder="" placeholder="В этом видео я расскажу..." [(ngModel)]="postData.body" name="body" (ngModelChange)="clearErrors()"></textarea>
+						<textarea class="section__textarea" i18n-placeholder="" placeholder="In this video I will talk about..." [(ngModel)]="postData.body" name="body" (ngModelChange)="clearErrors()"></textarea>
 					</div>
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">URL видео</div>
+						<div class="section__name" i18n="">Content type</div>
+					</div>
+					<div class="section__right">
+						<vh-dropdown [title]="findByProp(POST_CONTENT_TYPES, 'value', postData.type).str" tabindex="1">
+							<vh-dropdown-option (click)="postData.type = type.value" *ngFor="let type of POST_CONTENT_TYPES" [innerHTML]="type.str"></vh-dropdown-option>
+						</vh-dropdown>
+					</div>
+				</div>
+				<div class="section__row">
+					<div class="section__left">
+						<div class="section__name" i18n="">Who can see this post?</div>
+					</div>
+					<div class="section__right">
+						<vh-dropdown [title]="findByProp(POST_PRIVACY, 'value', postData.privacy).str" tabindex="1">
+							<vh-dropdown-option (click)="postData.privacy = privacy.value" *ngFor="let privacy of POST_PRIVACY" [innerHTML]="privacy.str"></vh-dropdown-option>
+						</vh-dropdown>
+					</div>
+				</div>
+				<div class="section__row">
+					<div class="section__left">
+						<div class="section__name" i18n="">URL</div>
 					</div>
 					<div class="section__right">
 						<input class="section__input" i18n-placeholder="" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" [(ngModel)]="postData.video_url" name="video_url" (ngModelChange)="clearErrors()">
 					</div>
 				</div>
-				<div class="section__row">
-					<div class="section__left">
-						<div class="section__name">Стоимость просмотра</div>
-					</div>
-					<div class="section__right">
-						<input class="section__input" type="number" min="0" step="0.1" placeholder="GOLOS" [(ngModel)]="postData.price" name="price" (ngModelChange)="clearErrors()">
-					</div>
-				</div>
 			</div>
 			<div class="buttons">
-				<button class="button button-mode-2">Опубликовать</button>
+				<button class="button button-mode-2" i18n="">Post</button>
 			</div>
 		</form>
 		<div class="errors" *ngIf="errors.length">

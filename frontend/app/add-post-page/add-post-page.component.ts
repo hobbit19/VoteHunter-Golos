@@ -3,6 +3,15 @@ import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 let golos = require('golos-js');
 
+const POST_PRIVACY = [
+  { str: 'Patrons only', value: 1 },
+  { str: 'Public', value: 2 },
+];
+
+const POST_CONTENT_TYPES = [
+  { str: 'Video', value: 1 },
+];
+
 @Component({
   selector: 'vh-add-post-page',
   templateUrl: './add-post-page.component.html',
@@ -16,14 +25,30 @@ export class AddPostPageComponent implements OnInit {
     public router: Router
   ) { }
 
+  POST_PRIVACY = POST_PRIVACY;
+  POST_CONTENT_TYPES = POST_CONTENT_TYPES;
+
   postData = {
     title: '',
     body: '',
     video_url: '',
-    price: 0
+    privacy: POST_PRIVACY[0].value,
+    type: POST_CONTENT_TYPES[0].value,
   };
 
   ngOnInit() {
+  }
+
+  findByProp(arr, prop, val) {
+    let result;
+
+    arr.forEach((elem) => {
+      if (elem[prop] === val) {
+        result = elem;
+      }
+    });
+
+    return result;
   }
 
   @HostBinding('class') get classStr() {

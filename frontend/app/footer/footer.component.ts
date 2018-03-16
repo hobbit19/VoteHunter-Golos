@@ -10,13 +10,6 @@ export class FooterComponent implements OnInit {
 
   constructor() { }
 
-  items = [
-    { text: 'О проекте', link: '#' },
-    { text: 'Как это работает', link: '#' },
-    { text: 'Правила использования', link: '#' },
-    { text: 'Обратная связь', link: '#' },
-  ];
-
   ngOnInit() {
   }
 

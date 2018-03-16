@@ -1,6 +1,12 @@
 <div class="sidebar" [@state]="state">
 	<div class="sidebar__cross" (click)="close()"></div>
 	<nav class="sidebar__items">
-		<a class="sidebar__item" *ngFor="let item of items" [routerLink]="item.link" [innerHTML]="item.str"></a>
+		<a class="sidebar__item" i18n="" routerLink="#">Join</a>
+		<a class="sidebar__item" i18n="" routerLink="/login">Login</a>
+		<a class="sidebar__item" i18n="" routerLink="#">About</a>
+		<a class="sidebar__item" i18n="" routerLink="#">How it works</a>
+		<a class="sidebar__item" i18n="" routerLink="#">Terms of use</a>
+		<a class="sidebar__item" i18n="" routerLink="#">Feedback</a>
+		<a class="sidebar__item" i18n="" href="/user/logout" *ngIf="user.isLoggedIn">Logout</a>
 	</nav>
 </div>
