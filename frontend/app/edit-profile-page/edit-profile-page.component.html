@@ -81,12 +81,11 @@
 					</div>
 					<div class="section__right">
 						<vh-dropdown [title]="profile?.cover_text_color" tabindex="1">
-							<vh-dropdown-option *ngFor="let color of coverTextColos" (click)="profile.cover_text_color = color" [innerHTML]="color"></vh-dropdown-option>
+							<vh-dropdown-option (click)="profile.cover_text_color = 'white'" i18n="">White</vh-dropdown-option>
+							<vh-dropdown-option (click)="profile.cover_text_color = 'black'" i18n="">Black</vh-dropdown-option>
 						</vh-dropdown>
-
 					</div>
 				</div>
-
 			</div>
 			<div class="section">
 				<div class="section__row">
@@ -115,7 +114,7 @@
 						<div class="section__name">VK</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Ваш аккаунт">
+						<input class="section__input" i18n-placeholder="" placeholder="Your account">
 					</div>
 				</div>
 				<div class="section__row">
@@ -123,7 +122,7 @@
 						<div class="section__name">YouTube</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Ваш аккаунт">
+						<input class="section__input" i18n-placeholder="" placeholder="Your account">
 					</div>
 				</div>
 				<div class="section__row">
@@ -131,7 +130,7 @@
 						<div class="section__name">Twitch</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Ваш аккаунт">
+						<input class="section__input" i18n-placeholder="" placeholder="Your account">
 					</div>
 				</div>
 				<div class="section__row">
@@ -139,7 +138,7 @@
 						<div class="section__name">Facebook</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Ваш аккаунт">
+						<input class="section__input" i18n-placeholder="" placeholder="Your account">
 					</div>
 				</div>
 			</div>
@@ -155,14 +154,14 @@
 				<div class="section">
 					<div class="section__row">
 						<div class="section__left">
-							<div class="section__name" i18n="">Кол-во голосов</div>
+							<div class="section__name" i18n="">Dollars</div>
 						</div>
 						<div class="section__right">
-							<input class="section__input" type="number" value="0" name="goal.amount" [(ngModel)]="goals[0].amount">
+							<input class="section__input" type="number" value="0" min="0" name="goal.amount" [(ngModel)]="goals[0].amount">
 						</div>
 					</div>
 					<div class="section__row">
-						<textarea class="section__textarea" i18n-placeholder="" placeholder="Когда я наберу 1000 голосов, я смогу создавать 2 видео в неделю вместо одного" [(ngModel)]="goals[0].goal" name="goal.goal"></textarea>
+						<textarea class="section__textarea" i18n-placeholder="" placeholder="When I get 1000 dollars, I'll be able to create 2 videos per week instead of one" [(ngModel)]="goals[0].goal" name="goal.goal"></textarea>
 					</div>
 					<div class="section__basket"></div>
 				</div>
@@ -177,10 +176,10 @@
 			<div class="section">
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name" i18n="">Кол-во голосов</div>
+						<div class="section__name" i18n="">Dollars</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" type="number" value="0" name="amount" [(ngModel)]="rewards[i].amount">
+						<input class="section__input" type="number" value="0" min="0" name="amount" [(ngModel)]="rewards[i].amount">
 					</div>
 				</div>
 				<div class="section__row">

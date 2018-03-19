@@ -26,11 +26,6 @@ export class CreatorPageComponent implements OnInit {
       }
 
       console.log(this.profile);
-/*
-    this.api.getUserProfile(this.user.id).then((profile) => {
-      this.profile = profile;
-    });
-*/
   }
 
   @HostBinding('class') get classStr() {

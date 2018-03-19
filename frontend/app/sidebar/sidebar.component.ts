@@ -30,15 +30,6 @@ import {UserService} from '../user.service';
   ]
 })
 export class SidebarComponent extends PanelComponent implements OnInit {
-  items = [
-      { link: '#', str: 'Присоединиться' },
-      { link: '/login', str: 'Войти' },
-      { link: '#', str: 'О проекте' },
-      { link: '#', str: 'Как это работает' },
-      { link: '#', str: 'Правила использования' },
-      { link: '#', str: 'Обратная связь' },
-    ];
-
   constructor(
     public mediator: MediatorService,
     public elementRef: ElementRef,

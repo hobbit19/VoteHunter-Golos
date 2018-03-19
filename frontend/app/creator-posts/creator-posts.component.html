@@ -9,13 +9,16 @@
 		</div>
 		<div class="creatorPosts__r">
 			<div class="creatorPosts__money" [innerHTML]="post.dollars + '$'"></div>
-			<div class="creatorPosts__curators" [innerHTML]="post.curators + ' кураторов'"></div>
+			<div class="creatorPosts__curators">
+				<span [innerHTML]="post.curators"></span>
+				<span i18n=""> patrons</span>
+			</div>
 		</div>
 	</div>
 	<div class="creatorPosts__lock" *ngIf="post.isLocked">
 		<img class="creatorPosts__lockImage" src="/images/lock.svg">
-		<div class="creatorPosts__lockTitle">Просмотр только для кураторов</div>
-		<button class="creatorPosts__button">Разблокировать</button>
+		<div class="creatorPosts__lockTitle">Only patrons can view this post</div>
+		<button class="creatorPosts__button">Unlock</button>
 	</div>
 	<div class="creatorPosts__title" [innerHTML]="post.title"></div>
 	<p class="paragraph creatorPosts__desc" [innerHTML]="post.desc"></p>

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output,
   ViewEncapsulation
 } from "@angular/core";
+import {PanelComponent} from '../../kolos.dom/src/panel.component';
 
 @Component({
   selector: 'vh-dropdown',
@@ -10,16 +11,17 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DropdownComponent {
+export class DropdownComponent extends PanelComponent {
   @Input() className: string;
-  @Input() disabled: boolean = false;
   @Input() title: string;
   @Output() openCallback: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(public elementRef: ElementRef) {}
+  constructor(public elementRef: ElementRef) {
+    super(elementRef.nativeElement);
+  }
 
   ngOnInit() {
-    (this.elementRef.nativeElement as any).nvDropdown = this;
+
   }
 
   @HostBinding('class') get classStr() {
@@ -29,34 +31,14 @@ export class DropdownComponent {
       cl += ' ' + this.className;
     }
 
-    if (this.disabled) {
-      cl += ' dropdown-disabled';
-    }
-
-    if (this.active) {
+    if (this.isOpen()) {
       cl += ' dropdown-active';
     }
 
     return cl;
   }
 
-  @HostBinding('attr.nv-panel') nvPanelAttr = 'dropdown';
-
-  active = false;
-
   @HostListener("click") onClick() {
-    if (this.active) { return; }
-
-    this.active = true;
-
-    let onClick = () => {
-      this.active = false;
-
-      document.removeEventListener('click', onClick);
-    };
-
-    setTimeout(() => {
-      document.addEventListener('click', onClick);
-    }, 0);
+    this.toggle();
   }
 }

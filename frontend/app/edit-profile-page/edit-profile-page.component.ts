@@ -1,10 +1,14 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiService } from '../api.service';
 import {DOMService} from '../dom.service';
+
 let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
 golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
 
+let steemit = require('steem');
+
+console.log(steemit);
 
 @Component({
   selector: 'vh-edit-profile-page',
@@ -18,7 +22,6 @@ export class EditProfilePageComponent implements OnInit {
   goals: any;
   rewards: any;
   selectedCategory: any;
-  selectedCoverTextColor: number;
   new_cover_image: any;
   new_profile_image: any;
   new_list_image: any;
@@ -98,7 +101,7 @@ export class EditProfilePageComponent implements OnInit {
   }
 
   delReward (i) {
-    if(confirm('Вы уверены?')) {
+    if(confirm('Are you sure?')) {
 
     }
   }
@@ -110,7 +113,7 @@ export class EditProfilePageComponent implements OnInit {
           if(this.profile.cat_id == 0) {
               this.selectedCategory = {
                   id: 0,
-                  name: 'Не выбрано'
+                  name: 'Not chosen'
               };
           } else {
               this.selectedCategory = this.categories[this.profile.cat_id];
@@ -184,5 +187,4 @@ export class EditProfilePageComponent implements OnInit {
     this.profile.description = event.html;
     this.profile.contents = event.contents;
   }
-  coverTextColos = ['white', 'black'];
 }
