@@ -97,6 +97,7 @@ export class EditProfilePageComponent implements OnInit {
       this.rewards.push({
           amount: 0.0,
           reward: '',
+          title: '',
       })
   }
 
