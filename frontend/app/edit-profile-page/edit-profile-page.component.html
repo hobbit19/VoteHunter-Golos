@@ -151,15 +151,15 @@
 				<p class="desc paragraph" i18n="">Let the community know what you will do when you reach the goal</p>
 				<div class="section">
 					<div class="section__row">
+						<textarea class="section__textarea" i18n-placeholder="" placeholder="When I get 1000 dollars, I'll be able to create 2 videos per week instead of one" [(ngModel)]="goals[0].goal" name="goal.goal"></textarea>
+					</div>
+					<div class="section__row">
 						<div class="section__left">
-							<div class="section__name" i18n="">Dollars</div>
+							<div class="section__name section__name-mode-1" i18n="">$</div>
 						</div>
 						<div class="section__right">
 							<input class="section__input" type="number" value="0" min="0" name="goal.amount" [(ngModel)]="goals[0].amount">
 						</div>
-					</div>
-					<div class="section__row">
-						<textarea class="section__textarea" i18n-placeholder="" placeholder="When I get 1000 dollars, I'll be able to create 2 videos per week instead of one" [(ngModel)]="goals[0].goal" name="goal.goal"></textarea>
 					</div>
 					<div class="section__basket"></div>
 				</div>
@@ -173,15 +173,18 @@
 			<form class="editGoal__form">
 			<div class="section">
 				<div class="section__row">
+					<input class="section__input" i18n-placeholder="" placeholder="Title" [(ngModel)]="rewards[i].title" name="title"/>
+				</div>
+				<div class="section__row">
+					<textarea class="section__textarea" i18n-placeholder="" placeholder="Description (e.g. Telegram chats with you once a month)" [(ngModel)]="rewards[i].reward" name="reward"></textarea>
+				</div>
+				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name" i18n="">Dollars</div>
+						<div class="section__name section__name-mode-1">$</div>
 					</div>
 					<div class="section__right">
 						<input class="section__input" type="number" value="0" min="0" name="amount" [(ngModel)]="rewards[i].amount">
 					</div>
-				</div>
-				<div class="section__row">
-					<textarea class="section__textarea" i18n-placeholder="" placeholder="Telegram chats with you once a month" [(ngModel)]="rewards[i].reward" name="reward"></textarea>
 				</div>
 				<div class="section__basket"  (click)="delReward(i);"></div>
 			</div>

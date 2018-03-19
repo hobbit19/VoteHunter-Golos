@@ -38,6 +38,12 @@
 	line-height: 1.4;
 }
 
+.section__name-mode-1 {
+	text-align: right;
+	height: @sectionInputHeight;
+	line-height: @sectionInputHeight;
+}
+
 .section__right {
 	flex-shrink: 1;
 	width: 100%;
@@ -46,10 +52,12 @@
 	font-size: 16px;
 }
 
+@sectionInputHeight: 25px;
+
 .section__input,
 .section__fixedStr {
-	height: 25px;
-	line-height: 25px;
+	height: @sectionInputHeight;
+	line-height: @sectionInputHeight;
 }
 
 .section__input {
