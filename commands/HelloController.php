@@ -42,4 +42,11 @@ class HelloController extends Controller
 
     }
 
+    public function actionPosts()
+    {
+        $objGolos = new GolosApi();
+        $objGolos->getDiscussionsByBlog('gaidar', 'yousource');
+    }
+
+
 }

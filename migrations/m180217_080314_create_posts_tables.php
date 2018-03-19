@@ -20,7 +20,7 @@ class m180217_080314_create_posts_tables extends Migration
             'video_url' => $this->string(512),
             'price' => $this->decimal(12,8),
             'secret_key' => $this->string(512),
-            'golos_permlink' => $this->string(512),
+            'permlink' => $this->string(512),
             'not_encrypted' => $this->boolean()->defaultValue(1)
         ]);
     }
