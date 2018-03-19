@@ -83,7 +83,7 @@ export class ApiService {
       { name: 'Posts', num: '0' },
       { name: 'Golos', num: '0' },
       { name: 'Patrons', num: '0' },
-      { name: 'Sum', num: '0$' },
+      { name: 'Sum', num: '$0' },
     ]);
   }
 

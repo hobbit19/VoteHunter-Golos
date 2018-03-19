@@ -82,3 +82,5 @@ controllers/TestController.php
 frontend/kolos.dom
 
 config/local
+
+frontend/locales

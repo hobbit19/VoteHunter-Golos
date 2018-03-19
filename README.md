@@ -18,4 +18,3 @@ Was developed by "Vote Hunter" team for the Blockchain Hackathon DApp Hack 1.0 o
 - edit proxy.conf.json and set "host": "develop.domain"
 - npm start
 - open http://localhost:4200
-

@@ -1,5 +1,3 @@
-<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
-
 <div class="block">
 	<vh-main-nav></vh-main-nav>
 	<div class="editProfilePage__content">
@@ -29,7 +27,7 @@
 						<div class="section__name" i18n="">Promo video</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" name="promo_video" [(ngModel)]="profile.promo_video">
+						<input class="section__input" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" name="promo_video" [(ngModel)]="profile.promo_video">
 					</div>
 				</div>
 				<div class="section__row section__row_h_140">
@@ -170,7 +168,7 @@
 				</div>
 			</form>
 			<h2 class="h2 editProfilePage__heading1" i18n="">Rewards</h2>
-			<p class="desc paragraph" i18n="">Сообщите сообществу каковы будут ваши вознаграждения для тех, кто больше всего поддерживает вас в творчестве</p>
+			<p class="desc paragraph" i18n="">Rewards are the best way to thank your fans for their pledges</p>
 			<div *ngFor="let reward of rewards ; let i = index">
 			<form class="editGoal__form">
 			<div class="section">
@@ -183,7 +181,7 @@
 					</div>
 				</div>
 				<div class="section__row">
-					<textarea class="section__textarea" i18n-placeholder="" placeholder="Для Вас я смогу передать привет в следующем видео" [(ngModel)]="rewards[i].reward" name="reward"></textarea>
+					<textarea class="section__textarea" i18n-placeholder="" placeholder="Telegram chats with you once a month" [(ngModel)]="rewards[i].reward" name="reward"></textarea>
 				</div>
 				<div class="section__basket"  (click)="delReward(i);"></div>
 			</div>
