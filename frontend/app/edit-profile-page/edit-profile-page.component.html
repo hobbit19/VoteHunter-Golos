@@ -5,28 +5,28 @@
 	<div class="editProfilePage__content">
 		<div class="editProfilePage__left">
 			<form class="editProfile__form" (submit)="submit()" *ngIf='profile'>
-			<h2 class="h2">Редактирование профиля</h2>
-			<p class="desc paragraph">Заполните профайл создателя, создав первое отличное впечатление для сообщества</p>
+			<h2 class="h2" i18n="">Edit profile</h2>
+			<p class="desc paragraph" i18n="">Fill in the creator's profile, making a first great impression for the community</p>
 			<div class="section">
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Ваше имя</div>
+						<div class="section__name" i18n="">Full name</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" placeholder="Иван Кузнецов" name="name" [(ngModel)]="profile.name">
+						<input class="section__input" placeholder="John Johnson" name="name" [(ngModel)]="profile.name">
 					</div>
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Что будете публиковать?</div>
+						<div class="section__name" i18n="">What are you creating?</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Видео обзоры оборудования для майнига" name="about" [(ngModel)]="profile.about">
+						<input class="section__input" i18n-placeholder="" placeholder="Video reviews of mining equipment" name="about" [(ngModel)]="profile.about">
 					</div>
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Промо видео</div>
+						<div class="section__name" i18n="">Promo video</div>
 					</div>
 					<div class="section__right">
 						<input class="section__input" i18n-placeholder="" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" name="promo_video" [(ngModel)]="profile.promo_video">
@@ -34,7 +34,7 @@
 				</div>
 				<div class="section__row section__row_h_140">
 					<div class="section__left">
-						<div class="section__name">Текст</div>
+						<div class="section__name" i18n="">Text</div>
 					</div>
 					<div class="section__right">
 						<vh-wysiwyg (onContentChanged)="onTextChanged($event)" [ops]="profile.contents?.ops ? profile.contents.ops : [ { insert: 'Hello ' }, { insert: 'World!', attributes: { bold: true } },  { insert: '\n' } ]"></vh-wysiwyg>
@@ -43,7 +43,7 @@
 
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Изображение профиля</div>
+						<div class="section__name" i18n="">Avatar</div>
 					</div>
 					<div class="section__right">
 						<label class="editProfilePage__avatar" [style.background-image]="'url(' + (profile.profile_image || '/images/ava_placeholder.svg') + ')'" id="new_profile_image">
@@ -53,7 +53,11 @@
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Изображение обложки <br>(1600 x 400)</div>
+						<div class="section__name">
+							<span i18n="">Cover image</span>
+							<br>
+							<span>(1600 x 400)</span>
+						</div>
 					</div>
 					<div class="section__right">
 						<label class="editProfilePage__image" [style.background-image]="'url(' + (profile.cover_image || '/images/camera.svg') + ')'" [style.background-size]="profile.cover_image? 'cover': 'auto'" id="new_cover_image">
@@ -63,7 +67,7 @@
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Изображение в списке</div>
+						<div class="section__name" i18n="">An image in the list</div>
 					</div>
 					<div class="section__right">
 						<label class="editProfilePage__image" [style.background-image]="'url(' + (profile.list_image || '/images/camera.svg') + ')'" [style.background-size]="profile.list_image? 'cover': 'auto'" id="new_list_image">
@@ -73,7 +77,7 @@
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Cover text color</div>
+						<div class="section__name" i18n="">Cover text color</div>
 					</div>
 					<div class="section__right">
 						<vh-dropdown [title]="profile?.cover_text_color" tabindex="1">
@@ -87,7 +91,7 @@
 			<div class="section">
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Категория</div>
+						<div class="section__name" i18n="">Category</div>
 					</div>
 					<div class="section__right">
 						<vh-dropdown [title]="selectedCategory?.name" tabindex="1">
@@ -97,7 +101,7 @@
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">URL-адрес профайла</div>
+						<div class="section__name" i18n="">Profile link</div>
 					</div>
 					<div class="section__right">
 						<span class="section__fixedStr">yousource.io/</span>
@@ -140,18 +144,18 @@
 				</div>
 			</div>
 			<div class="buttons">
-				<button class="button button-mode-2">Сохранить</button>
+				<button class="button button-mode-2" i18n="">Save</button>
 			</div>
 			</form>
 		</div>
 		<div class="editProfilePage__right">
 			<form class="editGoal__form" (submit)="submitGoals()" *ngIf='goals'>
 				<h2 class="h2" i18n="">Goal</h2>
-				<p class="desc paragraph">Сообщите сообществу каковы будут ваши действия при достижении определенной цели</p>
+				<p class="desc paragraph" i18n="">Let the community know what you will do when you reach the goal</p>
 				<div class="section">
 					<div class="section__row">
 						<div class="section__left">
-							<div class="section__name">Кол-во голосов</div>
+							<div class="section__name" i18n="">Кол-во голосов</div>
 						</div>
 						<div class="section__right">
 							<input class="section__input" type="number" value="0" name="goal.amount" [(ngModel)]="goals[0].amount">
@@ -163,18 +167,17 @@
 					<div class="section__basket"></div>
 				</div>
 				<div class="buttons">
-					<button class="button button-mode-2 editProfilePage__button">Сохранить</button>
+					<button class="button button-mode-2 editProfilePage__button" i18n="">Save</button>
 				</div>
 			</form>
-			<h2 class="h2 editProfilePage__heading1">Вознаграждения</h2>
-			<p class="desc paragraph">Сообщите сообществу каковы будут ваши вознаграждения для тех, кто больше всего поддерживает вас в творчестве</p>
-
+			<h2 class="h2 editProfilePage__heading1" i18n="">Rewards</h2>
+			<p class="desc paragraph" i18n="">Сообщите сообществу каковы будут ваши вознаграждения для тех, кто больше всего поддерживает вас в творчестве</p>
 			<div *ngFor="let reward of rewards ; let i = index">
 			<form class="editGoal__form">
 			<div class="section">
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">Кол-во голосов</div>
+						<div class="section__name" i18n="">Кол-во голосов</div>
 					</div>
 					<div class="section__right">
 						<input class="section__input" type="number" value="0" name="amount" [(ngModel)]="rewards[i].amount">
@@ -186,8 +189,8 @@
 				<div class="section__basket"  (click)="delReward(i);"></div>
 			</div>
 			<div class="buttons">
-				<button class="button button-mode-2 editProfilePage__button" (click)="submitReward(i)">Сохранить</button>
-				<button class="button button-mode-4 editProfilePage__button" (click)="addReward()">Добавить ещё</button>
+				<button class="button button-mode-2 editProfilePage__button" (click)="submitReward(i)" i18n="">Save</button>
+				<button class="button button-mode-4 editProfilePage__button" (click)="addReward()" i18n="">Add more</button>
 			</div>
 			</form>
 			</div>
