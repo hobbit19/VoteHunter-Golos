@@ -151,6 +151,54 @@ a.button-mode-4:visited,
 	margin-left: 14px;
 }
 
+@keyframes buttonProgressAnimation {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}
+
+.button-progress {
+	position: relative;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.button-progress:after:extend(.pseudo) {
+	animation: buttonProgressAnimation 4s linear infinite;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+@buttonFinishTransitionDuration: 1s; // must be equal to BUTTON_FINISH_TRANSITION_DURATION
+
+.button-finish {
+	transition: background-color @buttonFinishTransitionDuration;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+}
+
+.button-sccss,
+.button-fail {
+	color: transparent !important;
+}
+
+.button-sccss {
+	background-image: url('/images/button_success.svg');
+	background-size: 40px;
+	background-color: #a0d468;
+}
+
+.button-fail {
+	background-image: url('/images/button_err.svg');
+	background-size: contain;
+	background-color: red;
+}
+
 .bg1 {
 	background-color: @backgroundColor1;
 }

@@ -24,8 +24,6 @@ export class CreatorPageComponent implements OnInit {
       if(this.profile.promo_video) {
           this.profile.promo_video = this.profile.promo_video.replace('watch?v=', 'embed/')
       }
-
-      console.log(this.profile);
   }
 
   @HostBinding('class') get classStr() {

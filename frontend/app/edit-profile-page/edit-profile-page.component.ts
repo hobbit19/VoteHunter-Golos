@@ -39,17 +39,12 @@ export class EditProfilePageComponent implements OnInit {
     return 'editProfilePage';
   }
 
-  submit() {
-      let wif = golos.auth.toWif('gaidar', 'qwerty12345', 'active');
-      golos.broadcast.transfer(wif, 'gaidar', 'vasya', '1.000 GOLOS', 'Patron', function(err, result) {
-          console.log(err, result);
-      });
-      console.log(wif);
+  submit(event) {
 /*
       let dataJson = {
           yousource: this.profile
       }
-      let wif = golos.auth.toWif('gaidar', 'qwerty12345');
+      let wif = golos.auth.toWif('valera', 'qwerty12345');
 
       let resultWifToPrivate = golos.auth.getPrivateKeys('valera', 'qwerty12345');
       console.log(resultWifToPrivate);
