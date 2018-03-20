@@ -9,6 +9,7 @@ namespace app\api\golos;
 
 use GrapheneNodeClient\Commands\Broadcast\BroadcastTransactionSynchronousCommand;
 use GrapheneNodeClient\Commands\CommandQueryData;
+use GrapheneNodeClient\Commands\DataBase\GetDiscussionsByBlogCommand;
 use GrapheneNodeClient\Commands\DataBase\GetDiscussionsByCreatedCommand;
 use GrapheneNodeClient\Connectors\WebSocket\GolosWSConnector;
 use GrapheneNodeClient\Connectors\WebSocket\SteemitWSConnector;
@@ -28,7 +29,7 @@ class GolosApi
         $objCommand = new \GrapheneNodeClient\Commands\DataBase\GetAccountCommand($connector);
         $commandQuery = new CommandQueryData();
         $data = [
-            [ $strNickName ]
+            [$strNickName]
         ];
         $commandQuery->setParams($data);
         $arrData = $objCommand->execute($commandQuery);
@@ -52,13 +53,13 @@ class GolosApi
             [
                 ChainOperations::OPERATION_COMMENT,
                 [
-                    'parent_author'    => '',
-                    'parent_permlink'   => 'votehunter',
-                    'author' =>  $arrData['author'],
-                    'permlink'   => $arrData['permlink'],
-                    'title'   => $arrData['title'],
+                    'parent_author' => '',
+                    'parent_permlink' => 'yousource',
+                    'author' => $arrData['author'],
+                    'permlink' => $arrData['permlink'],
+                    'title' => $arrData['title'],
                     'body' => $arrData['body'],
-                    'json_metadata'   => empty($arrData['json_metadata']) ? json_encode([]) : json_encode($arrData['json_metadata'])
+                    'json_metadata' => empty($arrData['json_metadata']) ? json_encode([]) : json_encode($arrData['json_metadata'])
                 ]
             ]
         );
@@ -73,6 +74,27 @@ class GolosApi
 
     public function updateProfile($objProfile)
     {
+
+    }
+
+    public function getDiscussionsByBlog($strUserName, $strTag)
+    {
+        //TODO: uncomment in poduction
+        //$connector = new GolosWSConnector();
+        $connector = new GolosTestWSConnector();
+        $objCommand = new GetDiscussionsByBlogCommand($connector);
+        $commandQuery = new CommandQueryData();
+        $commandQuery->setParamByKey('0:limit', 10);
+        $commandQuery->setParamByKey('0:select_authors', [$strUserName]);
+        $commandQuery->setParamByKey('0:select_tags', [$strTag]);
+
+        $arrPrepare = $objCommand->execute($commandQuery);
+        $arrData = [];
+        foreach ($arrPrepare['result'] as $arrValue) {
+            $arrData[$arrValue['permlink']] = $arrValue;
+        }
+        unset($arrPrepare);
+        return $arrData;
 
     }
 

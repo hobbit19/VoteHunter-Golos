@@ -9,15 +9,17 @@ use Yii;
  *
  * @property int $id
  * @property string $title
- * @property string $description
+ * @property string $body
  * @property string $encoded
  * @property string $video_url
  * @property string $price
  * @property string $secret_key
- * @property string $golos_permlink
- * @property string $golos_parentPermlink
+ * @property string $permlink
+ * @property string $parentPermlink
  * @property int $not_encrypted
  * @property int $user_id
+ * @property int $cat_id
+ * @property int $patron_only
  */
 class Posts extends \yii\db\ActiveRecord
 {
@@ -35,11 +37,11 @@ class Posts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'encoded'], 'string'],
+            [['body', 'encoded'], 'string'],
             [['price'], 'number'],
             [['not_encrypted'], 'integer'],
             [['title'], 'string', 'max' => 256],
-            [['video_url', 'secret_key', 'golos_permlink'], 'string', 'max' => 512],
+            [['video_url', 'secret_key', 'permlink'], 'string', 'max' => 512],
         ];
     }
 
@@ -49,15 +51,6 @@ class Posts extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'description' => 'Description',
-            'encoded' => 'Encoded',
-            'video_url' => 'Video Url',
-            'price' => 'Price',
-            'secret_key' => 'Secret Key',
-            'golos_permlink' => 'Golos Permlink',
-            'not_encrypted' => 'Not Encrypted',
         ];
     }
 
@@ -71,6 +64,13 @@ class Posts extends \yii\db\ActiveRecord
     public function getAuthor()
     {
         return self::hasOne(Users::className(), ['id' => 'user_id']);
+    }
+
+    public function decryptData($strEncryptedData)
+    {
+        $objAnubis = new Anubis();
+        $objAnubis->setKey($this->secret_key);
+        return $objAnubis->decrypt(base64_decode($strEncryptedData));
     }
 
 }

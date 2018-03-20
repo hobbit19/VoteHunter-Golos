@@ -9,6 +9,8 @@
 namespace app\controllers;
 
 
+use app\api\golos\GolosApi;
+use app\helpers\ImageHelper;
 use app\models\Anubis;
 use app\models\PaidPosts;
 use app\models\Posts;
@@ -52,7 +54,7 @@ class PostController extends Controller
         $objAnubis->setKey($strKey);
         $strEncryptedData = base64_encode($objAnubis->encrypt(\Yii::$app->request->post('video_url')));
         $strGolosPermLink = strtolower(preg_replace("/[^a-zA-Z0-9]/", '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));
-        $objPost = Posts::findOne(['golos_permlink' => $strGolosPermLink, 'user_id' => \Yii::$app->user->getId()]);
+        $objPost = Posts::findOne(['permlink' => $strGolosPermLink, 'user_id' => \Yii::$app->user->getId()]);
         if(!is_object($objPost)) {
             $objPost = new Posts();
         }
@@ -60,10 +62,14 @@ class PostController extends Controller
         $objPost->not_encrypted = 0;//\Yii::$app->request->post('not_encrypted');
         $objPost->secret_key = $strKey;
         $objPost->user_id = \Yii::$app->user->getId();
-        $objPost->golos_permlink = $strGolosPermLink;
-        $objPost->golos_parentPermlink = 'yousource';
+        $objPost->permlink = $strGolosPermLink;
+        $objPost->parentPermlink = 'yousource';
+        $objPost->title = \Yii::$app->request->post('title');
+        $objPost->body = \Yii::$app->request->post('body');
+        $objPost->cat_id = \Yii::$app->request->post('cat_id');
+        $objPost->patron_only = \Yii::$app->request->post('patron_only');
         if($objPost->save()) {
-            $strLink = "http://yousource.io/post?a=".\Yii::$app->user->getIdentity()->golos_nick."&p=".$objPost->golos_permlink;
+            $strLink = "http://yousource.io/post?a=".\Yii::$app->user->getIdentity()->golos_nick."&p=".$objPost->permlink;
             $strBody = \Yii::$app->request->post('body','') .
                 "<br> !! Для просмотра зашифрованного контента нужно оплатить  ".$objPost->price.
                 " GOLOS автору: <a href='$strLink'>перейдите на YouSource</a>";
@@ -72,11 +78,11 @@ class PostController extends Controller
                 'data' => [
                     'title' => \Yii::$app->request->post('title',''),
                     'body' => $strBody,
-                    'parentPermlink' => $objPost->golos_parentPermlink,
+                    'parentPermlink' => $objPost->parentPermlink,
                     'author' => \Yii::$app->user->getIdentity()->golos_nick,
-                    'permlink' => $objPost->golos_permlink,
+                    'permlink' => $objPost->permlink,
                     'jsonMetadata' => [
-                        'tags' => ['test'],
+                        'tags' => ['yousource'],
                         'encodedData' => $strEncryptedData
                     ],
                     'post_link' => str_replace('http://yousource.io','',$strLink)
@@ -91,14 +97,14 @@ class PostController extends Controller
         if(!is_object($author)) {
             return [
                 'status' => 'error',
-                'msg' => 'Post not found 1'
+                'msg' => 'Post not found'
             ];
         }
-        $objPost = Posts::findOne(['user_id' => $author->id, 'golos_permlink' => \Yii::$app->request->post('permlink')]);
+        $objPost = Posts::findOne(['user_id' => $author->id, 'permlink' => \Yii::$app->request->post('permlink')]);
         if(!is_object($objPost)) {
             return [
                 'status' => 'error',
-                'msg' => 'Post not found 2'
+                'msg' => 'Post not found'
             ];
         }
 
@@ -149,7 +155,7 @@ class PostController extends Controller
 //        $strWifFrom = '5HpZZ2E9BfBNNJAimKHEdwD9zd6AGUFVzixV4P64GWGswKWfqsj';
         $strUserTo = $objPost->author->golos_nick;
         $fltSum = $objPost->price;
-        $strPostPermlink = $objPost->golos_permlink;
+        $strPostPermlink = $objPost->permlink;
 
 //        Debug::dump($fltSum * (1 - $fltPercent) . ' GOLOS');
 //        exit();
@@ -182,7 +188,7 @@ class PostController extends Controller
             return [
                 'status' => 'ok',
                 'author' => $objPost->author->golos_nick,
-                'permlink' => $objPost->golos_permlink,
+                'permlink' => $objPost->permlink,
                 'answer' => $answer,
             ];
         }catch (Exception $e){
@@ -192,4 +198,55 @@ class PostController extends Controller
             ];
         }
     }
+
+    public function actionList()
+    {
+        $intUserId = \Yii::$app->request->get('user_id', (\Yii::$app->user->isGuest ? '0' : \Yii::$app->user->getId()));
+        if ($intUserId == 0) {
+            return [
+                'status' => 'ok',
+                'posts' => [],
+            ];
+
+        }
+        $objUser = Users::findOne($intUserId);
+        $arrObjPosts = Posts::find()->where(['user_id' => $intUserId])->orderBy('')->all();
+
+        //get post from blockchain
+        $objApi = new GolosApi();
+        $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'yousource');
+        foreach ($arrObjPosts as $objPost) {
+            /* @var $objPost \app\models\Posts */
+            $strVideoUrl = null;
+            $strPostImage = null;
+            if(isset($arrBCPosts[$objPost->permlink])) {
+                $boolNeedToSave = false;
+                if ($objPost->body != $arrBCPosts[$objPost->permlink]['body']) {
+                    $objPost->body = $arrBCPosts[$objPost->permlink]['body'];
+                    $boolNeedToSave = true;
+                }
+                if ($objPost->title != $arrBCPosts[$objPost->permlink]['title']) {
+                    $objPost->title = $arrBCPosts[$objPost->permlink]['title'];
+                    $boolNeedToSave = true;
+                }
+                if ($boolNeedToSave) {
+                    $objPost->save();
+                    $objPost->refresh();
+                }
+                $arrMetaData = json_decode($arrBCPosts[$objPost->permlink]['json_metadata'], true);
+                if (!empty($arrMetaData['encodedData'])) {
+                    $strVideoUrl = $objPost->decryptData($arrMetaData['encodedData']);
+                    $strPostImage = ImageHelper::getYouTubeImg($strVideoUrl);
+                }
+            }
+            $arrPost = $objPost->toArray(['title', 'body']) + ['video_url' => $strVideoUrl, 'post_image' => $strPostImage];
+
+            $arrPosts[] = $arrPost;
+        }
+        return [
+            'status' => 'ok',
+            'posts' => $arrPosts
+        ];
+    }
+
 }

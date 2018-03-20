@@ -5,7 +5,7 @@ let golos = require('golos-js');
 
 const POST_PRIVACY = [
   { str: 'Patrons only', value: 1 },
-  { str: 'Public', value: 2 },
+  { str: 'Public', value: 0 },
 ];
 
 const POST_CONTENT_TYPES = [
@@ -32,8 +32,8 @@ export class AddPostPageComponent implements OnInit {
     title: '',
     body: '',
     video_url: '',
-    privacy: POST_PRIVACY[0].value,
-    type: POST_CONTENT_TYPES[0].value,
+    patron_only: POST_PRIVACY[0].value,
+    cat_id: POST_CONTENT_TYPES[0].value,
   };
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class AddPostPageComponent implements OnInit {
 
       let wif = localStorage.getItem('privKey');
       let parentAuthor = '';
-      let parentPermlink = 'test';
+      let parentPermlink = data.data.parentPermlink;
       let author = data.data.author;
       let permlink = data.data.permlink;
       let title = data.data.title;

@@ -65,4 +65,19 @@ class ImageHelper {
                 return 'jpg';
         }
     }
+
+    public static function getYouTubeImg($strVideoUrl)
+    {
+        //https://img.youtube.com/vi/wxpJeAhgUlw/
+        //https://youtu.be
+        if(preg_match('/https:\/\/(www)?.youtube.com\/watch\?v\=([a-z0-9A-Z\-\_]+)/',$strVideoUrl, $m)) {
+            $strCode = $m[2];
+        } elseif (preg_match('/https:\/\/youtu.be\/([a-z0-9A-Z\-\_]+)/',$strVideoUrl, $m)){
+            $strCode = $m[1];
+        }
+        if(isset($strCode)) {
+            return "https://img.youtube.com/vi/$strCode/0.jpg";
+        }
+        return '';
+    }
 }
