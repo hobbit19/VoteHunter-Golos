@@ -23,5 +23,4 @@ export class CreatorBannerComponent implements OnInit {
   @HostBinding('class') get classStr() {
     return 'creatorBanner';
   }
-
 }

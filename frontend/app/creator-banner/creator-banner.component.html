@@ -27,7 +27,7 @@
 				<div class="creatorBanner__socials">
 					<a class="creatorBanner__social" *ngFor="let item of profile?.socialLinks" [attr.href]="item.link" [ngClass]="'creatorBanner__social-' + item.name"></a>
 				</div>
-				<button class="button button-mode-2 button-mode-5 creatorBanner__button">Become a patron</button>
+				<a class="button button-mode-2 button-mode-5 creatorBanner__button" [routerLink]="'/become-patron/' + profile?.id">Become a patron</a>
 			</div>
 		</div>
 	</div>

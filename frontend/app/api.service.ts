@@ -269,16 +269,11 @@ export class ApiService {
     return this.get('/cat/list');
   }
 
-  getPostPrivacyValues()
-  {
+  getPostPrivacyValues() {
     return this.get('/post/privacy-list');
   }
 
-  getUserRewards()
-  {
-    return this.get('/profile/get-reward');
+  getUserRewards(params?: { user_id?: number }) {
+    return this.get('/profile/get-reward', params);
   }
-
-
-
 }

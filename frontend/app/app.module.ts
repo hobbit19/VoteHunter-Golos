@@ -38,7 +38,7 @@ import { CreatorRewardsComponent } from './creator-rewards/creator-rewards.compo
 import { StateService } from "./state.service";
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MediatorService } from "./mediator.service";
-import { appRoutes } from "./app.rotes";
+import { appRoutes } from "./app.routes";
 import { DOMService } from "./dom.service";
 import { WysiwygComponent } from './wysiwyg/wysiwyg.component';
 import {CreatorPageResolver} from './creator-page/creator-page-resolver.service';
@@ -46,6 +46,8 @@ import {AuthGuard} from './auth-guard.service';
 import { CategoryPageComponent } from './category-page/category-page.component';
 import {CategoryPageResolverService} from './category-page/category-page-resolver.service';
 import { SafePipe } from './safe.pipe';
+import { BecomePatronPageComponent } from './become-patron-page/become-patron-page.component';
+import {BecomePatronPageResolverService} from './become-patron-page/become-patron-page-resolver.service';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,7 @@ import { SafePipe } from './safe.pipe';
     WysiwygComponent,
     CategoryPageComponent,
     SafePipe,
+    BecomePatronPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +100,7 @@ import { SafePipe } from './safe.pipe';
     DOMService,
     CreatorPageResolver,
     CategoryPageResolverService,
+    BecomePatronPageResolverService,
     AuthGuard,
     SafePipe,
   ],

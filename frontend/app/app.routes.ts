@@ -11,6 +11,8 @@ import {CreatorPageResolver} from './creator-page/creator-page-resolver.service'
 import {AuthGuard} from './auth-guard.service';
 import {CategoryPageComponent} from './category-page/category-page.component';
 import {CategoryPageResolverService} from './category-page/category-page-resolver.service';
+import {BecomePatronPageComponent} from './become-patron-page/become-patron-page.component';
+import {BecomePatronPageResolverService} from './become-patron-page/become-patron-page-resolver.service';
 
 export const appRoutes: Routes = [
   {
@@ -30,6 +32,13 @@ export const appRoutes: Routes = [
     data: {name: 'addPost'},
     component: AddPostPageComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'become-patron/:id',
+    data: {name: 'becomePatron'},
+    component: BecomePatronPageComponent,
+    canActivate: [AuthGuard],
+    resolve: {rewards: BecomePatronPageResolverService}
   },
   {
     path: 'login',
