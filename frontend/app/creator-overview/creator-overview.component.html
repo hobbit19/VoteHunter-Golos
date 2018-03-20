@@ -1,2 +1,4 @@
-<div class="creatorOverview__video js-creatorOverview__video"></div>
+<div class="creatorOverview__video" *ngIf="profile?.promo_video">
+	<iframe class="creatorOverview__iframe" [attr.src]="profile.promo_video | safe" frameborder="0" allowfullscreen></iframe>
+</div>
 <div class="creatorOverview__heading" [innerHTML]="profile?.description"></div>

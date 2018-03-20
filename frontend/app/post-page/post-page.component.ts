@@ -67,20 +67,6 @@ export class PostPageComponent implements OnInit {
               }
             }
             this.post = postData;
-
-            if (postData.video_url) {
-              let video = document.createElement('iframe');
-
-              video.setAttribute('frameborder', '0');
-              video.setAttribute('allowfullscreen', 'true');
-              video.setAttribute('src', `https://www.youtube.com/embed/${this.getVideoID()}`);
-              video.setAttribute('width', `420}`);
-              video.setAttribute('height', `315`);
-
-              setTimeout(() => {
-                this.elementRef.nativeElement.querySelector('.js-postPage__video').appendChild(video)
-              }, 0);
-            }
           });
         } else {
           console.error(err);
@@ -88,6 +74,10 @@ export class PostPageComponent implements OnInit {
       });
 
     });
+  }
+
+  getVideoSrc() {
+    return 'https://www.youtube.com/embed/' + this.getVideoID();
   }
 
   pay() {

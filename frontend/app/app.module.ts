@@ -45,6 +45,7 @@ import {CreatorPageResolver} from './creator-page/creator-page-resolver.service'
 import {AuthGuard} from './auth-guard.service';
 import { CategoryPageComponent } from './category-page/category-page.component';
 import {CategoryPageResolverService} from './category-page/category-page-resolver.service';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import {CategoryPageResolverService} from './category-page/category-page-resolve
     SidebarComponent,
     WysiwygComponent,
     CategoryPageComponent,
+    SafePipe,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +98,7 @@ import {CategoryPageResolverService} from './category-page/category-page-resolve
     CreatorPageResolver,
     CategoryPageResolverService,
     AuthGuard,
+    SafePipe,
   ],
   bootstrap: [AppComponent]
 })
