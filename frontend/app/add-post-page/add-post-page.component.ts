@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
+import {DOMService} from '../dom.service';
 let golos = require('golos-js');
 
 const POST_PRIVACY = [
@@ -22,7 +23,8 @@ export class AddPostPageComponent implements OnInit {
 
   constructor(
     public api: ApiService,
-    public router: Router
+    public router: Router,
+    public domService: DOMService
   ) { }
 
   POST_PRIVACY = POST_PRIVACY;
@@ -57,30 +59,38 @@ export class AddPostPageComponent implements OnInit {
 
   errors = [];
 
-  post() {
-    this.api.postAdd(this.postData).then((data) => {
-      if (!data.status) { return; }
-      if (data.status != 'ok') { return; }
+  post(event) {
+    let promise = new Promise((resolve, reject) => {
+      this.api.postAdd(this.postData).then((data) => {
+        if (!data.status || data.status !== 'ok') {
+          reject();
 
-      let wif = localStorage.getItem('privKey');
-      let parentAuthor = '';
-      let parentPermlink = data.data.parentPermlink;
-      let author = data.data.author;
-      let permlink = data.data.permlink;
-      let title = data.data.title;
-      let body = data.data.body;
-      let jsonMetadata = JSON.stringify(data.data.jsonMetadata);
-
-      golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
-        if (err) {
-          console.log(err);
-
-          this.errors = ["Timeout limit"];
-        } else {
-          this.router.navigateByUrl(data.data.post_link);
+          return;
         }
+
+        let wif = localStorage.getItem('privKey');
+        let parentAuthor = '';
+        let parentPermlink = data.data.parentPermlink;
+        let author = data.data.author;
+        let permlink = data.data.permlink;
+        let title = data.data.title;
+        let body = data.data.body;
+        let jsonMetadata = JSON.stringify(data.data.jsonMetadata);
+
+        golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
+          if (err) {
+            reject();
+
+            this.errors = ["Timeout limit"];
+          } else {
+            resolve();
+            this.router.navigateByUrl(data.data.post_link);
+          }
+        });
       });
     });
+
+    this.domService.onFormSubmit(event.target, promise);
   }
 
   clearErrors() {
