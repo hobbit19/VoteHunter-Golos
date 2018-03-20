@@ -19,7 +19,7 @@ use Yii;
  * @property int $not_encrypted
  * @property int $user_id
  * @property int $cat_id
- * @property int $patron_only
+ * @property int $patrons_only
  */
 class Posts extends \yii\db\ActiveRecord
 {

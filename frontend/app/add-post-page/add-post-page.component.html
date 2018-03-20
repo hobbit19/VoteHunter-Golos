@@ -36,8 +36,8 @@
 						<div class="section__name" i18n="">Who can see this post?</div>
 					</div>
 					<div class="section__right">
-						<vh-dropdown [title]="findByProp(POST_PRIVACY, 'value', postData.patron_only).str" tabindex="1">
-							<vh-dropdown-option (click)="postData.patron_only = privacy.value" *ngFor="let privacy of POST_PRIVACY" [innerHTML]="privacy.str"></vh-dropdown-option>
+						<vh-dropdown [title]="findByProp(POST_PRIVACY, 'value', postData.patrons_only)?.str" tabindex="1">
+							<vh-dropdown-option (click)="postData.patrons_only = privacy.value" *ngFor="let privacy of POST_PRIVACY" [innerHTML]="privacy.str"></vh-dropdown-option>
 						</vh-dropdown>
 					</div>
 				</div>

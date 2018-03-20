@@ -10,11 +10,12 @@ namespace app\controllers;
 
 
 use app\api\golos\GolosApi;
+use app\api\GrapheneNodeClient\OpTransfer;
 use app\helpers\ImageHelper;
 use app\models\Anubis;
 use app\models\PaidPosts;
 use app\models\Posts;
-use GrapheneNodeClient\Tools\ChainOperations\OpTransfer;
+use app\models\Rewards;
 use app\models\Users;
 
 use GrapheneNodeClient\Tools\Transliterator;
@@ -67,12 +68,11 @@ class PostController extends Controller
         $objPost->title = \Yii::$app->request->post('title');
         $objPost->body = \Yii::$app->request->post('body');
         $objPost->cat_id = \Yii::$app->request->post('cat_id');
-        $objPost->patron_only = \Yii::$app->request->post('patron_only');
+        $objPost->patrons_only = \Yii::$app->request->post('patrons_only');
         if($objPost->save()) {
             $strLink = "http://yousource.io/post?a=".\Yii::$app->user->getIdentity()->golos_nick."&p=".$objPost->permlink;
             $strBody = \Yii::$app->request->post('body','') .
-                "<br> !! Для просмотра зашифрованного контента нужно оплатить  ".$objPost->price.
-                " GOLOS автору: <a href='$strLink'>перейдите на YouSource</a>";
+                "<br> !! Для просмотра зашифрованного контента <a href='$strLink'>перейдите на YouSource</a>";
             return [
                 'status' => 'ok',
                 'data' => [
@@ -246,6 +246,28 @@ class PostController extends Controller
         return [
             'status' => 'ok',
             'posts' => $arrPosts
+        ];
+    }
+
+    public function actionPrivacyList()
+    {
+        if(\Yii::$app->user->isGuest) {
+            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'You are not logged in')
+            ];
+        }
+        $arrPrivacy = [
+            [ 'str' => 'Public', 'value' => 0 ],
+            [ 'str' => 'Patrons only', 'value' => 1 ],
+        ];
+        $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->user->getId()])->asArray()->all();
+        foreach ($arrRewards as $arrReward) {
+            $arrPrivacy[] = [ 'str' => 'Patrons $' . $arrReward['amount'] . '+', 'value' => $arrReward['amount']];
+        }
+        return [
+            'status' => 'ok',
+            'privacy' => $arrPrivacy,
         ];
     }
 

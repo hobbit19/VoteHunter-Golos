@@ -11,6 +11,7 @@ use Yii;
  * @property int $user_id
  * @property string $amount
  * @property string $reward
+ * @property string $title
  */
 class Rewards extends \yii\db\ActiveRecord
 {
@@ -30,8 +31,11 @@ class Rewards extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'required'],
             [['user_id'], 'integer'],
-            [['amount'], 'number'],
+            [['amount'], 'number', 'min' => 1],
             [['reward'], 'string'],
+            [['reward'], 'required'],
+            [['title'], 'string', 'max' => 100],
+            [['title'], 'required'],
         ];
     }
 

@@ -7,6 +7,7 @@
  */
 namespace app\api\golos;
 
+use app\api\GrapheneNodeClient\OpTransfer;
 use GrapheneNodeClient\Commands\Broadcast\BroadcastTransactionSynchronousCommand;
 use GrapheneNodeClient\Commands\CommandQueryData;
 use GrapheneNodeClient\Commands\DataBase\GetDiscussionsByBlogCommand;
@@ -97,5 +98,30 @@ class GolosApi
         return $arrData;
 
     }
+
+    public function transfer($strWifFrom, $strUserFrom, $strUserTo, $fltSum, $strMemo)
+    {
+        $connector = new GolosWSConnector();
+        try{
+            $answer = OpTransfer::doSynchronous(
+                $connector,
+                $strWifFrom,
+                $strUserFrom,
+                $strUserTo,
+                sprintf('%01.3f GOLOS', $fltSum),
+                $strMemo
+            );
+
+            print_r($answer);
+
+        }catch (Exception $e){
+            return [
+                'status' => 'error',
+                'msg' => $e->getMessage()
+            ];
+        }
+
+    }
+
 
 }

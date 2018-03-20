@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import {DOMService} from '../dom.service';
 let golos = require('golos-js');
 
-const POST_PRIVACY = [
-  { str: 'Patrons only', value: 1 },
-  { str: 'Public', value: 0 },
-];
+// const POST_PRIVACY = [
+//   { str: 'Patrons only', value: 1 },
+//   { str: 'Public', value: 0 },
+// ];
 
 const POST_CONTENT_TYPES = [
   { str: 'Video', value: 1 },
@@ -27,23 +27,33 @@ export class AddPostPageComponent implements OnInit {
     public domService: DOMService
   ) { }
 
-  POST_PRIVACY = POST_PRIVACY;
+  POST_PRIVACY: any;
   POST_CONTENT_TYPES = POST_CONTENT_TYPES;
 
   postData = {
     title: '',
     body: '',
     video_url: '',
-    patron_only: POST_PRIVACY[0].value,
+    patrons_only: 0,
     cat_id: POST_CONTENT_TYPES[0].value,
   };
 
   ngOnInit() {
+    this.api.getPostPrivacyValues().then(
+        (data) => {
+          this.POST_PRIVACY = data.privacy;
+        },
+        (data) => {
+
+        }
+    );
   }
 
   findByProp(arr, prop, val) {
     let result;
-
+    if(!arr || arr.length === 0) {
+        return result;
+    }
     arr.forEach((elem) => {
       if (elem[prop] === val) {
         result = elem;
