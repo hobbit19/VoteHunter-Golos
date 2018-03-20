@@ -94,10 +94,8 @@
 						</div>
 						<div class="section__right">
 							<vh-dropdown [title]="profile?.cover_text_color" tabindex="1">
-								<vh-dropdown-option (click)="profile.cover_text_color = 'white'" i18n="">White
-								</vh-dropdown-option>
-								<vh-dropdown-option (click)="profile.cover_text_color = 'black'" i18n="">Black
-								</vh-dropdown-option>
+								<vh-dropdown-option (click)="profile.cover_text_color = 'white'" i18n="">White</vh-dropdown-option>
+								<vh-dropdown-option (click)="profile.cover_text_color = 'black'" i18n="">Black</vh-dropdown-option>
 							</vh-dropdown>
 						</div>
 					</div>
@@ -193,6 +191,7 @@
 			<p class="desc paragraph" i18n="">Rewards are the best way to thank your fans for their pledges</p>
 			<div *ngFor="let reward of rewards ; let i = index">
 				<form class="editGoal__form" (submit)="submitReward($event, i)">
+
 					<div class="section">
 						<div class="section__row">
 							<input class="section__input" i18n-placeholder="" placeholder="Title"

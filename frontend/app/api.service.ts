@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {HttpHeaders} from '@angular/common/http';
 import {DOMService} from './dom.service';
 
 let golos = require('golos-js');
@@ -9,7 +9,8 @@ golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099
 
 @Injectable()
 export class ApiService {
-  constructor(public http: HttpClient, public domService: DOMService,) { }
+  constructor(public http: HttpClient, public domService: DOMService,) {
+  }
 
   request(method: string, options: any): Promise<any> {
     let promise;
@@ -68,26 +69,26 @@ export class ApiService {
     });
   }
 
-    postFormData(url, data): Promise<any> {
-        let fd = this.domService.convertToFormData(data);
+  postFormData(url, data): Promise<any> {
+    let fd = this.domService.convertToFormData(data);
 
-        return new Promise((resolve, reject) => {
-            this.http.post(url, fd).subscribe((data: any) => {
-                if (data.status === 'ok') {
-                    resolve(data);
-                } else if (data.status === 'error') {
-                    reject(data);
-                }
-            });
-        });
-    }
+    return new Promise((resolve, reject) => {
+      this.http.post(url, fd).subscribe((data: any) => {
+        if (data.status === 'ok') {
+          resolve(data);
+        } else if (data.status === 'error') {
+          reject(data);
+        }
+      });
+    });
+  }
 
   getStats() {
     return Promise.resolve([
-      { name: 'Posts', num: '0' },
-      { name: 'Golos', num: '0' },
-      { name: 'Patrons', num: '0' },
-      { name: 'Sum', num: '$0' },
+      {name: 'Posts', num: '0'},
+      {name: 'Golos', num: '0'},
+      {name: 'Patrons', num: '0'},
+      {name: 'Sum', num: '$0'},
     ]);
   }
 
@@ -97,57 +98,57 @@ export class ApiService {
 
   getMyBakers() {
     return Promise.resolve([
-      { name: 'Name Surname', votes: 4, profile_image: '/images/avatar.jpg' },
-      { name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg' },
-      { name: 'Name Surname', votes: 1, profile_image: '/images/avatar.jpg' },
-      { name: 'Name Surname', votes: 2, profile_image: '/images/avatar.jpg' },
-      { name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg' },
+      {name: 'Name Surname', votes: 4, profile_image: '/images/avatar.jpg'},
+      {name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg'},
+      {name: 'Name Surname', votes: 1, profile_image: '/images/avatar.jpg'},
+      {name: 'Name Surname', votes: 2, profile_image: '/images/avatar.jpg'},
+      {name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg'},
     ]);
   }
 
-  getAuthors(params?: {limit?: number; order?: string}) {
+  getAuthors(params?: { limit?: number; order?: string }) {
     return this.get('/profile/list', params);
 
-/*
-    return Promise.resolve([
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: '4 часа назад / 0 покровителей',
-        profile_image: '/images/author.jpg'
-      },
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: '4 часа назад / 0 покровителей',
-        profile_image: '/images/author.jpg'
-      },
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: '4 часа назад / 0 покровителей',
-        profile_image: '/images/author.jpg'
-      },
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: '4 часа назад / 0 покровителей',
-        profile_image: '/images/author.jpg'
-      },
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: '4 часа назад / 0 покровителей',
-        profile_image: '/images/author.jpg'
-      },
-      {
-        name: 'Phillip DeFranco',
-        about: 'Health-Focused Bounce Houses',
-        desc: '4 часа назад / 0 покровителей',
-        profile_image: '/images/author.jpg'
-      }
-    ]);
-*/
+    /*
+        return Promise.resolve([
+          {
+            name: 'Phillip DeFranco',
+            about: 'Health-Focused Bounce Houses',
+            desc: '4 часа назад / 0 покровителей',
+            profile_image: '/images/author.jpg'
+          },
+          {
+            name: 'Phillip DeFranco',
+            about: 'Health-Focused Bounce Houses',
+            desc: '4 часа назад / 0 покровителей',
+            profile_image: '/images/author.jpg'
+          },
+          {
+            name: 'Phillip DeFranco',
+            about: 'Health-Focused Bounce Houses',
+            desc: '4 часа назад / 0 покровителей',
+            profile_image: '/images/author.jpg'
+          },
+          {
+            name: 'Phillip DeFranco',
+            about: 'Health-Focused Bounce Houses',
+            desc: '4 часа назад / 0 покровителей',
+            profile_image: '/images/author.jpg'
+          },
+          {
+            name: 'Phillip DeFranco',
+            about: 'Health-Focused Bounce Houses',
+            desc: '4 часа назад / 0 покровителей',
+            profile_image: '/images/author.jpg'
+          },
+          {
+            name: 'Phillip DeFranco',
+            about: 'Health-Focused Bounce Houses',
+            desc: '4 часа назад / 0 покровителей',
+            profile_image: '/images/author.jpg'
+          }
+        ]);
+    */
   }
 
   getCategories() {
@@ -161,7 +162,7 @@ export class ApiService {
   }
 
   getCategory(id) {
-    return this.get('/cat/get-authors', { id: id });
+    return this.get('/cat/get-authors', {id: id});
   }
 
 
@@ -173,9 +174,9 @@ export class ApiService {
       bannerImg: '/images/profile-banner-example.png',
       avatar: '/images/profile-ava-example.png',
       socialLinks: [
-        { name: 'twitter', link: '#' },
-        { name: 'facebook', link: '#' },
-        { name: 'youtube', link: '#' },
+        {name: 'twitter', link: '#'},
+        {name: 'facebook', link: '#'},
+        {name: 'youtube', link: '#'},
       ],
       badge: '/images/badge-2000.png',
       stats: {
@@ -222,9 +223,9 @@ export class ApiService {
   }
 
   getProfileByUrl(url: string) {
-      return this.get('/profile/get-by-url', {
-        url: url
-      });
+    return this.get('/profile/get-by-url', {
+      url: url
+    });
   }
 
   getProfile() {
@@ -244,8 +245,7 @@ export class ApiService {
   }
 
 
-
-    postAdd(data: any) {
+  postAdd(data: any) {
     return this.post('/post/add', data);
   }
 
@@ -273,24 +273,20 @@ export class ApiService {
     return this.get('/cat/list');
   }
 
-  getPostPrivacyValues()
-  {
+  getPostPrivacyValues() {
     return this.get('/post/privacy-list');
   }
 
-    getUserRewards(params?: { user_id?: number }) {
-        return this.get('/profile/get-rewards', params);
-    }
-
-  transferFunds()
-  {
-      let wif = golos.auth.toWif('gaidar', 'qwerty12345', 'active');
-      golos.broadcast.transfer(wif, 'gaidar', 'vasya', '1.000 GOLOS', 'Patron', function(err, result) {
-          console.log(err, result);
-      });
-
+  getUserRewards(params?: { user_id?: number }) {
+    return this.get('/profile/get-rewards', params);
   }
 
+  transferFunds() {
+    let wif = golos.auth.toWif('gaidar', 'qwerty12345', 'active');
+    golos.broadcast.transfer(wif, 'gaidar', 'vasya', '1.000 GOLOS', 'Patron', function (err, result) {
+      console.log(err, result);
+    });
+  }
 
 
 }

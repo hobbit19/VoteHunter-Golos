@@ -48,6 +48,7 @@ import {CategoryPageResolverService} from './category-page/category-page-resolve
 import { SafePipe } from './safe.pipe';
 import { BecomePatronPageComponent } from './become-patron-page/become-patron-page.component';
 import {BecomePatronPageResolverService} from './become-patron-page/become-patron-page-resolver.service';
+import { RewardsComponent } from './rewards/rewards.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import {BecomePatronPageResolverService} from './become-patron-page/become-patro
     CategoryPageComponent,
     SafePipe,
     BecomePatronPageComponent,
+    RewardsComponent,
   ],
   imports: [
     BrowserModule,

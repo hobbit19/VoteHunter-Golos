@@ -1,7 +1,8 @@
-import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
-import { ApiService } from '../api.service';
-import { Router } from '@angular/router';
+import {Component, HostBinding, OnInit, ViewEncapsulation} from '@angular/core';
+import {ApiService} from '../api.service';
+import {Router} from '@angular/router';
 import {DOMService} from '../dom.service';
+
 let golos = require('golos-js');
 
 // const POST_PRIVACY = [
@@ -10,7 +11,7 @@ let golos = require('golos-js');
 // ];
 
 const POST_CONTENT_TYPES = [
-  { str: 'Video', value: 1 },
+  {str: 'Video', value: 1},
 ];
 
 @Component({
@@ -21,11 +22,10 @@ const POST_CONTENT_TYPES = [
 })
 export class AddPostPageComponent implements OnInit {
 
-  constructor(
-    public api: ApiService,
-    public router: Router,
-    public domService: DOMService
-  ) { }
+  constructor(public api: ApiService,
+              public router: Router,
+              public domService: DOMService) {
+  }
 
   POST_PRIVACY: any;
   POST_CONTENT_TYPES = POST_CONTENT_TYPES;
@@ -40,19 +40,19 @@ export class AddPostPageComponent implements OnInit {
 
   ngOnInit() {
     this.api.getPostPrivacyValues().then(
-        (data) => {
-          this.POST_PRIVACY = data.privacy;
-        },
-        (data) => {
+      (data) => {
+        this.POST_PRIVACY = data.privacy;
+      },
+      (data) => {
 
-        }
+      }
     );
   }
 
   findByProp(arr, prop, val) {
     let result;
-    if(!arr || arr.length === 0) {
-        return result;
+    if (!arr || arr.length === 0) {
+      return result;
     }
     arr.forEach((elem) => {
       if (elem[prop] === val) {
@@ -91,7 +91,7 @@ export class AddPostPageComponent implements OnInit {
           if (err) {
             reject();
 
-            this.errors = ["Timeout limit"];
+            this.errors = ['Timeout limit'];
           } else {
             resolve();
             this.router.navigateByUrl(data.data.post_link);

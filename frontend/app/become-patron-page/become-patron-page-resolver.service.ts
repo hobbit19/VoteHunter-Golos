@@ -12,7 +12,7 @@ export class BecomePatronPageResolverService implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|Promise<boolean>|boolean {
     return this.api.getUserRewards({ user_id: route.params.id }).then((data) => {
-      return data;
+      return data.rewards;
     }, () => {
       this.router.navigate(['/']);
       return false;

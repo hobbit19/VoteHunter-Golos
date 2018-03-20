@@ -1,5 +1,5 @@
-import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
-import { ApiService } from '../api.service';
+import {Component, HostBinding, OnInit, ViewEncapsulation} from '@angular/core';
+import {ApiService} from '../api.service';
 import {DOMService} from '../dom.service';
 
 let golos = require('golos-js');
@@ -26,13 +26,12 @@ export class EditProfilePageComponent implements OnInit {
   new_profile_image: any;
   new_list_image: any;
 
-  constructor(
-      public api: ApiService,
-      public domService: DOMService,
-      ) {}
+  constructor(public api: ApiService,
+              public domService: DOMService,) {
+  }
 
   ngOnInit() {
-      this.getProfile();
+    this.getProfile();
   }
 
   @HostBinding('class') get classStr() {
@@ -40,148 +39,138 @@ export class EditProfilePageComponent implements OnInit {
   }
 
   submit(event) {
-/*
-      let dataJson = {
-          yousource: this.profile
-      }
-      let wif = golos.auth.toWif('valera', 'qwerty12345');
+    /*
+          let dataJson = {
+              yousource: this.profile
+          }
+          let wif = golos.auth.toWif('valera', 'qwerty12345');
 
-      let resultWifToPrivate = golos.auth.getPrivateKeys('valera', 'qwerty12345');
-      console.log(resultWifToPrivate);
-      //"params": ["account", "owner", "active", "posting", "memo_key", "json_metadata"]
-      golos.broadcast.accountUpdate(wif, 'valera', resultWifToPrivate.owner, resultWifToPrivate.active, resultWifToPrivate.posting, resultWifToPrivate.memo, JSON.stringify(dataJson), function(err, result) {
-          console.log(err, result);
-      });
-      return;
-*/
-      if(this.selectedCategory.id != 0) {
-          this.profile.cat_id = this.selectedCategory.id;
-      }
-      let data = {
-          profile: JSON.stringify(this.profile)
-      }
-      if(this.new_profile_image) {
-          data['new_profile_image'] = this.new_profile_image;
-      }
-      if(this.new_cover_image) {
-          data['new_cover_image'] = this.new_cover_image;
-      }
-      if(this.new_list_image) {
-          data['new_list_image'] = this.new_list_image;
-      }
-      this.api.updateProfile(data).then((data) => {
-
-      }, (data) => {
-
-      });
+          let resultWifToPrivate = golos.auth.getPrivateKeys('valera', 'qwerty12345');
+          console.log(resultWifToPrivate);
+          //"params": ["account", "owner", "active", "posting", "memo_key", "json_metadata"]
+          golos.broadcast.accountUpdate(wif, 'valera', resultWifToPrivate.owner, resultWifToPrivate.active, resultWifToPrivate.posting, resultWifToPrivate.memo, JSON.stringify(dataJson), function(err, result) {
+              console.log(err, result);
+          });
+          return;
+    */
+    if (this.selectedCategory.id != 0) {
+      this.profile.cat_id = this.selectedCategory.id;
+    }
+    let data = {
+      profile: JSON.stringify(this.profile)
+    }
+    if (this.new_profile_image) {
+      data['new_profile_image'] = this.new_profile_image;
+    }
+    if (this.new_cover_image) {
+      data['new_cover_image'] = this.new_cover_image;
+    }
+    if (this.new_list_image) {
+      data['new_list_image'] = this.new_list_image;
+    }
+    this.domService.onFormSubmit(event.target, this.api.updateProfile(data).then(null, () => true));
   }
 
-  submitGoals () {
-      this.api.updateGoals(this.goals[0]).then((data) => {
-            //do something
-      }, (data) => {
-            console.log(data.msg);
-      });
+  submitGoals(event) {
+    this.domService.onFormSubmit(event.target, this.api.updateGoals(this.goals[0]).then(null, () => true));
   }
 
-  submitReward(i) {
-      this.api.updateReward(this.rewards[i]).then((data) => {
-          //do something
-      }, (data) => {
-          console.log(data.msg);
-      });
-
+  submitReward(event, i) {
+    this.domService.onFormSubmit(event.target, this.api.updateReward(this.rewards[i]).then(null, () => true));
   }
 
   addReward() {
-      this.rewards.push({
-          amount: 0.0,
-          reward: '',
-          title: '',
-      })
+    this.rewards.push({
+      amount: 0.0,
+      reward: '',
+      title: '',
+    })
   }
 
-  delReward (i) {
-    if(confirm('Are you sure?')) {
+  delReward(i) {
+    if (confirm('Are you sure?')) {
 
     }
   }
 
 
-    getCategoriesList() {
-      this.api.getCategories().then((data) => {
-          this.categories = data.cats;
-          if(this.profile.cat_id == 0) {
-              this.selectedCategory = {
-                  id: 0,
-                  name: 'Not chosen'
-              };
-          } else {
-              this.selectedCategory = this.categories[this.profile.cat_id];
-          }
-      })
+  getCategoriesList() {
+    this.api.getCategories().then((data) => {
+      this.categories = data.cats;
+      if (this.profile.cat_id == 0) {
+        this.selectedCategory = {
+          id: 0,
+          name: 'Not chosen'
+        };
+      } else {
+        this.selectedCategory = this.categories[this.profile.cat_id];
+      }
+    })
   }
 
   getProfile() {
-      this.api.getProfile().then((data) => {
-          this.profile = data.profile;
-          this.goals = data.goals;
-          this.rewards = data.rewards;
-          this.getCategoriesList();
-          if(this.profile.contents) {
+    this.api.getProfile().then((data) => {
+      this.profile = data.profile;
+      this.goals = data.goals;
+      this.rewards = data.rewards;
+      this.getCategoriesList();
+      if (this.profile.contents) {
 
-          }
-      }, (data) => {
-         //show data.msg
-      });
+      }
+    }, (data) => {
+      //show data.msg
+    });
   }
+
   onAvaInputChange($event) {
-      let files = $event.target.files;
-      for (let i = 0, f; f = files[i]; i++) {
-          if (!f.type.match('image.*')) {
-              continue;
-          }
-          let reader = new FileReader();
-          reader.onload = ((theFile) => {
-              return (e) => {
-                  document.getElementById('new_profile_image').style.backgroundImage = 'url(' + e.target.result + ')';
-                  this.new_profile_image = f;
-              };
-          })(f);
-          reader.readAsDataURL(f);
+    let files = $event.target.files;
+    for (let i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image.*')) {
+        continue;
       }
+      let reader = new FileReader();
+      reader.onload = ((theFile) => {
+        return (e) => {
+          document.getElementById('new_profile_image').style.backgroundImage = 'url(' + e.target.result + ')';
+          this.new_profile_image = f;
+        };
+      })(f);
+      reader.readAsDataURL(f);
+    }
   }
+
   onCoverInputChange($event) {
-      let files = $event.target.files;
-      for (let i = 0, f; f = files[i]; i++) {
-          if (!f.type.match('image.*')) {
-              continue;
-          }
-          let reader = new FileReader();
-          reader.onload = ((theFile) => {
-              return (e) => {
-                  document.getElementById('new_cover_image').style.backgroundImage = 'url(' + e.target.result + ')';
-                  this.new_cover_image = f;
-              };
-          })(f);
-          reader.readAsDataURL(f);
+    let files = $event.target.files;
+    for (let i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image.*')) {
+        continue;
       }
+      let reader = new FileReader();
+      reader.onload = ((theFile) => {
+        return (e) => {
+          document.getElementById('new_cover_image').style.backgroundImage = 'url(' + e.target.result + ')';
+          this.new_cover_image = f;
+        };
+      })(f);
+      reader.readAsDataURL(f);
+    }
   }
-    onListInputChange($event) {
-      let files = $event.target.files;
-      for (let i = 0, f; f = files[i]; i++) {
-          if (!f.type.match('image.*')) {
-              continue;
-          }
-          let reader = new FileReader();
-          reader.onload = ((theFile) => {
-              return (e) => {
-                  document.getElementById('new_list_image').style.backgroundImage = 'url(' + e.target.result + ')';
-                  this.new_list_image = f;
-              };
-          })(f);
-          reader.readAsDataURL(f);
+
+  onListInputChange($event) {
+    let files = $event.target.files;
+    for (let i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image.*')) {
+        continue;
       }
+      let reader = new FileReader();
+      reader.onload = ((theFile) => {
+        return (e) => {
+          document.getElementById('new_list_image').style.backgroundImage = 'url(' + e.target.result + ')';
+          this.new_list_image = f;
+        };
+      })(f);
+      reader.readAsDataURL(f);
+    }
   }
 
   onTextChanged(event) {

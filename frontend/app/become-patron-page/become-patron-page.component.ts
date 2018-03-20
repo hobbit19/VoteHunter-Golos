@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'vh-become-patron-page',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./become-patron-page.component.less']
 })
 export class BecomePatronPageComponent implements OnInit {
+  constructor(private route: ActivatedRoute) { }
 
-  constructor() { }
+  rewards: any;
 
   ngOnInit() {
+    this.rewards = this.route.snapshot.data.rewards;
+  }
+
+  submit(reward) {
+    console.log(reward);
   }
 
 }
