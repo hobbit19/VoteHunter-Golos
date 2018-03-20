@@ -4,6 +4,7 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 @Injectable()
 export class MediatorService {
   sidebar: SidebarComponent;
+  requisitesCallback?: Function;
 
   constructor() { }
 

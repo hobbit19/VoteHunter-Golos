@@ -1,0 +1,23 @@
+<form class="requisitesPage__form" (submit)="submit($event)">
+  <div class="section">
+    <div class="section__row">
+      <div class="section__left">
+        <div class="section__name" i18n="">Username</div>
+      </div>
+      <div class="section__right">
+        <input class="section__input" i18n-placeholder="" placeholder="Golos login" [(ngModel)]="login" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+    <div class="section__row">
+      <div class="section__left">
+        <div class="section__name" i18n="">Password</div>
+      </div>
+      <div class="section__right">
+        <input class="section__input" i18n-placeholder="" placeholder="Active key" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="button button-mode-2" i18n="">Login</button>
+  </div>
+</form>

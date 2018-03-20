@@ -13,6 +13,7 @@ import {CategoryPageComponent} from './category-page/category-page.component';
 import {CategoryPageResolverService} from './category-page/category-page-resolver.service';
 import {BecomePatronPageComponent} from './become-patron-page/become-patron-page.component';
 import {BecomePatronPageResolverService} from './become-patron-page/become-patron-page-resolver.service';
+import {RequisitesPageComponent} from './requisites-page/requisites-page.component';
 
 export const appRoutes: Routes = [
   {
@@ -37,8 +38,12 @@ export const appRoutes: Routes = [
     path: 'become-patron/:id',
     data: {name: 'becomePatron'},
     component: BecomePatronPageComponent,
-    canActivate: [AuthGuard],
     resolve: {rewards: BecomePatronPageResolverService}
+  },
+  {
+    path: 'requisites',
+    data: {name: 'requisites'},
+    component: RequisitesPageComponent,
   },
   {
     path: 'login',

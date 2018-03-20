@@ -49,6 +49,7 @@ import { SafePipe } from './safe.pipe';
 import { BecomePatronPageComponent } from './become-patron-page/become-patron-page.component';
 import {BecomePatronPageResolverService} from './become-patron-page/become-patron-page-resolver.service';
 import { RewardsComponent } from './rewards/rewards.component';
+import { RequisitesPageComponent } from './requisites-page/requisites-page.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { RewardsComponent } from './rewards/rewards.component';
     SafePipe,
     BecomePatronPageComponent,
     RewardsComponent,
+    RequisitesPageComponent,
   ],
   imports: [
     BrowserModule,

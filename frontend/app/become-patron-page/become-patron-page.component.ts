@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MediatorService} from '../mediator.service';
 
 @Component({
   selector: 'vh-become-patron-page',
@@ -7,7 +8,11 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./become-patron-page.component.less']
 })
 export class BecomePatronPageComponent implements OnInit {
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private mediator: MediatorService
+    ) { }
 
   rewards: any;
 
@@ -16,7 +21,11 @@ export class BecomePatronPageComponent implements OnInit {
   }
 
   submit(reward) {
-    console.log(reward);
+    this.mediator.requisitesCallback = () => {
+      console.log('requisites page callback');
+    };
+
+    this.router.navigateByUrl('requisites');
   }
 
 }
