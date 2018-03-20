@@ -229,6 +229,7 @@ class ProfileController extends Controller
 //        }
         $objReward->amount = \Yii::$app->request->post('amount');
         $objReward->reward = \Yii::$app->request->post('reward');
+        $objReward->title = \Yii::$app->request->post('title');
         if($objReward->save()) {
             return [
                 'status' => 'ok',
@@ -238,6 +239,7 @@ class ProfileController extends Controller
         return [
             'status' => 'error',
             'msg' => 'Cannot update reward',
+            'errors' => $objReward->getErrors(),
         ];
 
     }
@@ -263,6 +265,16 @@ class ProfileController extends Controller
         return [
             'status' => 'ok',
             'authors' => $arrProfiles
+        ];
+    }
+
+    public function actionGetRewards()
+    {
+        $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->request->get('user_id')])
+            ->select('id', 'reward', 'amount', 'title')->asArray()->all();
+        return [
+            'status' => 'ok',
+            'rewards' => $arrRewards
         ];
     }
 }

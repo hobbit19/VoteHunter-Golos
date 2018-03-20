@@ -272,4 +272,17 @@ export class ApiService {
   getCatList() {
     return this.get('/cat/list');
   }
+
+  getPostPrivacyValues()
+  {
+    return this.get('/post/privacy-list');
+  }
+
+  getUserRewards()
+  {
+    return this.get('/profile/get-reward');
+  }
+
+
+
 }
