@@ -2,9 +2,7 @@
 	<div class="section" *ngIf="post">
 		<h2 class="h2 postPage__title" [innerHTML]="post.title"></h2>
 		<p class="paragraph postPage__desc" [innerHTML]="post.body"></p>
-		<div class="postPage__video" *ngIf="post.video_url">
-			<iframe width="420" height="315" [attr.src]="sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + getVideoID())" frameborder="0" allowfullscreen></iframe>
-		</div>
+		<div class="postPage__video js-postPage__video"></div>
 		<div class="buttons" *ngIf="!post.video_url">
 			<button class="button button-mode-2" (click)="pay()" i18n="">Pay</button>
 		</div>

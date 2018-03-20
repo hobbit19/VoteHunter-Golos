@@ -109,18 +109,26 @@
 			<div class="section">
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">VK</div>
+						<div class="section__name">YouTube</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Your account">
+						<input class="section__input" placeholder="https://www.youtube.com/your-channel">
 					</div>
 				</div>
 				<div class="section__row">
 					<div class="section__left">
-						<div class="section__name">YouTube</div>
+						<div class="section__name">Twitter</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Your account">
+						<input class="section__input" placeholder="https://twitter.com/your-channel">
+					</div>
+				</div>
+				<div class="section__row">
+					<div class="section__left">
+						<div class="section__name">Instagram</div>
+					</div>
+					<div class="section__right">
+						<input class="section__input" placeholder="https://www.instagram.com/your-channel">
 					</div>
 				</div>
 				<div class="section__row">
@@ -128,15 +136,7 @@
 						<div class="section__name">Twitch</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Your account">
-					</div>
-				</div>
-				<div class="section__row">
-					<div class="section__left">
-						<div class="section__name">Facebook</div>
-					</div>
-					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Your account">
+						<input class="section__input" placeholder="https://www.twitch.tv/your-channel">
 					</div>
 				</div>
 			</div>
@@ -173,7 +173,7 @@
 			<form class="editGoal__form">
 			<div class="section">
 				<div class="section__row">
-					<input class="section__input" i18n-placeholder="" placeholder="Title" [(ngModel)]="rewards[i].title" name="title"/>
+					<input class="section__input" i18n-placeholder="" placeholder="Title" [(ngModel)]="rewards[i].title" name="title" maxlength="100"/>
 				</div>
 				<div class="section__row">
 					<textarea class="section__textarea" i18n-placeholder="" placeholder="Description (e.g. Telegram chats with you once a month)" [(ngModel)]="rewards[i].reward" name="reward"></textarea>

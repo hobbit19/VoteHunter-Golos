@@ -18,12 +18,12 @@ export class CabinetPageComponent implements OnInit {
   profile: any;
 
   ngOnInit() {
-    this.api.getMyBakers().then((bakers) => {
-      this.bakers = bakers;
+    this.api.getPosts().then((data) => {
+      this.posts = data.posts;
     });
 
-    this.api.getMyPosts().then((posts) => {
-      this.posts = posts;
+    this.api.getMyBakers().then((bakers) => {
+      this.bakers = bakers;
     });
 
     this.api.getProfile().then((data) => {
