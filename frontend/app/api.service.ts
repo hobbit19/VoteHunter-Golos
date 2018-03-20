@@ -288,5 +288,10 @@ export class ApiService {
     });
   }
 
+  setAsPatron(data: any)
+  {
+      return this.get('/profile/set-as-patron', data);
+  }
+
 
 }

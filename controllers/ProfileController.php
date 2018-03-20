@@ -12,10 +12,14 @@ namespace app\controllers;
 use app\api\golos\GolosApi;
 use app\helpers\ImageHelper;
 use app\models\Goal;
+use app\models\Operation;
+use app\models\Patron;
 use app\models\Profile;
 use app\models\ProfileContents;
 use app\models\Rates;
 use app\models\Rewards;
+use app\models\User;
+use app\models\Users;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -271,13 +275,21 @@ class ProfileController extends Controller
 
     public function actionGetRewards()
     {
+        $objUser = Users::findOne((int)\Yii::$app->request->get('user_id'));
+        if(empty($objUser)) {
+            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'User not found')
+            ];
+        }
         $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->request->get('user_id')])
             ->select(['id', 'reward', 'amount', 'title'])->asArray()->all();
 
         $arrRates = Rates::findOne(['symbol' => 'GOLOS']);
 
-        array_walk($arrRewards, function (&$item, $key, $arrRates){
+        array_walk($arrRewards, function (&$item, $key, $arrRates) use ($objUser) {
            $item['golos'] = sprintf('%01.3f GOLOS', $item['amount'] / $arrRates['price_usd']);
+           $item['nick'] = $objUser->golos_nick;
         }, $arrRates);
 
         return [
@@ -285,4 +297,47 @@ class ProfileController extends Controller
             'rewards' => $arrRewards
         ];
     }
+
+    public function actionSetAsPatron()
+    {
+
+        $arrOper = \Yii::$app->request->post('op_data');
+        $objOperation = new Operation();
+        $objOperation->user_from = \Yii::$app->request->post('user_from');
+        $objOperation->user_to = $arrOper['nick'];
+        $objOperation->symbol = 'GOLOS';
+        $objOperation->sum_usd = $arrOper['amount'];
+        $objOperation->sum_coin = $arrOper['golos'];
+        if($objOperation->save()) {
+            $objUser = User::findOne(['golos_nick' => $objOperation->user_to]);
+            $objUserPatron = User::findOne(['golos_nick' => $objOperation->user_from]);
+            if(!is_object($objUserPatron)) {
+                $objUserPatron = new User();
+                $objUserPatron->golos_nick = $objOperation->user_from;
+                $objUserPatron->save();
+            }
+            $objPatron = new Patron();
+            $objPatron->user_id = $objUser->id;
+            $objPatron->patron_id = $objUserPatron->id;
+            $objPatron->status = Patron::STATUS_ACTIVE;
+            $objPatron->patron_sum = $objOperation->sum_usd;
+            $objPatron->save();
+            if(\Yii::$app->user->isGuest) {
+                \Yii::$app->user->loginByAccessToken(\Yii::$app->request->post('golos_nick'), Users::GOLOS_NICK);
+            }
+
+            $objProfile = Profile::findOne(['user_id' => $objUser->id]);
+            return [
+                'status' => 'ok',
+                'redirect' => '/'. $objProfile->url
+            ];
+        }
+        return [
+            'status' => 'error',
+            'msg' => \Yii::t('app', 'Can not save operation')
+        ];
+
+    }
 }
+
+

@@ -5,6 +5,10 @@ import {ApiService} from '../api.service';
 import {DOMService} from '../dom.service';
 import {MediatorService} from '../mediator.service';
 
+let golos = require('golos-js');
+golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
+golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
+
 @Component({
   selector: 'vh-requisites-page',
   templateUrl: './requisites-page.component.html',
@@ -24,6 +28,9 @@ export class RequisitesPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.user.isLoggedIn == true) {
+      this.login = this.user.golos_nick;
+    }
   }
 
   @HostBinding('class') get classStr() {
@@ -31,7 +38,15 @@ export class RequisitesPageComponent implements OnInit {
   }
 
   submit(event) {
-   this.mediator.requisitesCallback();
+      let wif = '';
+      if(!golos.auth.isWif(this.password)) {
+          wif = golos.auth.toWif(this.login, this.password, 'active');
+      } else {
+          wif = this.password;
+      }
+
+
+      this.mediator.requisitesCallback(wif, this.login);
   }
 
 }
