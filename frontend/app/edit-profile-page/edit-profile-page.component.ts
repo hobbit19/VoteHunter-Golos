@@ -8,6 +8,8 @@ golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099
 
 let steemit = require('steem');
 
+console.log(steemit);
+
 @Component({
   selector: 'vh-edit-profile-page',
   templateUrl: './edit-profile-page.component.html',
@@ -52,7 +54,7 @@ export class EditProfilePageComponent implements OnInit {
       });
       return;
 */
-    if(this.selectedCategory.id != 0) {
+      if(this.selectedCategory.id != 0) {
           this.profile.cat_id = this.selectedCategory.id;
       }
       let data = {
@@ -67,16 +69,28 @@ export class EditProfilePageComponent implements OnInit {
       if(this.new_list_image) {
           data['new_list_image'] = this.new_list_image;
       }
+      this.api.updateProfile(data).then((data) => {
 
-      this.domService.onFormSubmit(event.target, this.api.updateProfile(data).then(null, () => true));
+      }, (data) => {
+
+      });
   }
 
-  submitGoals(event) {
-    this.domService.onFormSubmit(event.target, this.api.updateGoals(this.goals[0]).then(null, () => true));
+  submitGoals () {
+      this.api.updateGoals(this.goals[0]).then((data) => {
+            //do something
+      }, (data) => {
+            console.log(data.msg);
+      });
   }
 
-  submitReward(event, i) {
-    this.domService.onFormSubmit(event.target, this.api.updateReward(this.rewards[i]).then(null, () => true));
+  submitReward(i) {
+      this.api.updateReward(this.rewards[i]).then((data) => {
+          //do something
+      }, (data) => {
+          console.log(data.msg);
+      });
+
   }
 
   addReward() {

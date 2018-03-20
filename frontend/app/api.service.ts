@@ -3,6 +3,10 @@ import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
 import {DOMService} from './dom.service';
 
+let golos = require('golos-js');
+golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
+golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
+
 @Injectable()
 export class ApiService {
   constructor(public http: HttpClient, public domService: DOMService,) { }
@@ -269,11 +273,24 @@ export class ApiService {
     return this.get('/cat/list');
   }
 
-  getPostPrivacyValues() {
+  getPostPrivacyValues()
+  {
     return this.get('/post/privacy-list');
   }
 
-  getUserRewards(params?: { user_id?: number }) {
-    return this.get('/profile/get-reward', params);
+    getUserRewards(params?: { user_id?: number }) {
+        return this.get('/profile/get-rewards', params);
+    }
+
+  transferFunds()
+  {
+      let wif = golos.auth.toWif('gaidar', 'qwerty12345', 'active');
+      golos.broadcast.transfer(wif, 'gaidar', 'vasya', '1.000 GOLOS', 'Patron', function(err, result) {
+          console.log(err, result);
+      });
+
   }
+
+
+
 }

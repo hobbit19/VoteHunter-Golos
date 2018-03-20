@@ -14,6 +14,7 @@ use app\helpers\ImageHelper;
 use app\models\Goal;
 use app\models\Profile;
 use app\models\ProfileContents;
+use app\models\Rates;
 use app\models\Rewards;
 use yii\web\Controller;
 use yii\web\UploadedFile;
@@ -271,7 +272,11 @@ class ProfileController extends Controller
     public function actionGetRewards()
     {
         $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->request->get('user_id')])
-            ->select('id', 'reward', 'amount', 'title')->asArray()->all();
+            ->select(['id', 'reward', 'amount', 'title'])->asArray()->all();
+        $arrRates = Rates::findOne(['symbol' => 'GOLOS']);
+        array_walk($arrRewards, function (&$item, $key, $arrRates){
+           $item['golos'] = sprintf('%01.3f GOLOS', $item['amount'] / $arrRates['price_usd']);
+        }, $arrRates);
         return [
             'status' => 'ok',
             'rewards' => $arrRewards
