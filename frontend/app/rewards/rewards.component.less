@@ -1,0 +1,83 @@
+@import (reference) '../environment';
+
+.rewards__form {
+	background-color: #fff;
+	padding: 30px;
+	margin-top: 30px;
+}
+
+.rewards__item {
+	display: flex;
+	cursor: pointer;
+}
+
+.rewards__item:not(:first-child) {
+	margin-top: 40px;
+}
+
+.rewards__l {
+	width: 50px;
+	flex-shrink: 0;
+}
+
+@rewardsRadioBorderWidth: 2px;
+
+.rewards__radio {
+	border-radius: 50%;
+	border: @rewardsRadioBorderWidth solid #ccc;
+	width: 24px;
+	height: 24px;
+	position: relative;
+}
+
+@rewardsRadioPointOffset: @rewardsRadioBorderWidth * 2;
+
+.rewards__item-chosen .rewards__radio:after:extend(.pseudo) {
+	border-radius: 50%;
+	top: @rewardsRadioPointOffset;
+	left: @rewardsRadioPointOffset;
+	right: @rewardsRadioPointOffset;
+	bottom: @rewardsRadioPointOffset;
+	background-color: @color1;
+}
+
+.rewards__r {
+	width: 100%;
+	flex-shrink: 1;
+}
+
+.rewards__title {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.rewards__price {
+	margin-top: 10px;
+}
+
+.rewards__reward {
+	margin-top: 10px;
+}
+
+.rewards__ui {
+	display: none;
+	margin-top: 10px;
+}
+
+.rewards__item-chosen .rewards__ui {
+	display: block;
+}
+
+.rewards__input {
+	height: @buttonHeight;
+	line-height: @buttonHeight;
+	font-size: 16px;
+	padding-left: 4px;
+	opacity: 0.5;
+	cursor: default;
+}
+
+.rewards__button {
+	margin-left: 10px;
+}
+

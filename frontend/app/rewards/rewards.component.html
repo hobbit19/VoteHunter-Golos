@@ -1,0 +1,19 @@
+<form class="rewards__form" (submit)="submit()">
+	<div class="rewards__item" *ngFor="let reward of rewards" [ngClass]="{'rewards__item-chosen': reward === chosenReward}" (click)="chosenReward = reward">
+		<div class="rewards__l">
+			<div class="rewards__radio"></div>
+		</div>
+		<div class="rewards__r">
+			<div class="rewards__title" [innerHTML]="reward.title"></div>
+			<div class="rewards__price">
+				<span [innerHTML]="'$' + reward.amount + '.00+'"></span>
+				<span i18n=""> per month</span>
+			</div>
+			<p class="paragraph rewards__reward" [innerHTML]="reward.reward"></p>
+			<div class="rewards__ui">
+				<input class="rewards__input" type="number" [(ngModel)]="reward.amount" min="0" readonly name="amount">
+				<button class="button button-mode-2 rewards__button" i18n="">Continue</button>
+			</div>
+		</div>
+	</div>
+</form>
