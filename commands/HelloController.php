@@ -48,5 +48,12 @@ class HelloController extends Controller
         $objGolos->getDiscussionsByBlog('gaidar', 'yousource');
     }
 
+    public function actionTransfer()
+    {
+        $objGolos = new GolosApi();
+        $objGolos->transfer('5JohDVuYaxNpXsPrMW9FWhVBfT17oet1KXPZw99QwDVW8AkqzhT', 'gaidar', 'vasya', 1, 'Patron');
+    }
+
+
 
 }

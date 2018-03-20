@@ -101,7 +101,7 @@ class GolosApi
 
     public function transfer($strWifFrom, $strUserFrom, $strUserTo, $fltSum, $strMemo)
     {
-        $connector = new GolosWSConnector();
+        $connector = new GolosTestWSConnector();
         try{
             $answer = OpTransfer::doSynchronous(
                 $connector,
