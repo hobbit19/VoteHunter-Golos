@@ -87,6 +87,10 @@ export class ApiService {
     ]);
   }
 
+  getPosts(params?: { user_id?: number }) {
+    return this.get('/post/list', params);
+  }
+
   getMyBakers() {
     return Promise.resolve([
       { name: 'Name Surname', votes: 4, profile_image: '/images/avatar.jpg' },
@@ -94,14 +98,6 @@ export class ApiService {
       { name: 'Name Surname', votes: 1, profile_image: '/images/avatar.jpg' },
       { name: 'Name Surname', votes: 2, profile_image: '/images/avatar.jpg' },
       { name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg' },
-    ]);
-  }
-
-  getMyPosts() {
-    return Promise.resolve([
-      { img: '/images/yoda.png', title: 'Mining for Beginners', desc: "In this post, I'll show you how to build and run mining farm..." },
-      { img: '/images/yoda.png', title: 'Mining for Beginners', desc: "In this post, I'll show you how to build and run mining farm..." },
-      { img: '/images/yoda.png', title: 'Mining for Beginners', desc: "In this post, I'll show you how to build and run mining farm..." },
     ]);
   }
 

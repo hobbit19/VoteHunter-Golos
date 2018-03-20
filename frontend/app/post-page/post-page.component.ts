@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, ElementRef, HostBinding, OnInit, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../api.service";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -6,6 +6,15 @@ let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
 golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
 
+interface IPost {
+  author: string,
+  permlink: string,
+  metadata: string,
+  body?: string,
+  title?: string,
+  id?: string,
+  video_url?: string,
+}
 
 @Component({
   selector: 'vh-post-page',
@@ -19,10 +28,11 @@ export class PostPageComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public api: ApiService,
     public router: Router,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    public elementRef: ElementRef,
   ) { }
 
-  post: any;
+  post: IPost;
 
   ngOnInit() {
 
@@ -39,7 +49,7 @@ export class PostPageComponent implements OnInit {
       let permlink = params.p;
       golos.api.getContent(author, permlink, (err, post) => {
         if (!err) {
-          let postData = {
+          let postData: IPost = {
             author: author,
             permlink: permlink,
             body: post.body,
@@ -48,20 +58,26 @@ export class PostPageComponent implements OnInit {
           this.api.postShow(postData).then((data) => {
             if(data.status == 'ok') {
               delete postData.metadata;
-              postData['title'] = post.title;
-              postData['body'] = data.post.body;
-              postData['id'] = data.post.id;
+              postData.title = post.title;
+              postData.body = data.post.body;
+              postData.id = data.post.id;
+
               if(data.post.video_url) {
-                postData['video_url'] = data.post.video_url;
+                postData.video_url = data.post.video_url;
               }
             }
             this.post = postData;
           });
+        } else {
+          console.error(err);
         }
-        else console.error(err);
       });
 
     });
+  }
+
+  getVideoSrc() {
+    return 'https://www.youtube.com/embed/' + this.getVideoID();
   }
 
   pay() {
