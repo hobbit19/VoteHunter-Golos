@@ -273,10 +273,13 @@ class ProfileController extends Controller
     {
         $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->request->get('user_id')])
             ->select(['id', 'reward', 'amount', 'title'])->asArray()->all();
+
         $arrRates = Rates::findOne(['symbol' => 'GOLOS']);
+
         array_walk($arrRewards, function (&$item, $key, $arrRates){
            $item['golos'] = sprintf('%01.3f GOLOS', $item['amount'] / $arrRates['price_usd']);
         }, $arrRates);
+
         return [
             'status' => 'ok',
             'rewards' => $arrRewards
