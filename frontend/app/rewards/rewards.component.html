@@ -11,7 +11,7 @@
 			</div>
 			<p class="paragraph rewards__reward" [innerHTML]="reward.reward"></p>
 			<div class="rewards__ui">
-				<input class="rewards__input" type="number" [(ngModel)]="reward.amount" min="0" readonly name="amount">
+				<input class="rewards__input" type="number" [(ngModel)]="reward.amount" min="0" readonly [ngModelOptions]="{standalone: true}">
 				<button class="button button-mode-2 rewards__button" i18n="">Continue</button>
 			</div>
 		</div>
