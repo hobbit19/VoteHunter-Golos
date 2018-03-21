@@ -14,6 +14,10 @@ import {CategoryPageResolverService} from './category-page/category-page-resolve
 import {BecomePatronPageComponent} from './become-patron-page/become-patron-page.component';
 import {BecomePatronPageResolverService} from './become-patron-page/become-patron-page-resolver.service';
 import {RequisitesPageComponent} from './requisites-page/requisites-page.component';
+import {AboutPageComponent} from './about-page/about-page.component';
+import {TeamPageComponent} from './team-page/team-page.component';
+import {PrivacyPageComponent} from './privacy-page/privacy-page.component';
+import {TermsPageComponent} from './terms-page/terms-page.component';
 
 export const appRoutes: Routes = [
   {
@@ -67,6 +71,26 @@ export const appRoutes: Routes = [
     data: {name: 'category'},
     component: CategoryPageComponent,
     resolve: {category: CategoryPageResolverService}
+  },
+  {
+    path: 'about',
+    data: {name: 'about'},
+    component: AboutPageComponent,
+  },
+  {
+    path: 'team',
+    data: {name: 'team'},
+    component: TeamPageComponent,
+  },
+  {
+    path: 'privacy',
+    data: {name: 'privacy'},
+    component: PrivacyPageComponent,
+  },
+  {
+    path: 'terms',
+    data: {name: 'terms'},
+    component: TermsPageComponent,
   },
   {
     path: '',
