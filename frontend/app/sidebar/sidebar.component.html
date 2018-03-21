@@ -3,10 +3,11 @@
 	<nav class="sidebar__items">
 		<a class="sidebar__item" i18n="" routerLink="#">Join</a>
 		<a class="sidebar__item" i18n="" routerLink="/login">Login</a>
-		<a class="sidebar__item" i18n="" routerLink="#">About</a>
-		<a class="sidebar__item" i18n="" routerLink="#">How it works</a>
-		<a class="sidebar__item" i18n="" routerLink="#">Terms of use</a>
-		<a class="sidebar__item" i18n="" routerLink="#">Feedback</a>
-		<a class="sidebar__item" i18n="" href="/user/logout" *ngIf="user.isLoggedIn">Logout</a>
+		<a class="sidebar__item" i18n="" routerLink="/about">About</a>
+		<a class="sidebar__item" i18n="" routerLink="/team">Team</a>
+		<a class="sidebar__item" i18n="">Whitepaper</a>
+		<a class="sidebar__item" i18n="" routerLink="/privacy">Privacy Policy</a>
+		<a class="sidebar__item" i18n="" routerLink="/terms">Terms of Use</a>
+		<a class="sidebar__item" i18n="" (click)="user.logout()" *ngIf="user.isLoggedIn">Logout</a>
 	</nav>
 </div>

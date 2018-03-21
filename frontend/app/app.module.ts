@@ -50,6 +50,10 @@ import { BecomePatronPageComponent } from './become-patron-page/become-patron-pa
 import {BecomePatronPageResolverService} from './become-patron-page/become-patron-page-resolver.service';
 import { RewardsComponent } from './rewards/rewards.component';
 import { RequisitesPageComponent } from './requisites-page/requisites-page.component';
+import { AboutPageComponent } from './about-page/about-page.component';
+import { TeamPageComponent } from './team-page/team-page.component';
+import { PrivacyPageComponent } from './privacy-page/privacy-page.component';
+import { TermsPageComponent } from './terms-page/terms-page.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +92,10 @@ import { RequisitesPageComponent } from './requisites-page/requisites-page.compo
     BecomePatronPageComponent,
     RewardsComponent,
     RequisitesPageComponent,
+    AboutPageComponent,
+    TeamPageComponent,
+    PrivacyPageComponent,
+    TermsPageComponent,
   ],
   imports: [
     BrowserModule,

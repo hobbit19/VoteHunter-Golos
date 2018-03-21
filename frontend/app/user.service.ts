@@ -26,4 +26,10 @@ export class UserService {
       return this.isLoggedIn;
     });
   }
+
+  logout() {
+    localStorage.clear();
+
+    location.href = '/user/logout/';
+  }
 }

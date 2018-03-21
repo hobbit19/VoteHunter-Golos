@@ -1,18 +1,11 @@
 <footer class="footer">
 	<nav class="footer__nav block">
 		<ul class="footer__ul">
-			<li class="footer__li">
-				<a class="footer__link" i18n="" routerLink="#">About</a>
-			</li>
-			<li class="footer__li">
-				<a class="footer__link" i18n="" routerLink="#">How it works</a>
-			</li>
-			<li class="footer__li">
-				<a class="footer__link" i18n="" routerLink="#">Terms of use</a>
-			</li>
-			<li class="footer__li">
-				<a class="footer__link" i18n="" routerLink="#">Feedback</a>
-			</li>
+			<li class="footer__li"><a class="footer__link" i18n="" routerLink="/about" i18n="">About</a></li>
+			<li class="footer__li"><a class="footer__link" i18n="" routerLink="/team" i18n="">Team</a></li>
+			<li class="footer__li"><a class="footer__link" i18n="" i18n="">Whitepaper</a></li>
+			<li class="footer__li"><a class="footer__link" i18n="" routerLink="/privacy" i18n="">Privacy Policy</a></li>
+			<li class="footer__li"><a class="footer__link" i18n="" routerLink="/terms" i18n="">Terms of Use</a></li>
 		</ul>
 	</nav>
 	<div class="footer__text" [innerHTML]="getCopyright()"></div>
