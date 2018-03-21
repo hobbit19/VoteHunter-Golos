@@ -44,9 +44,27 @@ export class RequisitesPageComponent implements OnInit {
       } else {
           wif = this.password;
       }
-
-
-      this.mediator.requisitesCallback(wif, this.login);
+      golos.api.getAccounts([this.login], (err, response) => {
+          if (err) {
+              console.log('Unknown error, please try later.');
+          } else {
+              if(response.length > 0) {
+                  let pubWif;
+                  let resultWifToPublic;
+                  try {
+                      resultWifToPublic = golos.auth.wifToPublic(wif, pubWif);
+                      if (response[0].active.key_auths[0][0] === resultWifToPublic) {
+                          console.log('login OK!');
+                          this.mediator.requisitesCallback(wif, this.login);
+                      }
+                  } catch (err) {
+                  }
+                  console.log('Auth error');
+              } else {
+                  console.log('Username not found');
+              }
+          }
+      })
   }
 
 }

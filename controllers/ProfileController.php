@@ -290,7 +290,7 @@ class ProfileController extends Controller
         $arrRates = Rates::findOne(['symbol' => 'GOLOS']);
         array_unshift($arrRewards, [
            'id' => 0,
-           'reward' => 'No reward, I just want to support Seriallos',
+           'reward' => 'No reward, I just want to support',
            'amount' => 1,
            'title' => '$1+ per month',
         ]);
