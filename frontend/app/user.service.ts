@@ -17,9 +17,8 @@ export class UserService {
 
       if (this.isLoggedIn) {
           this.golos_nick = data.golos_nick;
-          localStorage.clear();
       } else {
-
+          localStorage.clear();
       }
     }, (data) => {
       localStorage.clear();
