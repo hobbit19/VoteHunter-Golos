@@ -216,6 +216,7 @@ class PostController extends Controller
         //get post from blockchain
         $objApi = new GolosApi();
         $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'yousource');
+        $arrPosts = [];
         foreach ($arrObjPosts as $objPost) {
             /* @var $objPost \app\models\Posts */
             $strVideoUrl = null;

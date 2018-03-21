@@ -54,8 +54,9 @@ export class RequisitesPageComponent implements OnInit {
                   try {
                       resultWifToPublic = golos.auth.wifToPublic(wif, pubWif);
                       if (response[0].active.key_auths[0][0] === resultWifToPublic) {
-                          console.log('login OK!');
-                          this.mediator.requisitesCallback(wif, this.login);
+                          //console.log('login OK!');
+                          let WifToPrivate = golos.auth.getPrivateKeys(this.login, this.password)
+                          this.mediator.requisitesCallback(wif, this.login, WifToPrivate.posting);
                       }
                   } catch (err) {
                   }
