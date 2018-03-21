@@ -28,7 +28,7 @@ export class BecomePatronPageComponent implements OnInit {
 
   submit(reward) {
     this.mediator.requisitesCallback = (wif, login, postingWif) => {
-        golos.broadcast.transfer(wif, login, reward.nick , reward.golos, login + ' is now patron for ' +reward.nick, function (err, result) {
+        golos.broadcast.transfer(wif, login, reward.nick , reward.golos, login + ' is now a supporter for ' +reward.nick, function (err, result) {
             if(err) {
                 alert('Cannot make transfer, please check username or password/active key');
 
