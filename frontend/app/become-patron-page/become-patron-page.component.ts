@@ -31,6 +31,7 @@ export class BecomePatronPageComponent implements OnInit {
         golos.broadcast.transfer(wif, login, reward.nick , reward.golos, login + ' is now patron for ' +reward.nick, function (err, result) {
             if(err) {
                 alert('Cannot make transfer, please check username or password/active key');
+                
             }
             if(result) {
                 let data = {

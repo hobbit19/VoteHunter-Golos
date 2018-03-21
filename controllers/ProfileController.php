@@ -286,6 +286,12 @@ class ProfileController extends Controller
             ->select(['id', 'reward', 'amount', 'title'])->asArray()->all();
 
         $arrRates = Rates::findOne(['symbol' => 'GOLOS']);
+        array_unshift($arrRates, [
+           'id' => 0,
+           'reward' => 'No reward, I just want to support Seriallos',
+           'amount' => 1,
+           'title' => '$1+ per month',
+        ]);
 
         array_walk($arrRewards, function (&$item, $key, $arrRates) use ($objUser) {
            $item['golos'] = sprintf('%01.3f GOLOS', $item['amount'] / $arrRates['price_usd']);
