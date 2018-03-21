@@ -17,6 +17,11 @@
 	font-weight: bold;
 }
 
+.staticPage__content .h4 {
+	color: #777;
+}
+
+.staticPage__content .list + .paragraph,
 .staticPage__content .paragraph + .paragraph {
 	margin-top: 20px;
 }
@@ -26,10 +31,19 @@
 	margin-top: 7px;
 }
 
+.staticPage__content .list + .h3,
+.staticPage__content .list + .h4,
 .staticPage__content .paragraph + .h3,
 .staticPage__content .paragraph + .h4 {
 	margin-top: 20px;
 }
 
+.staticPage__content .list {
+	margin-left: 20px;
+	color: @paragraphColor;
+}
 
+.staticPage__content .list__item {
+	list-style-type: initial;
+}
 
