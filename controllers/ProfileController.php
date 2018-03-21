@@ -346,6 +346,10 @@ class ProfileController extends Controller
             'status' => 'error',
             'msg' => \Yii::t('app', 'Can not save operation')
         ];
+    }
+
+    public function actionGetPatrons()
+    {
 
     }
 }
