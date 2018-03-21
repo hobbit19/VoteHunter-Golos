@@ -84,11 +84,12 @@ class ProfileController extends Controller
             ];
         }
         $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
+        $objGolosApi = new GolosApi();
+        $arrBlockChainData = $objGolosApi->getAccount(\Yii::$app->user->identity->golos_nick, GolosApi::ACCOUNT_GOLOS_PROFILE);
         if(!is_object($objProfile)) {
             $objProfile = new Profile();
             $objProfile->user_id = \Yii::$app->user->getId();
-            $objGolosApi = new GolosApi();
-            $arrBlockChainProfile = $objGolosApi->getAccount(\Yii::$app->user->identity->golos_nick, GolosApi::ACCOUNT_GOLOS_PROFILE);
+            $arrBlockChainProfile = $arrBlockChainData['profile'];
             $objProfile->name = isset($arrBlockChainProfile['name']) ? $arrBlockChainProfile['name'] : '';
             $objProfile->about = isset($arrBlockChainProfile['about']) ? $arrBlockChainProfile['about'] : '';
             $objProfile->profile_image = isset($arrBlockChainProfile['profile_image']) ? $arrBlockChainProfile['profile_image'] : '';
@@ -133,6 +134,7 @@ class ProfileController extends Controller
         return [
             'status' => 'ok',
             'profile' => $objProfile->toArray() + ['contents' => $objProfile->editorContents->contents],
+            'json_metadata' => $arrBlockChainData['json_metadata'],
             'goals' => $arrGoals,
             'rewards' => $arrRewards,
         ];

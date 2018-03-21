@@ -27,11 +27,11 @@ export class BecomePatronPageComponent implements OnInit {
   }
 
   submit(reward) {
-    this.mediator.requisitesCallback = (wif, login) => {
+    this.mediator.requisitesCallback = (wif, login, postingWif) => {
         golos.broadcast.transfer(wif, login, reward.nick , reward.golos, login + ' is now patron for ' +reward.nick, function (err, result) {
             if(err) {
                 alert('Cannot make transfer, please check username or password/active key');
-                
+
             }
             if(result) {
                 let data = {
@@ -40,7 +40,25 @@ export class BecomePatronPageComponent implements OnInit {
                 }
                 this.api.setAsPatron(data).then(
                     (data)=>{
-
+                        var follower = login;
+                        var following = reward.nick;
+                        var json = JSON.stringify(
+                            ['follow', {
+                                follower: follower,
+                                following: following,
+                                what: ['blog']
+                            }]
+                        );
+                        golos.broadcast.customJson(
+                            postingWif,
+                            [], // Required_auths
+                            [follower], // Required Posting Auths
+                            'follow', // Id
+                            json, //
+                            function(err, result) {
+                                console.log(err, result);
+                            }
+                        );
                     },
                     (data) => {
 

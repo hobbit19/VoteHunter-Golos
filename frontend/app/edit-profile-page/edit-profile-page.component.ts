@@ -19,6 +19,7 @@ console.log(steemit);
 export class EditProfilePageComponent implements OnInit {
   categories: any[];
   profile: any;
+  json_metadata: any;
   goals: any;
   rewards: any;
   selectedCategory: any;
@@ -39,20 +40,8 @@ export class EditProfilePageComponent implements OnInit {
   }
 
   submit(event) {
-    /*
-          let dataJson = {
-              yousource: this.profile
-          }
-          let wif = golos.auth.toWif('valera', 'qwerty12345');
 
-          let resultWifToPrivate = golos.auth.getPrivateKeys('valera', 'qwerty12345');
-          console.log(resultWifToPrivate);
-          //"params": ["account", "owner", "active", "posting", "memo_key", "json_metadata"]
-          golos.broadcast.accountUpdate(wif, 'valera', resultWifToPrivate.owner, resultWifToPrivate.active, resultWifToPrivate.posting, resultWifToPrivate.memo, JSON.stringify(dataJson), function(err, result) {
-              console.log(err, result);
-          });
-          return;
-    */
+
     if (this.selectedCategory.id != 0) {
       this.profile.cat_id = this.selectedCategory.id;
     }
@@ -68,7 +57,33 @@ export class EditProfilePageComponent implements OnInit {
     if (this.new_list_image) {
       data['new_list_image'] = this.new_list_image;
     }
-    this.domService.onFormSubmit(event.target, this.api.updateProfile(data).then(null, () => true));
+    this.domService.onFormSubmit(event.target, this.api.updateProfile(data).then((data) =>{
+        let dataJson = this.json_metadata;
+        dataJson['yousource'] = this.profile;
+        delete(dataJson['yousource']['contents']);
+        let wif = golos.auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'owner');
+        let keys = golos.auth.getPrivateKeys(localStorage.getItem('nick'), localStorage.getItem('password'));
+        let owner = {
+            weight_threshold: 1,
+            account_auths: [],
+            key_auths: [[keys.ownerPubkey, 1]]
+        };
+        let active = {
+            weight_threshold: 1,
+            account_auths: [],
+            key_auths: [[keys.activePubkey, 1]]
+        };
+        let posting = {
+            weight_threshold: 1,
+            account_auths: [],
+            key_auths: [[keys.postingPubkey, 1]]
+        };
+        let memoKey = keys.memoPubkey;
+        golos.broadcast.accountUpdate(wif, localStorage.getItem('nick'), owner, active, posting, memoKey, JSON.stringify(dataJson), function(err, result) {
+          console.log(err, result);
+        });
+
+    }, () => true));
   }
 
   submitGoals(event) {
@@ -113,6 +128,7 @@ export class EditProfilePageComponent implements OnInit {
       this.profile = data.profile;
       this.goals = data.goals;
       this.rewards = data.rewards;
+      this.json_metadata = data.json_metadata;
       this.getCategoriesList();
       if (this.profile.contents) {
 
