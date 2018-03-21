@@ -61,37 +61,61 @@ export class EditProfilePageComponent implements OnInit {
         let dataJson = this.json_metadata;
         dataJson['yousource'] = this.profile;
         delete(dataJson['yousource']['contents']);
-        let wif = golos.auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'owner');
-        let keys = golos.auth.getPrivateKeys(localStorage.getItem('nick'), localStorage.getItem('password'));
-        let owner = {
-            weight_threshold: 1,
-            account_auths: [],
-            key_auths: [[keys.ownerPubkey, 1]]
-        };
-        let active = {
-            weight_threshold: 1,
-            account_auths: [],
-            key_auths: [[keys.activePubkey, 1]]
-        };
-        let posting = {
-            weight_threshold: 1,
-            account_auths: [],
-            key_auths: [[keys.postingPubkey, 1]]
-        };
-        let memoKey = keys.memoPubkey;
-        golos.broadcast.accountUpdate(wif, localStorage.getItem('nick'), owner, active, posting, memoKey, JSON.stringify(dataJson), function(err, result) {
-          console.log(err, result);
-        });
-
+        this.updateBCData(dataJson);
     }, () => true));
   }
 
+  updateBCData(dataJson)
+  {
+      let wif = golos.auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'owner');
+      let keys = golos.auth.getPrivateKeys(localStorage.getItem('nick'), localStorage.getItem('password'));
+      let owner = {
+          weight_threshold: 1,
+          account_auths: [],
+          key_auths: [[keys.ownerPubkey, 1]]
+      };
+      let active = {
+          weight_threshold: 1,
+          account_auths: [],
+          key_auths: [[keys.activePubkey, 1]]
+      };
+      let posting = {
+          weight_threshold: 1,
+          account_auths: [],
+          key_auths: [[keys.postingPubkey, 1]]
+      };
+      let memoKey = keys.memoPubkey;
+      golos.broadcast.accountUpdate(wif, localStorage.getItem('nick'), owner, active, posting, memoKey, JSON.stringify(dataJson), function(err, result) {
+          console.log(err, result);
+      });
+
+  }
+
   submitGoals(event) {
-    this.domService.onFormSubmit(event.target, this.api.updateGoals(this.goals[0]).then(null, () => true));
+    this.domService.onFormSubmit(event.target, this.api.updateGoals(this.goals[0]).then((data) => {
+        let dataJson = this.json_metadata;
+        if(dataJson.goals) {
+            dataJson['goals'][data.goal.id] = data.goal;
+        } else {
+            dataJson['goals'] = {};
+            dataJson['goals'][data.goal.id] = data.goal;
+        }
+        this.updateBCData(dataJson);
+    }, () => true));
   }
 
   submitReward(event, i) {
-    this.domService.onFormSubmit(event.target, this.api.updateReward(this.rewards[i]).then(null, () => true));
+    this.domService.onFormSubmit(event.target, this.api.updateReward(this.rewards[i]).then((data) => {
+        let dataJson = this.json_metadata;
+        if(dataJson.rewards) {
+            dataJson['rewards'][data.reward.id] = data.reward;
+        } else {
+            dataJson['rewards'] = {};
+            dataJson['rewards'][data.reward.id] = data.reward;
+        }
+        this.updateBCData(dataJson);
+
+    }, () => true));
   }
 
   addReward() {
