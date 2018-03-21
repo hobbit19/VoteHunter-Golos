@@ -6,7 +6,7 @@ import {DOMService} from '../dom.service';
 let golos = require('golos-js');
 
 // const POST_PRIVACY = [
-//   { str: 'Patrons only', value: 1 },
+//   { str: 'Supporters only', value: 1 },
 //   { str: 'Public', value: 0 },
 // ];
 
