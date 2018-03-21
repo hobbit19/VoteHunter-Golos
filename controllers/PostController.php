@@ -83,6 +83,7 @@ class PostController extends Controller
                     'permlink' => $objPost->permlink,
                     'jsonMetadata' => [
                         'tags' => ['yousource'],
+                        'app' => 'yousource.io',
                         'encodedData' => $strEncryptedData
                     ],
                     'post_link' => str_replace('http://yousource.io','',$strLink)
