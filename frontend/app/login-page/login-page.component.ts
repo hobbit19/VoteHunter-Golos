@@ -63,6 +63,10 @@ export class LoginPageComponent implements OnInit {
                             if(this.password != wif) {
                                 localStorage.setItem('wif', wif);
                             }
+/*
+                            let time_now  = (new Date()).getTime();
+                            localStorage.setItem('stored', time_now.toString());
+*/
                             resolve(resultWifToPublic);
                         }
                     } else {
