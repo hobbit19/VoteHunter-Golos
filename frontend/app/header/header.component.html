@@ -11,7 +11,7 @@
 				<a class="header__profileLink" routerLink="/dashboard"></a>
 			</ng-container>
 			<ng-container *ngIf="!user.isLoggedIn">
-				<a class="button header__join" href="https://golos.io/" target="_blank" i18n="">Create page</a>
+				<a class="button header__join" href="https://golos.io/" target="_blank" i18n="">Join the community</a>
 				<button class="button button-mode-1 header__login" routerLink="/login" i18n="">Login</button>
 			</ng-container>
 			<div class="header__burgerWrap" (click)="mediator.sidebar.toggle()">
