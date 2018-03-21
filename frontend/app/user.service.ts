@@ -17,8 +17,13 @@ export class UserService {
 
       if (this.isLoggedIn) {
           this.golos_nick = data.golos_nick;
+          localStorage.clear();
+      } else {
+
       }
-    }, (data) => {});
+    }, (data) => {
+      localStorage.clear();
+    });
   }
 
   isLoggedInPromise() {
@@ -29,7 +34,6 @@ export class UserService {
 
   logout() {
     localStorage.clear();
-
     location.href = '/user/logout/';
   }
 }
