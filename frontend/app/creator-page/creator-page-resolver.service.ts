@@ -15,7 +15,7 @@ export class CreatorPageResolver implements Resolve<any> {
     state: RouterStateSnapshot
   ): Observable<boolean>|Promise<boolean>|boolean {
    return this.api.getProfileByUrl(state.url.replace('/', '')).then((data) => {
-      return data.profile;
+      return data;
     }, (data) => {
       this.router.navigate(['/']);
       return false;
