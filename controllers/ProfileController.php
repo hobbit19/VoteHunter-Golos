@@ -60,11 +60,13 @@ class ProfileController extends Controller
                     'goal' => ''
                 ];
             }
-
+            if(!\Yii::$app->user->isGuest) {
+                $isPatron = Patron::findOne(['user_id' => $objProfile->user_id, 'patron_id' => \Yii::$app->user->getId(), 'status' => Patron::STATUS_ACTIVE]);
+            }
             return [
                 'status' => 'ok',
                 'profile' => $objProfile->toArray() + ['goals' => $arrGoals, 'rewards' => $arrRewards],
-
+                'isPatron' => empty($isPatron) ? false : true,
             ];
         }
         return [
