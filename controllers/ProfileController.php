@@ -20,6 +20,7 @@ use app\models\Rates;
 use app\models\Rewards;
 use app\models\User;
 use app\models\Users;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -350,7 +351,18 @@ class ProfileController extends Controller
 
     public function actionGetPatrons()
     {
-
+        $intUser = \Yii::$app->request->get('user_id', \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->getId());
+        $arrPatrons = [];
+        if($intUser > 0) {
+            $arrProfiles = Profile::find()->where(['user_id' => (new Query())->select(['patron_id'])->from('patrons')->where(['user_id'=>$intUser])])->all();
+            foreach ($arrProfiles as $objProfile) {
+                $arrPatrons[] = $objProfile->toArray('name', 'url', 'profile_image');
+            }
+        }
+        return [
+            'status' => 'ok',
+            'patrons' => $arrPatrons
+        ];
     }
 }
 
