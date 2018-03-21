@@ -1,8 +1,10 @@
 <div class="sidebar" [@state]="state">
 	<div class="sidebar__cross" (click)="close()"></div>
 	<nav class="sidebar__items">
-		<a class="sidebar__item" i18n="" routerLink="#">Join</a>
-		<a class="sidebar__item" i18n="" routerLink="/login">Login</a>
+		<ng-container *ngIf="!user.isLoggedIn">
+			<a class="sidebar__item" i18n="" routerLink="#">Join</a>
+			<a class="sidebar__item" i18n="" routerLink="/login">Login</a>
+		</ng-container>
 		<a class="sidebar__item" i18n="" routerLink="/about">About</a>
 		<a class="sidebar__item" i18n="" routerLink="/team">Team</a>
 		<a class="sidebar__item" i18n="">Whitepaper</a>

@@ -37,16 +37,20 @@ export class RequisitesPageComponent implements OnInit {
     return 'requisitesPage block';
   }
 
+  error?: string;
+
   submit(event) {
-      let wif = '';
-      if(!golos.auth.isWif(this.password)) {
+    let wif = '';
+
+      if (!golos.auth.isWif(this.password)) {
           wif = golos.auth.toWif(this.login, this.password, 'active');
       } else {
           wif = this.password;
       }
+
       golos.api.getAccounts([this.login], (err, response) => {
           if (err) {
-              console.log('Unknown error, please try later.');
+              this.error = 'Unknown error, please try later.';
           } else {
               if(response.length > 0) {
                   let pubWif;
@@ -60,12 +64,17 @@ export class RequisitesPageComponent implements OnInit {
                       }
                   } catch (err) {
                   }
-                  console.log('Auth error');
+
+                  this.error = 'Auth error';
               } else {
-                  console.log('Username not found');
+                  this.error = 'Username not found';
               }
           }
       })
+  }
+
+  onInputChange() {
+    delete this.error;
   }
 
 }

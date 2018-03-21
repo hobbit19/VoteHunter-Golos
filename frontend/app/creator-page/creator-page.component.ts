@@ -11,6 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CreatorPageComponent implements OnInit {
   profile: any;
+  isPatron?: boolean;
 
   constructor(
     public api: ApiService,
@@ -19,9 +20,10 @@ export class CreatorPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //console.log(this.route.snapshot.data.profile);
-      this.profile = this.route.snapshot.data.profile;
-      if(this.profile.promo_video) {
+      this.profile = this.route.snapshot.data.profile.profile;
+      this.isPatron = this.route.snapshot.data.profile.isPatron;
+
+      if (this.profile.promo_video) {
           this.profile.promo_video = this.profile.promo_video.replace('watch?v=', 'embed/')
       }
   }
