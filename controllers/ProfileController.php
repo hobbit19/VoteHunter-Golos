@@ -286,7 +286,7 @@ class ProfileController extends Controller
             ->select(['id', 'reward', 'amount', 'title'])->asArray()->all();
 
         $arrRates = Rates::findOne(['symbol' => 'GOLOS']);
-        array_unshift($arrRates, [
+        array_unshift($arrRewards, [
            'id' => 0,
            'reward' => 'No reward, I just want to support Seriallos',
            'amount' => 1,
