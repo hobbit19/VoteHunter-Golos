@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "t3ran13/php-graphene-node-client": "^3.1",
         "zendframework/zend-debug": "^2.5",
-        "zendframework/zend-escaper": "^2.5"
+        "zendframework/zend-escaper": "^2.5",
+        "yiisoft/yii2-authclient": "^2.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
