@@ -36,6 +36,7 @@ export class AddPostPageComponent implements OnInit {
     video_url: '',
     patrons_only: 0,
     cat_id: POST_CONTENT_TYPES[0].value,
+    pKey: '',
   };
 
   ngOnInit() {
@@ -71,6 +72,8 @@ export class AddPostPageComponent implements OnInit {
 
   post(event) {
     let promise = new Promise((resolve, reject) => {
+      let postingKey = golos.auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'posting');
+      this.postData.pKey = postingKey;
       this.api.postAdd(this.postData).then((data) => {
         if (!data.status || data.status !== 'ok') {
           reject();

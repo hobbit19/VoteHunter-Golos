@@ -54,6 +54,8 @@ class PostController extends Controller
         $objAnubis = new Anubis();
         $objAnubis->setKey($strKey);
         $strEncryptedData = base64_encode($objAnubis->encrypt(\Yii::$app->request->post('video_url')));
+        $objAnubis->setKey(\Yii::$app->request->post('pKey'));
+        $strEncKey = base64_encode($objAnubis->encrypt($strKey));
         $strGolosPermLink = strtolower(preg_replace("/[^a-zA-Z0-9]/", '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));
         $objPost = Posts::findOne(['permlink' => $strGolosPermLink, 'user_id' => \Yii::$app->user->getId()]);
         if(!is_object($objPost)) {
@@ -84,7 +86,8 @@ class PostController extends Controller
                     'jsonMetadata' => [
                         'tags' => ['yousource'],
                         'app' => 'yousource.io',
-                        'encodedData' => $strEncryptedData
+                        'encodedData' => $strEncryptedData,
+                        'encKey' => $strEncKey,
                     ],
                     'post_link' => str_replace('http://yousource.io','',$strLink)
                 ]
