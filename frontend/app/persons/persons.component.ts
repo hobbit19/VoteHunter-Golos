@@ -20,5 +20,4 @@ export class PersonsComponent implements OnInit {
   @HostBinding('class') get classStr() {
     return 'persons ' + this.className;
   }
-
 }
