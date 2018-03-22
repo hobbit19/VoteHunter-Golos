@@ -84,3 +84,5 @@ frontend/kolos.dom
 config/local
 
 frontend/locales
+
+/config/auth.ini
