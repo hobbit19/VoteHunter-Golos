@@ -90,7 +90,7 @@ export class AddPostPageComponent implements OnInit {
         let body = data.data.body;
         let jsonMetadata = JSON.stringify(data.data.jsonMetadata);
 
-        golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
+        golos.broadcast.comment(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
           if (err) {
             reject();
 
