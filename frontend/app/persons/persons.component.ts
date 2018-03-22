@@ -8,6 +8,7 @@ import { Component, OnInit, ViewEncapsulation, Input, HostBinding } from '@angul
 })
 export class PersonsComponent implements OnInit {
   @Input() headingStr: string;
+  @Input() emptyStr: string;
   @Input() className: string;
   @Input() items: any[];
 
@@ -19,5 +20,4 @@ export class PersonsComponent implements OnInit {
   @HostBinding('class') get classStr() {
     return 'persons ' + this.className;
   }
-
 }

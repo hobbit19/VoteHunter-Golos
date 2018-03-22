@@ -54,6 +54,9 @@ import { AboutPageComponent } from './about-page/about-page.component';
 import { TeamPageComponent } from './team-page/team-page.component';
 import { PrivacyPageComponent } from './privacy-page/privacy-page.component';
 import { TermsPageComponent } from './terms-page/terms-page.component';
+import { TeamComponent } from './team/team.component';
+import { TeamMemberComponent } from './team-member/team-member.component';
+import { BgiPipe } from './bgi.pipe';
 
 @NgModule({
   declarations: [
@@ -96,6 +99,9 @@ import { TermsPageComponent } from './terms-page/terms-page.component';
     TeamPageComponent,
     PrivacyPageComponent,
     TermsPageComponent,
+    TeamComponent,
+    TeamMemberComponent,
+    BgiPipe,
   ],
   imports: [
     BrowserModule,
@@ -119,6 +125,3 @@ import { TermsPageComponent } from './terms-page/terms-page.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {}
-
-
-

@@ -1,5 +1,5 @@
 <div class="block">
-	<vh-main-nav [profileUrl]="profile.url"></vh-main-nav>
+	<vh-main-nav [profileUrl]="profile?.url"></vh-main-nav>
 	<h2 class="h2" i18n="">My activity</h2>
 	<div class="cabinetPage__content">
 		<div class="cabinetPage__left">
@@ -10,8 +10,8 @@
 			</div>
 		</div>
 		<div class="cabinetPage__right">
-			<vh-persons [items]="bakers" i18n-headingStr="" headingStr="My supporters" className="cabinetPage__bakers"></vh-persons>
-			<div class="buttons">
+			<vh-persons [items]="bakers" i18n-headingStr="" headingStr="My supporters" i18n-emptyStr="" emptyStr="You have no supporters yet" className="cabinetPage__bakers"></vh-persons>
+			<div class="buttons" *ngIf="bakers?.length">
 				<button class="button button-mode-2" i18n="">Explore all</button>
 			</div>
 		</div>

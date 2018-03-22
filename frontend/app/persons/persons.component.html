@@ -1,7 +1,8 @@
 <h3 class="h3 persons__heading" [innerHTML]="headingStr"></h3>
-<div class="persons__items">
+<div class="persons__items" *ngIf="items?.length">
 	<a class="persons__item" *ngFor="let item of items" [routerLink]="'/' + item.url">
 		<div class="persons__avatar" [style.background-image]="'url(' + item.profile_image + ')'"></div>
 		<div class="persons__fullname" [innerHTML]="item.name"></div>
 	</a>
 </div>
+<div class="persons__empty" *ngIf="!items || !items.length" [innerText]="emptyStr"></div>
