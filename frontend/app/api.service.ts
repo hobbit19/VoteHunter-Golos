@@ -86,13 +86,18 @@ export class ApiService {
   getStats() {
     return Promise.resolve([
       {name: 'Posts', num: '0'},
-      {name: 'Golos', num: '0'},
       {name: 'Supporters', num: '0'},
+      {name: 'Golos', num: '0'},
       {name: 'Sum', num: '$0'},
     ]);
   }
 
-  getPosts(params?: { user_id?: number }) {
+    getUserStats() {
+      return this.get('/profile/user-stats');
+    }
+
+
+    getPosts(params?: { user_id?: number }) {
     return this.get('/post/list', params);
   }
 

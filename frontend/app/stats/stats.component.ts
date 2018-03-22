@@ -16,9 +16,17 @@ export class StatsComponent implements OnInit {
   items: any[];
 
   ngOnInit() {
-    this.api.getStats().then((items) => {
-      this.items = items;
-    });
+     this.api.getStats().then((items) => {
+       this.items = items;
+     });
+    this.api.getUserStats().then((data) => {
+        this.items = [
+          {name: 'Posts', num: data.posts},
+          {name: 'Supporters', num: data.supporters},
+          {name: 'Golos', num: data.golos},
+          {name: 'Sum', num: '$' + data.sum},
+        ]
+    }, (data) => {});
   }
 
   @HostBinding('class') get classStr() {

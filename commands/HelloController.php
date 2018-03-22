@@ -32,7 +32,7 @@ class HelloController extends Controller
     public function actionTestApi()
     {
         $objGolos = new GolosApi();
-        print_r($objGolos->getAccount('igor', GolosApi::ACCOUNT_GOLOS_PROFILE));
+        print_r($objGolos->getAccount('igor', GolosApi::ACCOUNT_GOLOS_ALL));
     }
 
     public function actionTestComment()

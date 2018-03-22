@@ -34,10 +34,12 @@ class GolosApi
         ];
         $commandQuery->setParams($data);
         $arrData = $objCommand->execute($commandQuery);
+        $arrReturn = [];
         switch ($returnType) {
             case self::ACCOUNT_GOLOS_ALL:
                 return $arrData;
             case self::ACCOUNT_GOLOS_PROFILE:
+                $arrReturn['balance'] = $arrData['result'][0]['balance'];
                 $arrData = json_decode($arrData['result'][0]['json_metadata'], true);
                 if(isset($arrData['profile'])) {
                     $arrReturn['profile'] = $arrData['profile'];
