@@ -96,14 +96,8 @@ export class ApiService {
     return this.get('/post/list', params);
   }
 
-  getMyBakers() {
-    return Promise.resolve([
-      {name: 'Name Surname', votes: 4, profile_image: '/images/avatar.jpg'},
-      {name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg'},
-      {name: 'Name Surname', votes: 1, profile_image: '/images/avatar.jpg'},
-      {name: 'Name Surname', votes: 2, profile_image: '/images/avatar.jpg'},
-      {name: 'Name Surname', votes: 3, profile_image: '/images/avatar.jpg'},
-    ]);
+  getUserPatrons(params?: {user_id?: number}) {
+    return this.get('/profile/get-patrons', params);
   }
 
   getAuthors(params?: { limit?: number; order?: string }) {
