@@ -39,14 +39,16 @@ class GolosApi
             case self::ACCOUNT_GOLOS_ALL:
                 return $arrData;
             case self::ACCOUNT_GOLOS_PROFILE:
-                $arrReturn['balance'] = $arrData['result'][0]['balance'];
-                $arrData = json_decode($arrData['result'][0]['json_metadata'], true);
-                if(isset($arrData['profile'])) {
-                    $arrReturn['profile'] = $arrData['profile'];
-                } else {
-                    $arrReturn['profile'] = [];
+                if(isset($arrData['result'])) {
+                    $arrReturn['balance'] = $arrData['result'][0]['balance'];
+                    $arrData = json_decode($arrData['result'][0]['json_metadata'], true);
+                    if (isset($arrData['profile'])) {
+                        $arrReturn['profile'] = $arrData['profile'];
+                    } else {
+                        $arrReturn['profile'] = [];
+                    }
+                    $arrReturn['json_metadata'] = $arrData;
                 }
-                $arrReturn['json_metadata'] = $arrData;
                 return $arrReturn;
         }
         return $arrData;
