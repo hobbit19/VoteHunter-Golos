@@ -48,6 +48,8 @@ class GolosApi
                         $arrReturn['profile'] = [];
                     }
                     $arrReturn['json_metadata'] = $arrData;
+                } else {
+                    return false;
                 }
                 return $arrReturn;
         }

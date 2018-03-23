@@ -91,7 +91,11 @@ class ProfileController extends Controller
         if(!is_object($objProfile)) {
             $objProfile = new Profile();
             $objProfile->user_id = \Yii::$app->user->getId();
-            $arrBlockChainProfile = $arrBlockChainData['profile'];
+            if($arrBlockChainData !== false) {
+                $arrBlockChainProfile = $arrBlockChainData['profile'];
+            } else {
+                $arrBlockChainProfile = [];
+            }
             $objProfile->name = isset($arrBlockChainProfile['name']) ? $arrBlockChainProfile['name'] : '';
             $objProfile->about = isset($arrBlockChainProfile['about']) ? $arrBlockChainProfile['about'] : '';
             $objProfile->profile_image = isset($arrBlockChainProfile['profile_image']) ? $arrBlockChainProfile['profile_image'] : '';
@@ -379,9 +383,13 @@ class ProfileController extends Controller
         $intSupporters = Patron::find()->where(['user_id' => \Yii::$app->user->getId()])->count();
         $objGolosApi = new GolosApi();
         $arrBlockChainData = $objGolosApi->getAccount(\Yii::$app->user->identity->golos_nick, GolosApi::ACCOUNT_GOLOS_PROFILE);
-        $objRates = Rates::findOne(['symbol' => 'GOLOS']);
-        $fltGolos = floatval($arrBlockChainData['balance']);
-        $sum = $fltGolos * $objRates['price_usd'];
+        if($arrBlockChainData !== false) {
+            $objRates = Rates::findOne(['symbol' => 'GOLOS']);
+            $fltGolos = floatval($arrBlockChainData['balance']);
+            $sum = $fltGolos * $objRates['price_usd'];
+        } else {
+            $fltGolos = $sum =0;
+        }
         return [
             'status' => 'ok',
             'posts' => $intPosts,
