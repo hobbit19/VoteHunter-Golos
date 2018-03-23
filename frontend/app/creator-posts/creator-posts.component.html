@@ -3,16 +3,16 @@
 		<div class="creatorPosts__l">
 			<div class="creatorPosts__ava" [style.background-image]="'url(' + post.avatar + ')'"></div>
 			<div class="creatorPosts__info">
-				<div class="creatorPosts__author" [innerHTML]="post.author"></div>
+				<div class="creatorPosts__author" [innerHTML]="post.profile_name"></div>
 				<!--<div class="creatorPosts__date" [innerHTML]="post.date"></div>-->
 			</div>
 		</div>
 		<div class="creatorPosts__r">
 			<div class="creatorPosts__money" [innerHTML]="post.price_usd + '$'"></div>
-			<div class="creatorPosts__curators">
+			<!--<div class="creatorPosts__curators">
 				<span [innerHTML]="post.curators"></span>
 				<span i18n=""> supporters</span>
-			</div>
+			</div>-->
 		</div>
 	</div>
 	<div class="creatorPosts__lock">
