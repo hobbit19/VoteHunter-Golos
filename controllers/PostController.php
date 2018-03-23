@@ -245,7 +245,7 @@ class PostController extends Controller
                 }
             }
             $arrPost = $objPost->toArray(['title', 'body']) + ['video_url' => $strVideoUrl, 'post_image' => $strPostImage];
-
+            $arrPost += ['profile_image' => $objUser->profile->profile_image, 'price_usd' => $objPost->patrons_only, 'profile_name' =>  $objUser->profile->name];
             $arrPosts[] = $arrPost;
         }
         return [
