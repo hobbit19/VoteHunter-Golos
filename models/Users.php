@@ -45,6 +45,6 @@ class Users extends \yii\db\ActiveRecord
     }
     public function getProfile()
     {
-        return self::hasOne(Profile::className(), ['id' => 'user_id']);
+        return self::hasOne(Profile::className(), ['user_id' => 'id']);
     }
 }
