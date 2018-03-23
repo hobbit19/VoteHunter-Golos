@@ -29,7 +29,7 @@ export class CreatorPageComponent implements OnInit {
           this.profile.promo_video = this.profile.promo_video.replace('watch?v=', 'embed/')
       }
 
-      this.api.getPosts().then((data) => {
+      this.api.getPosts({user_id: this.profile.id}).then((data) => {
         this.posts = data.posts;
       });
   }
