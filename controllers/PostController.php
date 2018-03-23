@@ -252,7 +252,7 @@ class PostController extends Controller
                     $isLocked = false;
                 } else {
                     if($tmpCnt == 0) {
-                        $isLocked = false;
+                        //$isLocked = false;
                     }
                 }
                 $tmpCnt++;
