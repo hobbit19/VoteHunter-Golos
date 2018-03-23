@@ -99,7 +99,7 @@ class GolosApi
 
         $arrPrepare = $objCommand->execute($commandQuery);
         $arrData = [];
-        if(!isset($arrPrepare['result'])) {
+        if(isset($arrPrepare['result'])) {
             foreach ($arrPrepare['result'] as $arrValue) {
                 $arrData[$arrValue['permlink']] = $arrValue;
             }
