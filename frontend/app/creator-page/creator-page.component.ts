@@ -19,6 +19,8 @@ export class CreatorPageComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
+  posts: any;
+
   ngOnInit() {
       this.profile = this.route.snapshot.data.profile.profile;
       this.isPatron = this.route.snapshot.data.profile.isPatron;
@@ -26,6 +28,10 @@ export class CreatorPageComponent implements OnInit {
       if (this.profile.promo_video) {
           this.profile.promo_video = this.profile.promo_video.replace('watch?v=', 'embed/')
       }
+
+      this.api.getPosts().then((data) => {
+        this.posts = data.posts;
+      });
   }
 
   @HostBinding('class') get classStr() {

@@ -7,7 +7,7 @@
 		</div>
 		<div class="creatorPage__col creatorPage__col-center">
 			<vh-creator-overview [profile]="profile" *ngIf="profile"></vh-creator-overview>
-			<vh-creator-posts [posts]="profile?.lastPosts"></vh-creator-posts>
+			<vh-creator-posts [posts]="posts"></vh-creator-posts>
 		</div>
 		<div class="creatorPage__col creatorPage__col-right">
 			<vh-creator-rewards [rewards]="profile?.rewards"></vh-creator-rewards>
