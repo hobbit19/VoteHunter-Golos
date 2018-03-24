@@ -226,6 +226,7 @@ class PostController extends Controller
             /* @var $objPost \app\models\Posts */
             $strVideoUrl = null;
             $strPostImage = null;
+            $isLocked = true;
             if(isset($arrBCPosts[$objPost->permlink])) {
                 $boolNeedToSave = false;
                 if ($objPost->body != $arrBCPosts[$objPost->permlink]['body']) {
