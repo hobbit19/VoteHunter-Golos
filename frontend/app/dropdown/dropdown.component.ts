@@ -3,6 +3,7 @@ import {
   ViewEncapsulation
 } from "@angular/core";
 import {PanelComponent} from '../../kolos.dom/src/panel.component';
+import {DOMService} from '../dom.service';
 
 @Component({
   selector: 'vh-dropdown',
@@ -18,12 +19,22 @@ export class DropdownComponent extends PanelComponent {
 
   isDismountingNeeded = true;
 
-  constructor(public elementRef: ElementRef) {
+  constructor(public elementRef: ElementRef, public DOMService: DOMService) {
     super(elementRef.nativeElement);
   }
 
   ngOnInit() {
 
+  }
+
+  getHeight(withOverflowingPart?) {
+    let height = super.getHeight();
+
+    if (withOverflowingPart) {
+      height += (this.node.querySelector('.js-dropdown__content') as HTMLElement).offsetHeight;
+    }
+
+    return height;
   }
 
   @HostBinding('class') get classStr() {

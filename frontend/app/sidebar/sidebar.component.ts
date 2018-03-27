@@ -10,6 +10,7 @@ import { MediatorService } from "../mediator.service";
 import { PanelComponent, PanelComponentStates } from "../../kolos.dom/src/panel.component";
 import { StateService } from "../state.service";
 import {UserService} from '../user.service';
+import {DOMService} from '../dom.service';
 
 @Component({
   selector: 'vh-sidebar',
@@ -34,6 +35,7 @@ export class SidebarComponent extends PanelComponent implements OnInit {
     public mediator: MediatorService,
     public elementRef: ElementRef,
     public user: UserService,
+    public DOMService: DOMService
   ) {
     super(elementRef.nativeElement);
 

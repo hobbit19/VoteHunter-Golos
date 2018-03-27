@@ -1,5 +1,5 @@
-# VoteHunter on blockchain Golos
-VoteHunter is a decentralized project on blockchain Golos which allows people to sell creative media content.
+# YouSource - blockchain media platform
+YouSource is a decentralized project on blockchain Steem, Golos which allows people to sell creative media content.
 Was developed by "Vote Hunter" team for the Blockchain Hackathon DApp Hack 1.0 on 18 February 2018
 
 ## Install
