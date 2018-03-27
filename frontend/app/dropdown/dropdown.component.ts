@@ -16,6 +16,8 @@ export class DropdownComponent extends PanelComponent {
   @Input() title: string;
   @Output() openCallback: EventEmitter<void> = new EventEmitter<void>();
 
+  isDismountingNeeded = true;
+
   constructor(public elementRef: ElementRef) {
     super(elementRef.nativeElement);
   }
