@@ -14,6 +14,7 @@ use app\helpers\ImageHelper;
 use app\models\Goal;
 use app\models\Operation;
 use app\models\Patron;
+use app\models\Posts;
 use app\models\Profile;
 use app\models\ProfileContents;
 use app\models\Rates;
@@ -90,7 +91,11 @@ class ProfileController extends Controller
         if(!is_object($objProfile)) {
             $objProfile = new Profile();
             $objProfile->user_id = \Yii::$app->user->getId();
-            $arrBlockChainProfile = $arrBlockChainData['profile'];
+            if($arrBlockChainData !== false) {
+                $arrBlockChainProfile = $arrBlockChainData['profile'];
+            } else {
+                $arrBlockChainProfile = [];
+            }
             $objProfile->name = isset($arrBlockChainProfile['name']) ? $arrBlockChainProfile['name'] : '';
             $objProfile->about = isset($arrBlockChainProfile['about']) ? $arrBlockChainProfile['about'] : '';
             $objProfile->profile_image = isset($arrBlockChainProfile['profile_image']) ? $arrBlockChainProfile['profile_image'] : '';
@@ -363,6 +368,36 @@ class ProfileController extends Controller
             'status' => 'ok',
             'patrons' => $arrPatrons
         ];
+    }
+
+    public function actionUserStats()
+    {
+        if (\Yii::$app->user->isGuest) {
+            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'User not found')
+            ];
+        }
+
+        $intPosts = Posts::find()->where(['user_id' => \Yii::$app->user->getId()])->count();
+        $intSupporters = Patron::find()->where(['user_id' => \Yii::$app->user->getId()])->count();
+        $objGolosApi = new GolosApi();
+        $arrBlockChainData = $objGolosApi->getAccount(\Yii::$app->user->identity->golos_nick, GolosApi::ACCOUNT_GOLOS_PROFILE);
+        if($arrBlockChainData !== false) {
+            $objRates = Rates::findOne(['symbol' => 'GOLOS']);
+            $fltGolos = floatval($arrBlockChainData['balance']);
+            $sum = $fltGolos * $objRates['price_usd'];
+        } else {
+            $fltGolos = $sum =0;
+        }
+        return [
+            'status' => 'ok',
+            'posts' => $intPosts,
+            'supporters' => $intSupporters,
+            'golos' => sprintf("%01.3f", $fltGolos),
+            'sum' => sprintf("%01.2f", $sum)
+        ];
+
     }
 }
 

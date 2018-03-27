@@ -34,17 +34,23 @@ class GolosApi
         ];
         $commandQuery->setParams($data);
         $arrData = $objCommand->execute($commandQuery);
+        $arrReturn = [];
         switch ($returnType) {
             case self::ACCOUNT_GOLOS_ALL:
                 return $arrData;
             case self::ACCOUNT_GOLOS_PROFILE:
-                $arrData = json_decode($arrData['result'][0]['json_metadata'], true);
-                if(isset($arrData['profile'])) {
-                    $arrReturn['profile'] = $arrData['profile'];
+                if(isset($arrData['result']) && count($arrData['result'])) {
+                    $arrReturn['balance'] = $arrData['result'][0]['balance'];
+                    $arrData = json_decode($arrData['result'][0]['json_metadata'], true);
+                    if (isset($arrData['profile'])) {
+                        $arrReturn['profile'] = $arrData['profile'];
+                    } else {
+                        $arrReturn['profile'] = [];
+                    }
+                    $arrReturn['json_metadata'] = $arrData;
                 } else {
-                    $arrReturn['profile'] = [];
+                    return false;
                 }
-                $arrReturn['json_metadata'] = $arrData;
                 return $arrReturn;
         }
         return $arrData;
@@ -97,8 +103,10 @@ class GolosApi
 
         $arrPrepare = $objCommand->execute($commandQuery);
         $arrData = [];
-        foreach ($arrPrepare['result'] as $arrValue) {
-            $arrData[$arrValue['permlink']] = $arrValue;
+        if(isset($arrPrepare['result'])) {
+            foreach ($arrPrepare['result'] as $arrValue) {
+                $arrData[$arrValue['permlink']] = $arrValue;
+            }
         }
         unset($arrPrepare);
         return $arrData;

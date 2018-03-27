@@ -1,4 +1,5 @@
 <?php
+//$arrAuthConfig = parse_ini_file(require __DIR__ . 'auth.ini', true);
 
 $params = require __DIR__ . '/params.php';
 $strLocalParams = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'local' . DIRECTORY_SEPARATOR . 'params.php';
@@ -20,13 +21,13 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'authClientCollection' => [
+/*        'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'google' => [
                     'class' => 'yii\authclient\clients\Google',
-                    'clientId' => 'google_client_id',
-                    'clientSecret' => 'google_client_secret',
+                    'clientId' => $arrAuthConfig['googleClientId'],
+                    'clientSecret' => $arrAuthConfig['googleSecret'],
                 ],
                 'facebook' => [
                     'class' => 'yii\authclient\clients\Facebook',
@@ -34,7 +35,7 @@ $config = [
                     'clientSecret' => 'facebook_client_secret',
                 ],
             ],
-        ],
+        ],*/
         'request' => [
             'cookieValidationKey' => 'SKJba!jWHg^626V2S5V2SdDSDC#ddccc',
             'parsers' => [

@@ -43,4 +43,8 @@ class Users extends \yii\db\ActiveRecord
             'golos_nick' => 'Golos Nick',
         ];
     }
+    public function getProfile()
+    {
+        return self::hasOne(Profile::className(), ['user_id' => 'id']);
+    }
 }

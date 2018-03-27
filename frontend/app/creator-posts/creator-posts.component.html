@@ -1,18 +1,18 @@
 <div class="creatorPosts__item section" *ngFor="let post of posts">
 	<div class="creatorPosts__top">
 		<div class="creatorPosts__l">
-			<div class="creatorPosts__ava" [style.background-image]="'url(' + post.avatar + ')'"></div>
+			<div class="creatorPosts__ava" [style.background-image]="'url(' + post.profile_image + ')'"></div>
 			<div class="creatorPosts__info">
-				<div class="creatorPosts__author" [innerHTML]="post.author"></div>
-				<div class="creatorPosts__date" [innerHTML]="post.date"></div>
+				<div class="creatorPosts__author" [innerHTML]="post.profile_name"></div>
+				<!--<div class="creatorPosts__date" [innerHTML]="post.date"></div>-->
 			</div>
 		</div>
 		<div class="creatorPosts__r">
-			<div class="creatorPosts__money" [innerHTML]="post.dollars + '$'"></div>
-			<div class="creatorPosts__curators">
+			<div class="creatorPosts__money" [innerHTML]="post.price_usd + '$'"></div>
+			<!--<div class="creatorPosts__curators">
 				<span [innerHTML]="post.curators"></span>
 				<span i18n=""> supporters</span>
-			</div>
+			</div>-->
 		</div>
 	</div>
 	<div class="creatorPosts__lock" *ngIf="post.isLocked">
@@ -20,6 +20,7 @@
 		<div class="creatorPosts__lockTitle">Only supporters can view this post</div>
 		<button class="creatorPosts__button">Unlock</button>
 	</div>
+	<iframe class="creatorPosts__video" [attr.src]="post.video_url | safe" *ngIf="!post.isLocked"></iframe>
 	<div class="creatorPosts__title" [innerHTML]="post.title"></div>
-	<p class="paragraph creatorPosts__desc" [innerHTML]="post.desc"></p>
+	<p class="paragraph creatorPosts__desc" [innerHTML]="post.body"></p>
 </div>

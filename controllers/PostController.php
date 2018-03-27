@@ -14,6 +14,7 @@ use app\api\GrapheneNodeClient\OpTransfer;
 use app\helpers\ImageHelper;
 use app\models\Anubis;
 use app\models\PaidPosts;
+use app\models\Patron;
 use app\models\Posts;
 use app\models\Rewards;
 use app\models\Users;
@@ -220,10 +221,12 @@ class PostController extends Controller
         $objApi = new GolosApi();
         $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'yousource');
         $arrPosts = [];
+        $tmpCnt = 0; //TODO: delete after tests
         foreach ($arrObjPosts as $objPost) {
             /* @var $objPost \app\models\Posts */
             $strVideoUrl = null;
             $strPostImage = null;
+            $isLocked = true;
             if(isset($arrBCPosts[$objPost->permlink])) {
                 $boolNeedToSave = false;
                 if ($objPost->body != $arrBCPosts[$objPost->permlink]['body']) {
@@ -243,9 +246,21 @@ class PostController extends Controller
                     $strVideoUrl = $objPost->decryptData($arrMetaData['encodedData']);
                     $strPostImage = ImageHelper::getYouTubeImg($strVideoUrl);
                 }
-            }
-            $arrPost = $objPost->toArray(['title', 'body']) + ['video_url' => $strVideoUrl, 'post_image' => $strPostImage];
+                $isLocked = true;
+                $intCurrentUser = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->getId();
+                $isPatron = Patron::findOne(['user_id' => $objPost->user_id, 'patron_id' => $intCurrentUser, 'status' => Patron::STATUS_ACTIVE]);
+                if(is_object($isPatron)) {
+                    $isLocked = false;
+                } else {
+                    if($tmpCnt == 0) {
+                        //$isLocked = false;
+                    }
+                }
+                $tmpCnt++;
 
+            }
+            $arrPost = $objPost->toArray(['title', 'body']) + ['video_url' => str_replace('watch?v=','embed/', $strVideoUrl), 'post_image' => $strPostImage];
+            $arrPost += ['profile_image' => $objUser->profile->profile_image, 'price_usd' => $objPost->patrons_only, 'profile_name' =>  $objUser->profile->name, 'isLocked' => $isLocked];
             $arrPosts[] = $arrPost;
         }
         return [
