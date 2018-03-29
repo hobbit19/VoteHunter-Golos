@@ -246,10 +246,9 @@ class PostController extends Controller
                     $strVideoUrl = $objPost->decryptData($arrMetaData['encodedData']);
                     $strPostImage = ImageHelper::getYouTubeImg($strVideoUrl);
                 }
-                $isLocked = true;
                 $intCurrentUser = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->getId();
                 $isPatron = Patron::findOne(['user_id' => $objPost->user_id, 'patron_id' => $intCurrentUser, 'status' => Patron::STATUS_ACTIVE]);
-                if(is_object($isPatron)) {
+                if(is_object($isPatron) || $objPost->user_id == $intCurrentUser) {
                     $isLocked = false;
                 } else {
                     if($tmpCnt == 0) {
