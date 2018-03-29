@@ -65,9 +65,11 @@ class ProfileController extends Controller
             if(!\Yii::$app->user->isGuest) {
                 $isPatron = Patron::findOne(['user_id' => $objProfile->user_id, 'patron_id' => \Yii::$app->user->getId(), 'status' => Patron::STATUS_ACTIVE]);
             }
+            $intPatronsCount = Patron::find()->where(['user_id' => $objProfile->user_id, 'status' => Patron::STATUS_ACTIVE])->count();
+            $intTotalReceived = Operation::find()->where(['user_to' => $objProfile->user->golos_nick])->sum('sum_usd');
             return [
                 'status' => 'ok',
-                'profile' => $objProfile->toArray() + ['goals' => $arrGoals, 'rewards' => $arrRewards],
+                'profile' => $objProfile->toArray() + ['goals' => $arrGoals, 'rewards' => $arrRewards] + ['patrons_count' => $intPatronsCount, 'total_received' => $intTotalReceived],
                 'isPatron' => empty($isPatron) ? false : true,
             ];
         }
@@ -323,7 +325,7 @@ class ProfileController extends Controller
         $objOperation->user_to = $arrOper['nick'];
         $objOperation->symbol = 'GOLOS';
         $objOperation->sum_usd = $arrOper['amount'];
-        $objOperation->sum_coin = $arrOper['golos'];
+        $objOperation->sum_coin = floatval($arrOper['golos']);
         if($objOperation->save()) {
             $objUser = User::findOne(['golos_nick' => $objOperation->user_to]);
             $objUserPatron = User::findOne(['golos_nick' => $objOperation->user_from]);
@@ -339,7 +341,7 @@ class ProfileController extends Controller
             $objPatron->patron_sum = $objOperation->sum_usd;
             $objPatron->save();
             if(\Yii::$app->user->isGuest) {
-                \Yii::$app->user->loginByAccessToken(\Yii::$app->request->post('golos_nick'), Users::GOLOS_NICK);
+                \Yii::$app->user->loginByAccessToken(\Yii::$app->request->post('user_from'), Users::GOLOS_NICK);
             }
 
             $objProfile = Profile::findOne(['user_id' => $objUser->id]);

@@ -289,7 +289,7 @@ export class ApiService {
 
   setAsPatron(data: any)
   {
-      return this.get('/profile/set-as-patron', data);
+      return this.post('/profile/set-as-patron', data);
   }
 
 

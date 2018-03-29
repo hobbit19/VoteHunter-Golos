@@ -48,7 +48,8 @@ export class RequisitesPageComponent implements OnInit {
           wif = this.password;
       }
 
-      golos.api.getAccounts([this.login], (err, response) => {
+      let promise = new Promise((resolve) => {
+          golos.api.getAccounts([this.login], (err, response) => {
           if (err) {
               this.error = 'Unknown error, please try later.';
           } else {
@@ -56,12 +57,12 @@ export class RequisitesPageComponent implements OnInit {
                   let pubWif;
                   let resultWifToPublic;
                   try {
-                      resultWifToPublic = golos.auth.wifToPublic(wif, pubWif);
+                      resultWifToPublic = golos.auth.wifToPublic(wif);
 
                       if (response[0].active.key_auths[0][0] === resultWifToPublic) {
-                          //console.log('login OK!');
                           let WifToPrivate = golos.auth.getPrivateKeys(this.login, this.password)
-                          this.mediator.requisitesCallback(wif, this.login, WifToPrivate.posting);
+                          this.mediator.requisitesCallback(wif, this.login, WifToPrivate.posting, resolve);
+                          return true;
                       }
                   } catch (err) {
                   }
@@ -71,7 +72,8 @@ export class RequisitesPageComponent implements OnInit {
                   this.error = 'Username not found';
               }
           }
-      })
+      })});
+      this.domService.onFormSubmit(event.target, promise);
   }
 
   onInputChange() {

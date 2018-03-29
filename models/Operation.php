@@ -31,12 +31,12 @@ class Operation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_from', 'user_to', 'symbol', 'sum_usd', 'sum_coin'], 'required'],
+/*            [['user_from', 'user_to', 'symbol', 'sum_usd', 'sum_coin'], 'required'],
             [['sum_usd'], 'integer'],
             [['sum_coin'], 'number'],
             [['added'], 'safe'],
             [['user_from', 'user_to'], 'string', 'max' => 50],
-            [['symbol'], 'string', 'max' => 20],
+            [['symbol'], 'string', 'max' => 20],*/
         ];
     }
 

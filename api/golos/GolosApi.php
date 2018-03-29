@@ -97,9 +97,10 @@ class GolosApi
         $connector = new GolosTestWSConnector();
         $objCommand = new GetDiscussionsByBlogCommand($connector);
         $commandQuery = new CommandQueryData();
-        $commandQuery->setParamByKey('0:limit', 10);
+        $commandQuery->setParamByKey('0:limit', 100);
         $commandQuery->setParamByKey('0:select_authors', [$strUserName]);
-        $commandQuery->setParamByKey('0:select_tags', [$strTag]);
+        $commandQuery->setParamByKey('0:select_tags', $strTag);
+        //$commandQuery->setParamByKey('0:start_permlink', $strTag);
 
         $arrPrepare = $objCommand->execute($commandQuery);
         $arrData = [];

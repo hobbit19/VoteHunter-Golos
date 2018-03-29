@@ -18,7 +18,7 @@
 	<div class="creatorPosts__lock" *ngIf="post.isLocked">
 		<img class="creatorPosts__lockImage" src="/images/lock.svg">
 		<div class="creatorPosts__lockTitle">Only supporters can view this post</div>
-		<button class="creatorPosts__button">Unlock</button>
+		<button class="creatorPosts__button" [routerLink]="'/become-patron/' + post.user_id">Unlock</button>
 	</div>
 	<iframe class="creatorPosts__video" [attr.src]="post.video_url | safe" *ngIf="!post.isLocked"></iframe>
 	<div class="creatorPosts__title" [innerHTML]="post.title"></div>

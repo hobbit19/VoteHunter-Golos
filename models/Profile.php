@@ -72,4 +72,9 @@ class Profile extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ProfileContents::className(),['profile_id' => 'id']);
     }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id' => 'user_id']);
+    }
 }

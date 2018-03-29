@@ -221,7 +221,6 @@ class PostController extends Controller
         $objApi = new GolosApi();
         $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'yousource');
         $arrPosts = [];
-        $tmpCnt = 0; //TODO: delete after tests
         foreach ($arrObjPosts as $objPost) {
             /* @var $objPost \app\models\Posts */
             $strVideoUrl = null;
@@ -247,18 +246,15 @@ class PostController extends Controller
                     $strPostImage = ImageHelper::getYouTubeImg($strVideoUrl);
                 }
                 $intCurrentUser = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->getId();
-                $isPatron = Patron::findOne(['user_id' => $objPost->user_id, 'patron_id' => $intCurrentUser, 'status' => Patron::STATUS_ACTIVE]);
-                if(is_object($isPatron) || $objPost->user_id == $intCurrentUser) {
+                $objPatron = Patron::findOne(['user_id' => $objPost->user_id, 'patron_id' => $intCurrentUser, 'status' => Patron::STATUS_ACTIVE]);
+                if(is_object($objPatron) && $objPatron->patron_sum >= $objPost->patrons_only || $objPost->user_id == $intCurrentUser) {
                     $isLocked = false;
                 } else {
-                    if($tmpCnt == 0) {
-                        //$isLocked = false;
-                    }
+                    $strVideoUrl = null;
+                    $strPostImage = null;
                 }
-                $tmpCnt++;
-
             }
-            $arrPost = $objPost->toArray(['title', 'body']) + ['video_url' => str_replace('watch?v=','embed/', $strVideoUrl), 'post_image' => $strPostImage];
+            $arrPost = $objPost->toArray(['title', 'body', 'user_id']) + ['video_url' => str_replace('watch?v=','embed/', $strVideoUrl), 'post_image' => $strPostImage];
             $arrPost += ['profile_image' => $objUser->profile->profile_image, 'price_usd' => $objPost->patrons_only, 'profile_name' =>  $objUser->profile->name, 'isLocked' => $isLocked];
             $arrPosts[] = $arrPost;
         }

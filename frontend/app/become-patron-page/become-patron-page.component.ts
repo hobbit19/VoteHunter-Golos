@@ -27,22 +27,22 @@ export class BecomePatronPageComponent implements OnInit {
   }
 
   submit(reward) {
-    this.mediator.requisitesCallback = (wif, login, postingWif) => {
-        golos.broadcast.transfer(wif, login, reward.nick , reward.golos, login + ' is now a supporter for ' +reward.nick, function (err, result) {
+    this.mediator.requisitesCallback = (wif, login, postingWif, resolve) => {
+        golos.broadcast.transfer(wif, login, reward.nick , reward.golos, login + ' is now a supporter for ' +reward.nick, (err, result) => {
             if(err) {
                 alert('Cannot make transfer, please check username or password/active key');
-
+                resolve(true);
             }
             if(result) {
                 let data = {
                     op_data: reward,
                     user_from: login,
-                }
+                };
                 this.api.setAsPatron(data).then(
                     (data)=>{
-                        var follower = login;
-                        var following = reward.nick;
-                        var json = JSON.stringify(
+                        let follower = login;
+                        let following = reward.nick;
+                        let json = JSON.stringify(
                             ['follow', {
                                 follower: follower,
                                 following: following,
@@ -55,8 +55,10 @@ export class BecomePatronPageComponent implements OnInit {
                             [follower], // Required Posting Auths
                             'follow', // Id
                             json, //
-                            function(err, result) {
+                            (err, result) => {
                                 console.log(err, result);
+                                resolve();
+                                this.router.navigateByUrl(data.redirect);
                             }
                         );
                     },
