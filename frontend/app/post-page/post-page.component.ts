@@ -14,6 +14,7 @@ interface IPost {
   title?: string,
   id?: string,
   video_url?: string,
+  video_ipfs?: string,
 }
 
 @Component({

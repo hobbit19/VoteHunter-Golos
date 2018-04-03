@@ -155,6 +155,13 @@ class PostController extends Controller
             $arrPost['video_url'] = $strVideoUrl;
         }
 
+        //ipfs or not?
+        if(ImageHelper::getYouTubeImg($arrPost['video_url']) == '') {
+            //ipfs link
+            $arrPost['video_ipfs'] = $arrPost['video_url'];
+            unset($arrPost['video_url']);
+        }
+
         return [
             'status' => 'ok',
             'post' => $arrPost,
