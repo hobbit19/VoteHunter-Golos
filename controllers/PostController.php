@@ -139,7 +139,7 @@ class PostController extends Controller
         $objAnubis = new Anubis();
         $objAnubis->setKey($objPost->secret_key);
         $strVideoUrl = $objAnubis->decrypt(base64_decode($strEncryptedData));
-        $boolShowVideoLink = false;
+        $boolShowVideoLink = $objPost->patrons_only == 0;
         $objPaid = PaidPosts::findOne(['user_id' => \Yii::$app->user->getId(), 'post_id' => $objPost->id]);
         if(is_object($objPaid)) {
             $boolShowVideoLink = true;
