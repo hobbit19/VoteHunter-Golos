@@ -29,7 +29,7 @@ class IPFSHelper
             curl_setopt($objCurl, CURLOPT_POSTFIELDS, $arrPost);
             $result = curl_exec($objCurl);
             curl_close($objCurl);
-            return $result;
+            return json_decode($result, true);
         }
         return false;
     }
