@@ -12,7 +12,7 @@
 			</video>
 		</div>
 
-		<div class="buttons" *ngIf="!post.video_url">
+		<div class="buttons" *ngIf="!post.video_url && !post.video_ipfs">
 			<button class="button button-mode-2" (click)="pay()" i18n="">Pay</button>
 		</div>
 	</div>

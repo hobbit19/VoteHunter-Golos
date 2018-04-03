@@ -66,6 +66,10 @@ export class PostPageComponent implements OnInit {
               if(data.post.video_url) {
                 postData.video_url = data.post.video_url;
               }
+              if(data.post.video_ipfs) {
+                postData.video_ipfs = data.post.video_ipfs;
+              }
+
             }
             this.post = postData;
           });
