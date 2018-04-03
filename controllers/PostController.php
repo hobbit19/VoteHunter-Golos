@@ -55,7 +55,7 @@ class PostController extends Controller
         $mixIPFS = IPFSHelper::uploadVideo();
 
         if($mixIPFS != false) {
-            if(\Yii::$app->params['isDevelopment']) {
+            if(!empty(\Yii::$app->params['isDevelopment'])) {
                 $strVideoUrl = 'http://localhost:8080/ipfs/' .  $mixIPFS['Hash'];
             } else {
                 $strVideoUrl = 'https://yousource.io/ipfs/' .  $mixIPFS['Hash'];
