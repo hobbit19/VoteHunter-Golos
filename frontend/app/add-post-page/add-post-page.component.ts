@@ -37,6 +37,7 @@ export class AddPostPageComponent implements OnInit {
     patrons_only: 0,
     cat_id: POST_CONTENT_TYPES[0].value,
     pKey: '',
+    video_file: null,
   };
 
   ngOnInit() {
@@ -108,6 +109,34 @@ export class AddPostPageComponent implements OnInit {
 
   clearErrors() {
     this.errors = [];
+  }
+
+  onFileInputChange($event) {
+      let files = $event.target.files;
+      for (let i = 0, f; f = files[i]; i++) {
+          if (!f.type.match('video.*')) {
+              continue;
+          }
+          let reader = new FileReader();
+          reader.onload = ((theFile) => {
+              return (e) => {
+                  document.getElementById('new_video_file').innerHTML = 'File: ' + theFile.name + ', Size: ' + theFile.size + ' bytes.';
+                  this.postData.video_file = f;
+                  (document.getElementById('video_url') as HTMLInputElement).readOnly = true;
+                  (document.getElementById('video_url') as HTMLInputElement).value = '';
+                  this.postData.video_url = '';
+              };
+          })(f);
+          reader.readAsDataURL(f);
+      }
+  }
+
+  cleanVideoFile()
+  {
+      document.getElementById('new_video_file').innerText = 'Click to select video to upload';
+      (document.getElementById('new_video_file_input') as HTMLInputElement).value = '';
+      (document.getElementById('video_url') as HTMLInputElement).readOnly = false;
+      this.postData.video_file = null;
   }
 
 }

@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\api\golos\GolosApi;
 use app\api\GrapheneNodeClient\OpTransfer;
 use app\helpers\ImageHelper;
+use app\helpers\IPFSHelper;
 use app\models\Anubis;
 use app\models\PaidPosts;
 use app\models\Patron;
@@ -50,11 +51,29 @@ class PostController extends Controller
                 'status' => 'Need login'
             ];
         }
+        $strVideoUrl = \Yii::$app->request->post('video_url'); //$objAnubis->encrypt(\Yii::$app->request->post('video_url'));
+        $mixIPFS = IPFSHelper::uploadVideo();
 
+        if($mixIPFS != false) {
+            if(\Yii::$app->params['isDevelopment']) {
+                $strVideoUrl = 'http://localhost:8080/ipfs/' .  $mixIPFS['Hash'];
+            } else {
+                $strVideoUrl = 'https://yousource.io/ipfs/' .  $mixIPFS['Hash'];
+            }
+        } else {
+            //youtube link
+            $tmpLink = ImageHelper::getYouTubeImg($strVideoUrl);
+            if($tmpLink == '') {
+                return [
+                    'status' => 'error',
+                    'msg' => \Yii::t('app', 'Wrong video url'),
+                ];
+            }
+        }
         $strKey = str_replace(['_', '/', '-'], '', \Yii::$app->security->generateRandomString());
         $objAnubis = new Anubis();
         $objAnubis->setKey($strKey);
-        $strEncryptedData = base64_encode($objAnubis->encrypt(\Yii::$app->request->post('video_url')));
+        $strEncryptedData = base64_encode($objAnubis->encrypt($strVideoUrl));
         $objAnubis->setKey(\Yii::$app->request->post('pKey'));
         $strEncKey = base64_encode($objAnubis->encrypt($strKey));
         $strGolosPermLink = strtolower(preg_replace("/[^a-zA-Z0-9]/", '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));

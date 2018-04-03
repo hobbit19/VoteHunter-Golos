@@ -46,7 +46,21 @@
 						<div class="section__name" i18n="">URL</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" [(ngModel)]="postData.video_url" name="video_url" (ngModelChange)="clearErrors()">
+						<input class="section__input" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" [(ngModel)]="postData.video_url" name="video_url" id="video_url" (ngModelChange)="clearErrors()">
+					</div>
+				</div>
+				<div class="section__row">
+					<div class="section__left">
+						<div class="section__name" i18n="">Video</div>
+					</div>
+					<div class="section__right">
+						<label class="upload__video_file" id="new_video_file"> Click to select video to upload
+						</label>
+						<input class="input-file" id='new_video_file_input' type="file" name="postData.video_file"
+							   (change)="onFileInputChange($event)">
+
+						<span class="clear_video_file" id="clear_video_file" title="Reomve file" (click)="cleanVideoFile()" *ngIf="postData.video_file !== null">X</span>
+
 					</div>
 				</div>
 			</div>

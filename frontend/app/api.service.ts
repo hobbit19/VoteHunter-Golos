@@ -245,7 +245,7 @@ export class ApiService {
 
 
   postAdd(data: any) {
-    return this.post('/post/add', data);
+    return this.postFormData('/post/add', data);
   }
 
   postShow(data: any) {
