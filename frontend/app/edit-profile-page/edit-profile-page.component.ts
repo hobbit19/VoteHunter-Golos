@@ -76,6 +76,7 @@ export class EditProfilePageComponent implements OnInit {
   {
       let wif = APIS['steem'].auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'owner');
       let keys = APIS['steem'].auth.getPrivateKeys(localStorage.getItem('nick'), localStorage.getItem('password'));
+/*
       let owner = {
           weight_threshold: 1,
           account_auths: [],
@@ -92,7 +93,9 @@ export class EditProfilePageComponent implements OnInit {
           key_auths: [[keys.postingPubkey, 1]]
       };
       let memoKey = keys.memoPubkey;
-      APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), owner, active, posting, memoKey, JSON.stringify(dataJson), function(err, result) {
+
+*/
+      APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), undefined, undefined, undefined, undefined, JSON.stringify(dataJson), function(err, result) {
           console.log(err, result);
       });
 
