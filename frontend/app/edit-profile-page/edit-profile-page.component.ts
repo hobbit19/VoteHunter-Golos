@@ -6,6 +6,16 @@ let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
 golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
 
+let steem = require('steem');
+steem.config.set('websocket','wss://testnet.steem.vc');
+steem.config.set('address_prefix', 'STX');
+steem.config.set('chain_id', '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673');
+
+let APIS = {
+    steem: steem,
+    golos: golos,
+};
+
 
 @Component({
   selector: 'vh-edit-profile-page',
@@ -27,7 +37,6 @@ export class EditProfilePageComponent implements OnInit {
   constructor(public api: ApiService,
               public domService: DOMService,) {
   }
-
   ngOnInit() {
     this.getProfile();
   }
@@ -35,6 +44,7 @@ export class EditProfilePageComponent implements OnInit {
   @HostBinding('class') get classStr() {
     return 'editProfilePage';
   }
+
 
   submit(event) {
 
@@ -64,8 +74,8 @@ export class EditProfilePageComponent implements OnInit {
 
   updateBCData(dataJson)
   {
-      let wif = golos.auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'owner');
-      let keys = golos.auth.getPrivateKeys(localStorage.getItem('nick'), localStorage.getItem('password'));
+      let wif = APIS['steem'].auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'owner');
+      let keys = APIS['steem'].auth.getPrivateKeys(localStorage.getItem('nick'), localStorage.getItem('password'));
       let owner = {
           weight_threshold: 1,
           account_auths: [],
@@ -82,7 +92,7 @@ export class EditProfilePageComponent implements OnInit {
           key_auths: [[keys.postingPubkey, 1]]
       };
       let memoKey = keys.memoPubkey;
-      golos.broadcast.accountUpdate(wif, localStorage.getItem('nick'), owner, active, posting, memoKey, JSON.stringify(dataJson), function(err, result) {
+      APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), owner, active, posting, memoKey, JSON.stringify(dataJson), function(err, result) {
           console.log(err, result);
       });
 
