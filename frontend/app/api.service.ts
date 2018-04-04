@@ -87,7 +87,7 @@ export class ApiService {
     return Promise.resolve([
       {name: 'Posts', num: '0'},
       {name: 'Supporters', num: '0'},
-      {name: 'Golos', num: '0'},
+      {name: 'Steem', num: '0'},
       {name: 'Sum', num: '$0'},
     ]);
   }

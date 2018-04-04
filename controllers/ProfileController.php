@@ -10,6 +10,7 @@ namespace app\controllers;
 
 
 use app\api\golos\GolosApi;
+use app\api\steem\SteemApi;
 use app\helpers\ImageHelper;
 use app\models\Goal;
 use app\models\Operation;
@@ -88,7 +89,7 @@ class ProfileController extends Controller
             ];
         }
         $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
-        $objGolosApi = new GolosApi();
+        $objGolosApi = new SteemApi();
         $arrBlockChainData = $objGolosApi->getAccount(\Yii::$app->user->identity->golos_nick, GolosApi::ACCOUNT_GOLOS_PROFILE);
         if(!is_object($objProfile)) {
             $objProfile = new Profile();
@@ -383,10 +384,10 @@ class ProfileController extends Controller
 
         $intPosts = Posts::find()->where(['user_id' => \Yii::$app->user->getId()])->count();
         $intSupporters = Patron::find()->where(['user_id' => \Yii::$app->user->getId()])->count();
-        $objGolosApi = new GolosApi();
+        $objGolosApi = new SteemApi();
         $arrBlockChainData = $objGolosApi->getAccount(\Yii::$app->user->identity->golos_nick, GolosApi::ACCOUNT_GOLOS_PROFILE);
         if($arrBlockChainData !== false) {
-            $objRates = Rates::findOne(['symbol' => 'GOLOS']);
+            $objRates = Rates::findOne(['symbol' => 'STEEM']);
             $fltGolos = floatval($arrBlockChainData['balance']);
             $sum = $fltGolos * $objRates['price_usd'];
         } else {

@@ -23,7 +23,7 @@ export class StatsComponent implements OnInit {
         this.items = [
           {name: 'Posts', num: data.posts},
           {name: 'Supporters', num: data.supporters},
-          {name: 'Golos', num: data.golos},
+          {name: 'Steem', num: data.golos},
           {name: 'Sum', num: '$' + data.sum},
         ]
     }, (data) => {});

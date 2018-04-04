@@ -8,6 +8,7 @@
 namespace app\commands;
 
 use app\api\golos\GolosApi;
+use app\api\steem\SteemApi;
 use yii\console\Controller;
 
 /**
@@ -31,7 +32,7 @@ class HelloController extends Controller
 
     public function actionTestApi()
     {
-        $objGolos = new GolosApi();
+        $objGolos = new SteemApi();
         print_r($objGolos->getAccount('igor', GolosApi::ACCOUNT_GOLOS_ALL));
     }
 

@@ -14,7 +14,7 @@
 	<div class="mainPage__right vr-1">
 		<h2 class="h2" i18n="">For authors</h2>
 		<p class="paragraph mainPage__text1" i18n="">Start your creative journey.</p>
-		<a class="button button-mode-2 mainPage__button1" href="https://golos.io/" target="_blank" *ngIf="!user.isLoggedIn" i18n="">Create page</a>
+		<a class="button button-mode-2 mainPage__button1" href="https://steemit.com/" target="_blank" *ngIf="!user.isLoggedIn" i18n="">Create page</a>
 		<a class="button button-mode-2 mainPage__button1" routerLink="/dashboard" *ngIf="user.isLoggedIn" i18n="">Dashboard</a>
 		<vh-persons [items]="newAuthors" i18n-headingStr="" headingStr="New faces" className="vr-3"></vh-persons>
 		<vh-persons [items]="authors" i18n-headingStr="" headingStr="Popular" className="vr-3"></vh-persons>
