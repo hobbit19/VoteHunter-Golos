@@ -75,8 +75,9 @@ export class EditProfilePageComponent implements OnInit {
   updateBCData(dataJson)
   {
       let wif = APIS['steem'].auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'owner');
-      let keys = APIS['steem'].auth.getPrivateKeys(localStorage.getItem('nick'), localStorage.getItem('password'));
 /*
+
+      let keys = APIS['steem'].auth.getPrivateKeys(localStorage.getItem('nick'), localStorage.getItem('password'));
       let owner = {
           weight_threshold: 1,
           account_auths: [],
@@ -95,11 +96,16 @@ export class EditProfilePageComponent implements OnInit {
       let memoKey = keys.memoPubkey;
 
 */
-      console.log(wif, localStorage.getItem('nick'));
-      APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), undefined, undefined, undefined, undefined, JSON.stringify(dataJson), function(err, result) {
-          console.log(err, result);
-      });
+      APIS['steem'].api.getAccounts([localStorage.getItem('nick')], (err, response) => {
+          if (err) {
+          } else {
+              const {memo_key, json_metadata} = response[0];
+              APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), undefined, undefined, undefined, memo_key, JSON.stringify(dataJson), function (err, result) {
+                  console.log(err, result);
+              });
 
+          }
+      });
   }
 
   submitGoals(event) {
