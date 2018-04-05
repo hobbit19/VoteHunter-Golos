@@ -5,6 +5,16 @@ import {DOMService} from '../dom.service';
 
 let golos = require('golos-js');
 
+let steem = require('steem');
+steem.config.set('websocket','wss://testnet.steem.vc');
+steem.config.set('uri','https://testnet.steem.vc');
+steem.config.set('address_prefix', 'STX');
+steem.config.set('chain_id', '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673');
+let APIS = {
+    steem: steem,
+    golos: golos,
+};
+
 // const POST_PRIVACY = [
 //   { str: 'Supporters only', value: 1 },
 //   { str: 'Public', value: 0 },
@@ -73,7 +83,7 @@ export class AddPostPageComponent implements OnInit {
 
   post(event) {
     let promise = new Promise((resolve, reject) => {
-      let postingKey = golos.auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'posting');
+      let postingKey = APIS['steem'].auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'posting');
       this.postData.pKey = postingKey;
       this.api.postAdd(this.postData).then((data) => {
         if (!data.status || data.status !== 'ok') {
@@ -91,7 +101,7 @@ export class AddPostPageComponent implements OnInit {
         let body = data.data.body;
         let jsonMetadata = JSON.stringify(data.data.jsonMetadata);
 
-        golos.broadcast.comment(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
+        APIS['steem'].broadcast.comment(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
           if (err) {
             reject();
 
