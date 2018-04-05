@@ -60,7 +60,7 @@ export class PostPageComponent implements OnInit {
 
       let author = params.a;
       let permlink = params.p;
-      golos.api.getContent(author, permlink, (err, post) => {
+        APIS['steem'].api.getContent(author, permlink, (err, post) => {
         if (!err) {
           let postData: IPost = {
             author: author,
