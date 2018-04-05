@@ -3,6 +3,7 @@ import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
 import {UserService} from '../user.service';
 import {DOMService} from '../dom.service';
+import {reject} from 'q';
 
 let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
@@ -10,9 +11,9 @@ golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099
 
 let steem = require('steem');
 steem.config.set('websocket','wss://testnet.steem.vc');
+steem.config.set('uri','https://testnet.steem.vc');
 steem.config.set('address_prefix', 'STX');
 steem.config.set('chain_id', '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673');
-
 
 @Component({
     selector: 'vh-login-page',
@@ -48,7 +49,8 @@ export class LoginPageComponent implements OnInit {
 
         this.domService.onFormSubmit(event.target, new Promise((resolve, reject) => {
             Promise.all(promises).then((pubKey) => {
-                if (pubKey === null) {
+
+                if (pubKey[0] === null) {
                     reject();
                 } else {
                     this.api.login({
@@ -72,9 +74,10 @@ export class LoginPageComponent implements OnInit {
 
     steemLogin(resolve, reject)
     {
+        //console.log(steem.auth.verify(this.login, this.password))
         let wif = '';
         if (!steem.auth.isWif(this.password)) {
-            wif = steem.auth.toWif(this.login, this.password, 'posting');
+            wif = steem.auth.getPrivateKeys(this.login, this.password, ['posting']).posting;
         } else {
             wif = this.password;
         }
@@ -84,29 +87,32 @@ export class LoginPageComponent implements OnInit {
                 reject();
             } else {
                 if (response.length > 0) {
-                    let pubWif;
+/*
                     let resultWifToPublic;
-
                     try {
-                        resultWifToPublic = steem.auth.wifToPublic(wif, pubWif);
+                        resultWifToPublic = steem.auth.wifToPublic(wif);
                     } catch (err) {
                         reject();
                     }
-
-                    if (response[0].posting.key_auths[0][0] === resultWifToPublic) {
+*/
+                    let pubWif = response[0].posting.key_auths[0][0];
+                    let isvalid;
+                    try{
+                        isvalid = steem.auth.wifIsValid(wif, pubWif);
+                    } catch(e) {
+                        isvalid = false;
+                    }
+                    if (isvalid) {
                         localStorage.setItem('password', this.password);
                         localStorage.setItem('nick', this.login);
                         if(this.password != wif) {
                             localStorage.setItem('wif', wif);
                         }
-                        /*
-                                                    let time_now  = (new Date()).getTime();
-                                                    localStorage.setItem('stored', time_now.toString());
-                        */
-                        resolve(resultWifToPublic);
+                        resolve(pubWif);
                     }
                 } else {
-                    console.log('Username not found');
+                    //console.log('Username not found');
+                    resolve(null);
                 }
                 resolve(null);
             }

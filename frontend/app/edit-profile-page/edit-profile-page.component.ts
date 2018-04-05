@@ -95,6 +95,7 @@ export class EditProfilePageComponent implements OnInit {
       let memoKey = keys.memoPubkey;
 
 */
+      console.log(wif, localStorage.getItem('nick'));
       APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), undefined, undefined, undefined, undefined, JSON.stringify(dataJson), function(err, result) {
           console.log(err, result);
       });
