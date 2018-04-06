@@ -304,7 +304,7 @@ class PostController extends Controller
         ];
         $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->user->getId()])->asArray()->all();
         foreach ($arrRewards as $arrReward) {
-            $arrPrivacy[] = [ 'str' => 'Patrons $' . $arrReward['amount'] . '+', 'value' => $arrReward['amount']];
+            $arrPrivacy[] = [ 'str' => 'Supporters $' . $arrReward['amount'] . '+', 'value' => $arrReward['amount']];
         }
         return [
             'status' => 'ok',
