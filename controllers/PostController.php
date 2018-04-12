@@ -124,7 +124,7 @@ class PostController extends Controller
             $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
             $strLink = "https://usource.ru/p/".$objProfile->url."/".$objPost->permlink;
             $strBody = \Yii::$app->request->post('body','') .
-                "<br><a href='$strLink'><img src='$strThumbUrl'></a><br><a href='$strLink'><img src='$strThumbUrl'></a>";
+                "<br><a href='$strLink'><img src='$strThumbUrl'></a>";
             return [
                 'status' => 'ok',
                 'data' => [
