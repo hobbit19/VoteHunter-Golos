@@ -36,6 +36,7 @@ interface IPost {
   encapsulation: ViewEncapsulation.None
 })
 export class PostPageComponent implements OnInit {
+  prepareData : any;
 
   constructor(
     public activatedRoute: ActivatedRoute,
@@ -48,18 +49,15 @@ export class PostPageComponent implements OnInit {
   post: IPost;
 
   ngOnInit() {
-
-      this.activatedRoute.queryParams.subscribe(params => {
+      this.activatedRoute.params.subscribe(params => {
       /**
        * getContent() receiving a post
        * @param {String} author - author of the post
        * @param {String} permlink - url-address of the post
        */
-      //let author = 'votehunter';
-      //let permlink = 'super-video';
 
-      let author = params.a;
-      let permlink = params.p;
+      let author = this.activatedRoute.snapshot.data.prepareData.nick;
+      let permlink = params.permlink;
         APIS['steem'].api.getContent(author, permlink, (err, post) => {
         if (!err) {
           let postData: IPost = {

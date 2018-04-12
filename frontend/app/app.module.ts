@@ -57,6 +57,7 @@ import { TermsPageComponent } from './terms-page/terms-page.component';
 import { TeamComponent } from './team/team.component';
 import { TeamMemberComponent } from './team-member/team-member.component';
 import { BgiPipe } from './bgi.pipe';
+import {PostPageResolver} from './post-page/post-page-resolver.service';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { BgiPipe } from './bgi.pipe';
     DOMService,
     CreatorPageResolver,
     CategoryPageResolverService,
+    PostPageResolver,
     BecomePatronPageResolverService,
     AuthGuard,
     SafePipe,

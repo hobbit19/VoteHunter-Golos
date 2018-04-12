@@ -61,6 +61,7 @@ class SteemApi
     {
         //TODO: uncomment in poduction
         //$connector = new GolosWSConnector();
+        //$connector = new SteemitWSConnector();
         $connector = new SteemTestWSConnector();
         $objCommand = new GetDiscussionsByBlogCommand($connector);
         $commandQuery = new CommandQueryData();
@@ -83,7 +84,7 @@ class SteemApi
 
     public function transfer($strWifFrom, $strUserFrom, $strUserTo, $fltSum, $strMemo)
     {
-        $connector = new GolosTestWSConnector();
+        $connector = new SteemitWSConnector();
         try{
             $answer = OpTransfer::doSynchronous(
                 $connector,

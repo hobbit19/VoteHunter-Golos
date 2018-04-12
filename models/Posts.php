@@ -20,6 +20,7 @@ use Yii;
  * @property int $user_id
  * @property int $cat_id
  * @property int $patrons_only
+ * @property string $thumbnail
  */
 class Posts extends \yii\db\ActiveRecord
 {

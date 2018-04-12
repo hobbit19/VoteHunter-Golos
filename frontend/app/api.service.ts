@@ -292,5 +292,10 @@ export class ApiService {
       return this.post('/profile/set-as-patron', data);
   }
 
+  isPostExists(data: any)
+  {
+      return this.get('/post/is-exists', data);
+  }
+
 
 }

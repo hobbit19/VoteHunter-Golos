@@ -12,6 +12,7 @@ class m180322_155448_create_auth extends Migration
      */
     public function safeUp()
     {
+        return true;
         //$this->addColumn('users', 'username', $this->string()->notNull());
         $this->addColumn('users', 'auth_key', $this->string()->notNull());
         $this->addColumn('users', 'password_hash', $this->string()->notNull());
@@ -35,6 +36,7 @@ class m180322_155448_create_auth extends Migration
      */
     public function safeDown()
     {
+        return true;
         $this->dropTable('auth');
         $this->dropColumn('users', 'auth_key');
         $this->dropColumn('users', 'password_hash');

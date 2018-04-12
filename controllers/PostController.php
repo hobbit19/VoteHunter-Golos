@@ -14,9 +14,11 @@ use app\api\GrapheneNodeClient\OpTransfer;
 use app\helpers\ImageHelper;
 use app\helpers\IPFSHelper;
 use app\models\Anubis;
+use app\models\HashUrl;
 use app\models\PaidPosts;
 use app\models\Patron;
 use app\models\Posts;
+use app\models\Profile;
 use app\models\Rewards;
 use app\models\Users;
 
@@ -32,6 +34,7 @@ use GrapheneNodeClient\Tools\Transaction;
 use GrapheneNodeClient\Connectors\Http\SteemitHttpConnector;
 use GrapheneNodeClient\Commands\Broadcast\BroadcastTransactionSynchronousCommand;
 use GrapheneNodeClient\Tools\ChainOperations\OpVote;
+use yii\web\UploadedFile;
 use Zend\Debug\Debug;
 
 class PostController extends Controller
@@ -51,22 +54,43 @@ class PostController extends Controller
                 'status' => 'Need login'
             ];
         }
-        $strVideoUrl = \Yii::$app->request->post('video_url'); //$objAnubis->encrypt(\Yii::$app->request->post('video_url'));
-        $mixIPFS = IPFSHelper::uploadVideo();
-
-        if($mixIPFS != false) {
+        $strVideoUrl = \Yii::$app->request->post('video_url');
+        $mixIPFS = null;
+        if(!empty($_FILES['video_file'])) {
+            if(!empty($_FILES['screen_file']) || \Yii::$app->request->post('base64') !== null) {
+                $mixIPFS = IPFSHelper::uploadFile('screen_file', ['base64' => \Yii::$app->request->post('base64')]);
+                if (empty($mixIPFS)) {
+                    return [
+                        'status' => 'error',
+                        'msg' => \Yii::t('app', 'Cannot upload thumbnail to IPFS.'),
+                    ];
+                }
+                if (!empty(\Yii::$app->params['isDevelopment'])) {
+                    $strThumbUrl = 'https://usource.ru/ipfs/' . $mixIPFS['Hash'];
+                } else {
+                    $strThumbUrl = 'https://usource.ru/ipfs/' . $mixIPFS['Hash'];
+                }
+            } else {
+                return [
+                    'status' => 'error',
+                    'msg' => \Yii::t('app', 'Please select thumbnail image for you video.'),
+                ];
+            }
+            $mixIPFS = IPFSHelper::uploadFile('video_file');
+        }
+        if(!empty($mixIPFS)) {
             if(!empty(\Yii::$app->params['isDevelopment'])) {
                 $strVideoUrl = 'http://localhost:8080/ipfs/' .  $mixIPFS['Hash'];
             } else {
-                $strVideoUrl = 'https://yousource.io/ipfs/' .  $mixIPFS['Hash'];
+                $strVideoUrl = 'https://usource.ru/ipfs/' .  $mixIPFS['Hash'];
             }
         } else {
             //youtube link
-            $tmpLink = ImageHelper::getYouTubeImg($strVideoUrl);
-            if($tmpLink == '') {
+            $strThumbUrl = ImageHelper::getYouTubeImg($strVideoUrl);
+            if($strThumbUrl == '') {
                 return [
                     'status' => 'error',
-                    'msg' => \Yii::t('app', 'Wrong video url'),
+                    'msg' => \Yii::t('app', 'Wrong youtube video url'),
                 ];
             }
         }
@@ -76,8 +100,12 @@ class PostController extends Controller
         $strEncryptedData = base64_encode($objAnubis->encrypt($strVideoUrl));
         $objAnubis->setKey(\Yii::$app->request->post('pKey'));
         $strEncKey = base64_encode($objAnubis->encrypt($strKey));
-        $strGolosPermLink = strtolower(preg_replace("/[^a-zA-Z0-9]/", '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));
-        $objPost = Posts::findOne(['permlink' => $strGolosPermLink, 'user_id' => \Yii::$app->user->getId()]);
+        //$strPermLink = strtolower(preg_replace("/[^a-zA-Z0-9]/", '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));
+        $objHashUrl = HashUrl::findOne(['used' => 0]);
+        $strPermLink = $objHashUrl->hash;
+        $objHashUrl->used = 1;
+        $objHashUrl->save();
+        $objPost = Posts::findOne(['permlink' => $strPermLink, 'user_id' => \Yii::$app->user->getId()]);
         if(!is_object($objPost)) {
             $objPost = new Posts();
         }
@@ -85,16 +113,18 @@ class PostController extends Controller
         $objPost->not_encrypted = 0;//\Yii::$app->request->post('not_encrypted');
         $objPost->secret_key = $strKey;
         $objPost->user_id = \Yii::$app->user->getId();
-        $objPost->permlink = $strGolosPermLink;
-        $objPost->parentPermlink = 'yousource';
+        $objPost->permlink = $strPermLink;
+        $objPost->parentPermlink = 'usource';
         $objPost->title = \Yii::$app->request->post('title');
         $objPost->body = \Yii::$app->request->post('body');
         $objPost->cat_id = \Yii::$app->request->post('cat_id');
         $objPost->patrons_only = \Yii::$app->request->post('patrons_only');
+        $objPost->thumbnail = $strThumbUrl;
         if($objPost->save()) {
-            $strLink = "http://yousource.io/post?a=".\Yii::$app->user->getIdentity()->golos_nick."&p=".$objPost->permlink;
+            $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
+            $strLink = "https://usource.ru/p/".$objProfile->url."/".$objPost->permlink;
             $strBody = \Yii::$app->request->post('body','') .
-                "<br> !! Для просмотра зашифрованного контента <a href='$strLink'>перейдите на YouSource</a>";
+                "<br><a href='$strLink'><img src='$strThumbUrl'></a><br><a href='$strLink'><img src='$strThumbUrl'></a>";
             return [
                 'status' => 'ok',
                 'data' => [
@@ -104,12 +134,13 @@ class PostController extends Controller
                     'author' => \Yii::$app->user->getIdentity()->golos_nick,
                     'permlink' => $objPost->permlink,
                     'jsonMetadata' => [
-                        'tags' => ['yousource'],
-                        'app' => 'yousource.io',
+                        'tags' => ['usource'],
+                        'app' => 'usource.ru',
                         'encodedData' => $strEncryptedData,
                         'encKey' => $strEncKey,
+                        'thumbnail' => $strThumbUrl,
                     ],
-                    'post_link' => str_replace('http://yousource.io','',$strLink)
+                    'post_link' => str_replace('https://usource.ru','',$strLink)
                 ]
             ];
         }
@@ -310,6 +341,24 @@ class PostController extends Controller
             'status' => 'ok',
             'privacy' => $arrPrivacy,
         ];
+    }
+
+    public function actionIsExists()
+    {
+        $objProfile = Profile::findOne(['url' => \Yii::$app->request->get('url')]);
+        if(is_object($objProfile)) {
+            $objPost = Posts::findOne(['permlink' => \Yii::$app->request->get('permlink')]);
+            if(is_object($objPost)) {
+                return [
+                    'status' => 'ok',
+                    'nick' => $objProfile->user->golos_nick
+                ];
+            }
+        }
+        return [
+            'status' => 'error'
+        ];
+
     }
 
 }

@@ -18,6 +18,7 @@ import {AboutPageComponent} from './about-page/about-page.component';
 import {TeamPageComponent} from './team-page/team-page.component';
 import {PrivacyPageComponent} from './privacy-page/privacy-page.component';
 import {TermsPageComponent} from './terms-page/terms-page.component';
+import {PostPageResolver} from './post-page/post-page-resolver.service';
 
 export const appRoutes: Routes = [
   {
@@ -54,11 +55,19 @@ export const appRoutes: Routes = [
     data: {name: 'login'},
     component: LoginPageComponent,
   },
+/*
   {
     path: 'post',
     data: {name: 'post'},
     component: PostPageComponent,
     canActivate: [AuthGuard]
+  },
+*/
+  {
+    path: 'p/:url/:permlink',
+    data: {name: 'post'},
+    component: PostPageComponent,
+      resolve: {prepareData: PostPageResolver}
   },
   {
     path: 'payment',

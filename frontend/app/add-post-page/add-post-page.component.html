@@ -10,7 +10,7 @@
 						<div class="section__name" i18n="">Name</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Forecast of the cryptocurrency market" [(ngModel)]="postData.title" name="title" (ngModelChange)="clearErrors()">
+						<input class="section__input" i18n-placeholder="" placeholder="Forecast of the cryptocurrency market" [(ngModel)]="postData.title" name="title" (ngModelChange)="clearErrors()" required="required">
 					</div>
 				</div>
 				<div class="section__row">
@@ -18,7 +18,7 @@
 						<div class="section__name" i18n="">Description</div>
 					</div>
 					<div class="section__right">
-						<textarea class="section__textarea" i18n-placeholder="" placeholder="In this video I will talk about..." [(ngModel)]="postData.body" name="body" (ngModelChange)="clearErrors()"></textarea>
+						<textarea class="section__textarea" i18n-placeholder="" placeholder="In this video I will talk about..." [(ngModel)]="postData.body" name="body" (ngModelChange)="clearErrors()" required="required"></textarea>
 					</div>
 				</div>
 				<div class="section__row">
@@ -56,13 +56,35 @@
 					<div class="section__right">
 						<label class="upload__video_file" id="new_video_file"> Click to select video to upload
 						</label>
-						<input class="input-file" id='new_video_file_input' type="file" name="postData.video_file"
+						<input class="input-file" id='new_video_file_input' type="file" name="postData.video_file" (click)="showHideVideo(true)"
 							   (change)="onFileInputChange($event)">
 
 						<span class="clear_video_file" id="clear_video_file" title="Reomve file" (click)="cleanVideoFile()" *ngIf="postData.video_file !== null">X</span>
 
 					</div>
 				</div>
+				<div class="section__row" *ngIf="isVideoVisible">
+					<video *ngIf="isVideoVisible" controls autoplay width="590px" class="addPostPage__video_preview">
+						Your browser doesn't support HTML5 video
+					</video>
+					<canvas style="display: none;"></canvas>
+				</div>
+				<div class="section__row" *ngIf="isVideoVisible">
+					<div class="section__left">
+						<div class="section__name" i18n="">Thumbnail</div>
+					</div>
+					<div class="section__right">
+						<img src="" class="video_thumbnail" id="video_thumbnail">
+					</div>
+					<input class="input-file" type="file" name="postData.screen_file" id="screen_file" (change)="onScreenChange($event)">
+				</div>
+				<div class="section__row" *ngIf="isVideoVisible">
+					<div class="buttons">
+						<button class="button button-mode-2" type="button" i18n="" (click)="makeScreenShot()">Make screenshot</button>
+						<button class="button button-mode-2" type="button" i18n="" (click)="uploadScreenShot()">Upload screenshot</button>
+					</div>
+				</div>
+
 			</div>
 			<div class="buttons">
 				<button class="button button-mode-2" i18n="">Post</button>
