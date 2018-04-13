@@ -55,6 +55,12 @@ class HelloController extends Controller
         $objGolos->transfer('5JohDVuYaxNpXsPrMW9FWhVBfT17oet1KXPZw99QwDVW8AkqzhT', 'gaidar', 'vasya', 1, 'Patron');
     }
 
+    public function actionSteem()
+    {
+        $objApi = new SteemApi();
+        $arrBCPosts= $objApi->getDiscussionsByBlog('igor', 'usource');
+        print_r($arrBCPosts);
 
+    }
 
 }

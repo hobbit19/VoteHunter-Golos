@@ -65,10 +65,14 @@ class SteemApi
         $connector = new SteemTestWSConnector();
         $objCommand = new GetDiscussionsByBlogCommand($connector);
         $commandQuery = new CommandQueryData();
-        $commandQuery->setParamByKey('0:limit', 100);
+/*        $commandQuery->setParamByKey('0:limit', 100);
         // $commandQuery->setParamByKey('0:tag', [$strUserName]); //Golos
         $commandQuery->setParamByKey('0:tag', $strUserName);
         $commandQuery->setParamByKey('0:start_permlink', $strTag);
+        //$commandQuery->setParamByKey('0:start_permlink', $strTag);*/
+//        $commandQuery->setParamByKey('0:start_author', $strUserName);
+        $commandQuery->setParamByKey('0:tag', $strUserName);
+        $commandQuery->setParamByKey('0:limit', 100);
         //$commandQuery->setParamByKey('0:start_permlink', $strTag);
 
         $arrPrepare = $objCommand->execute($commandQuery);

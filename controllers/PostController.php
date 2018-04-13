@@ -286,10 +286,10 @@ class PostController extends Controller
             $isLocked = true;
             if(isset($arrBCPosts[$objPost->permlink])) {
                 $boolNeedToSave = false;
-                if ($objPost->body != $arrBCPosts[$objPost->permlink]['body']) {
+/*                if ($objPost->body != $arrBCPosts[$objPost->permlink]['body']) {
                     $objPost->body = $arrBCPosts[$objPost->permlink]['body'];
                     $boolNeedToSave = true;
-                }
+                }*/
                 if ($objPost->title != $arrBCPosts[$objPost->permlink]['title']) {
                     $objPost->title = $arrBCPosts[$objPost->permlink]['title'];
                     $boolNeedToSave = true;
