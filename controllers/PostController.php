@@ -11,6 +11,7 @@ namespace app\controllers;
 
 use app\api\golos\GolosApi;
 use app\api\GrapheneNodeClient\OpTransfer;
+use app\api\steem\SteemApi;
 use app\helpers\ImageHelper;
 use app\helpers\IPFSHelper;
 use app\models\Anubis;
@@ -275,7 +276,7 @@ class PostController extends Controller
         $arrObjPosts = Posts::find()->where(['user_id' => $intUserId])->orderBy('')->all();
 
         //get post from blockchain
-        $objApi = new GolosApi();
+        $objApi = new SteemApi();
         $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'usource');
         $arrPosts = [];
         foreach ($arrObjPosts as $objPost) {
