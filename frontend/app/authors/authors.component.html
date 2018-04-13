@@ -12,7 +12,7 @@
 </div>
 <div class="authors__items">
 	<a class="authors__item" *ngFor="let item of items" [routerLink]="'/' + item.url">
-		<div [style.background-image]="'url(' + item.list_image + ')'" class="authors__img"></div>
+		<div [style.background-image]="'url(' + (item.list_image == '' ?  '/images/no-list-image.jpg': item.list_image) + ')'" class="authors__img"></div>
 		<div class="authors__title">
 			<span class="authors__name" [innerText]="item.name"></span>
 			<span i18n="">  is creating </span>
