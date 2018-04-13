@@ -276,7 +276,7 @@ class PostController extends Controller
 
         //get post from blockchain
         $objApi = new GolosApi();
-        $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'yousource');
+        $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'usource');
         $arrPosts = [];
         foreach ($arrObjPosts as $objPost) {
             /* @var $objPost \app\models\Posts */
@@ -300,11 +300,11 @@ class PostController extends Controller
                 $arrMetaData = json_decode($arrBCPosts[$objPost->permlink]['json_metadata'], true);
                 if (!empty($arrMetaData['encodedData'])) {
                     $strVideoUrl = $objPost->decryptData($arrMetaData['encodedData']);
-                    $strPostImage = ImageHelper::getYouTubeImg($strVideoUrl);
+                    $strPostImage = (!empty($arrMetaData['thumbnail']) ? $arrMetaData['thumbnail'] : '/images/default-video.jpg');
                 }
                 $intCurrentUser = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->getId();
                 $objPatron = Patron::findOne(['user_id' => $objPost->user_id, 'patron_id' => $intCurrentUser, 'status' => Patron::STATUS_ACTIVE]);
-                if(is_object($objPatron) && $objPatron->patron_sum >= $objPost->patrons_only || $objPost->user_id == $intCurrentUser) {
+                if(is_object($objPatron) && $objPatron->patron_sum >= $objPost->patrons_only || $objPost->user_id == $intCurrentUser || $objPost->patrons_only == 0) {
                     $isLocked = false;
                 } else {
                     $strVideoUrl = null;
@@ -313,6 +313,7 @@ class PostController extends Controller
             }
             $arrPost = $objPost->toArray(['title', 'body', 'user_id']) + ['video_url' => str_replace('watch?v=','embed/', $strVideoUrl), 'post_image' => $strPostImage];
             $arrPost += ['profile_image' => $objUser->profile->profile_image, 'price_usd' => $objPost->patrons_only, 'profile_name' =>  $objUser->profile->name, 'isLocked' => $isLocked];
+            $arrPost += ['post.youtube' => (strpos($strVideoUrl, '/ipfs/') === false)];
             $arrPosts[] = $arrPost;
         }
         return [
