@@ -10,7 +10,7 @@
 						<div class="section__name" i18n="">Name</div>
 					</div>
 					<div class="section__right">
-						<input class="section__input" i18n-placeholder="" placeholder="Forecast of the cryptocurrency market" [(ngModel)]="postData.title" name="title" (ngModelChange)="clearErrors()" required="required">
+						<input class="section__input" i18n-placeholder="" placeholder="Video title ..." [(ngModel)]="postData.title" name="title" (ngModelChange)="clearErrors()" required="required">
 					</div>
 				</div>
 				<div class="section__row">
@@ -54,17 +54,16 @@
 						<div class="section__name" i18n="">Video</div>
 					</div>
 					<div class="section__right">
-						<label class="upload__video_file" id="new_video_file"> Click to select video to upload
-						</label>
-						<input class="input-file" id='new_video_file_input' type="file" name="postData.video_file" (click)="showHideVideo(true)"
+						<label class="upload__video_file"><span id="new_video_file">Click to select video to upload</span>
+						<input class="input-file" id='new_video_file_input' type="file" name="postData.video_file"
 							   (change)="onFileInputChange($event)">
-
+						</label>
 						<span class="clear_video_file" id="clear_video_file" title="Reomve file" (click)="cleanVideoFile()" *ngIf="postData.video_file !== null">X</span>
 
 					</div>
 				</div>
-				<div class="section__row" *ngIf="isVideoVisible">
-					<video *ngIf="isVideoVisible" controls autoplay width="590px" class="addPostPage__video_preview">
+				<div class="section__row" [ngClass]="{'addPostPage__show_video': isVideoVisible, 'addPostPage__hide_video': !isVideoVisible}">
+					<video controls autoplay width="590px" class="addPostPage__video_preview">
 						Your browser doesn't support HTML5 video
 					</video>
 					<canvas style="display: none;"></canvas>

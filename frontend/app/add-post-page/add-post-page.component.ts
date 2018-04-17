@@ -152,6 +152,7 @@ export class AddPostPageComponent implements OnInit {
         let files = $event.target.files;
         for (let i = 0, f; f = files[i]; i++) {
             if (!f.type.match('video.*')) {
+                this.showHideVideo(false);
                 continue;
             }
             let reader = new FileReader();
@@ -172,6 +173,7 @@ export class AddPostPageComponent implements OnInit {
                         return
                     }
                     videoNode.src = URL.createObjectURL(theFile);
+                    this.isVideoVisible = true;
                 };
             })(f);
             reader.readAsDataURL(f);
@@ -188,6 +190,11 @@ export class AddPostPageComponent implements OnInit {
 
     showHideVideo(flag) {
         this.isVideoVisible = flag;
+        if(!flag) {
+            let videoNode = document.querySelector('video');
+            videoNode.src = '';
+
+        }
     }
 
     makeScreenShot() {
@@ -225,6 +232,23 @@ export class AddPostPageComponent implements OnInit {
 
     uploadScreenShot() {
         document.getElementById('screen_file').click();
+    }
+
+    chechIfFileSelected($event)
+    {
+        let target = $event.target || $event.srcElement;
+        if (target.value.length == 0) {
+            console.log("Suspect Cancel was hit, no files selected.");
+        }
+    }
+
+    onBlueVideoFileSelection($event)
+    {
+        let target = $event.target || $event.srcElement;
+        if (target.value.length == 0) {
+            this.showHideVideo(false);
+        }
+
     }
 
 }
