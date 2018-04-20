@@ -1,0 +1,8 @@
+<div class="wrapPopup js-wrapPopup" (click)="popup.onClick($event)" [ngClass]="popup.getWrapClass()">
+	<div class="popup js-popup" [ngClass]="popup.getClass()">
+		<div class="popup__close js-popup__close"></div>
+		<ng-content></ng-content>
+	</div>
+</div>
+
+
