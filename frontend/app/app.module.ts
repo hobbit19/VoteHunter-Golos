@@ -67,7 +67,6 @@ import {TestPopupComponent} from './test-popup/test-popup.component';
 import { PopupInnerComponent } from './popup-inner/popup-inner.component';
 import { SelectCoverPopupComponent } from './select-cover-popup/select-cover-popup.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
