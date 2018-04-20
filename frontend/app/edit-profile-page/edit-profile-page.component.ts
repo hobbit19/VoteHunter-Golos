@@ -1,6 +1,8 @@
 import {Component, HostBinding, OnInit, ViewEncapsulation} from '@angular/core';
 import {ApiService} from '../api.service';
 import {DOMService} from '../dom.service';
+import {PopupComponent} from '../popup/popup.component';
+import {PopupsService} from '../popups.service';
 
 let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
@@ -35,7 +37,9 @@ export class EditProfilePageComponent implements OnInit {
   new_list_image: any;
 
   constructor(public api: ApiService,
-              public domService: DOMService,) {
+              public domService: DOMService,
+              public popups: PopupsService,
+              ) {
   }
   ngOnInit() {
     this.getProfile();
@@ -234,4 +238,5 @@ export class EditProfilePageComponent implements OnInit {
     this.profile.description = event.html;
     this.profile.contents = event.contents;
   }
+
 }

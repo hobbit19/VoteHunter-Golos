@@ -65,6 +65,7 @@ import {PopupsService} from './popups.service';
 import {PopupDirective} from './popup.directive';
 import {TestPopupComponent} from './test-popup/test-popup.component';
 import { PopupInnerComponent } from './popup-inner/popup-inner.component';
+import { SelectCoverPopupComponent } from './select-cover-popup/select-cover-popup.component';
 
 
 @NgModule({
@@ -119,6 +120,8 @@ import { PopupInnerComponent } from './popup-inner/popup-inner.component';
 
     // directives
     PopupDirective,
+
+    SelectCoverPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -148,6 +151,7 @@ export class AppModule {
   constructor(popups: PopupsService, public componentFactoryResolver: ComponentFactoryResolver) {
     popups.declareModule(this, {
       test: {component: TestPopupComponent},
+      selectCover: {component: SelectCoverPopupComponent},
     });
   }
 }
