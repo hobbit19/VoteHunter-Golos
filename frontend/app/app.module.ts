@@ -145,7 +145,7 @@ import { SelectCoverPopupComponent } from './select-cover-popup/select-cover-pop
     SafePipe,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [TestPopupComponent]
+  entryComponents: [TestPopupComponent, SelectCoverPopupComponent]
 })
 export class AppModule {
   constructor(popups: PopupsService, public componentFactoryResolver: ComponentFactoryResolver) {
