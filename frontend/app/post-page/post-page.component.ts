@@ -2,6 +2,13 @@ import {Component, ElementRef, HostBinding, OnInit, ViewEncapsulation} from '@an
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../api.service";
 import { DomSanitizer } from "@angular/platform-browser";
+import {DOMService} from '../dom.service';
+import {reject} from 'q';
+import {forEach} from '@angular/router/src/utils/collection';
+import {UserService} from '../user.service';
+
+let moment = require('moment');
+
 let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
 golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
@@ -27,12 +34,13 @@ interface IPost {
   id?: string,
   video_url?: string,
   video_ipfs?: string,
+  post_image?: string,
 }
 
 @Component({
   selector: 'vh-post-page',
   templateUrl: './post-page.component.html',
-  styleUrls: ['./post-page.component.less'],
+  styleUrls: ['./post-page.component.less','../video/video.less', '../persons/persons.component.less', '../section.less'],
   encapsulation: ViewEncapsulation.None
 })
 export class PostPageComponent implements OnInit {
@@ -44,11 +52,17 @@ export class PostPageComponent implements OnInit {
     public router: Router,
     public sanitizer: DomSanitizer,
     public elementRef: ElementRef,
+    public domService: DOMService,
+    public user: UserService,
   ) { }
 
   post: IPost;
+  comments: any;
+  comments_cnt_str: string;
+  comment_text: string;
 
   ngOnInit() {
+
       this.activatedRoute.params.subscribe(params => {
       /**
        * getContent() receiving a post
@@ -66,23 +80,25 @@ export class PostPageComponent implements OnInit {
             body: post.body,
             metadata: post.json_metadata
           };
-          this.api.postShow(postData).then((data) => {
+
+            this.api.postShow(postData).then((data) => {
             if(data.status == 'ok') {
               delete postData.metadata;
               postData.title = post.title;
               postData.body = data.post.body;
               postData.id = data.post.id;
-
+              postData.post_image = data.post.post_image;
               if(data.post.video_url) {
                 postData.video_url = data.post.video_url;
               }
               if(data.post.video_ipfs) {
                 postData.video_ipfs = data.post.video_ipfs;
               }
-
+              console.log(this.comments);
             }
             this.post = postData;
-          });
+            this.getComments();
+            });
         } else {
           console.error(err);
         }
@@ -106,5 +122,102 @@ export class PostPageComponent implements OnInit {
   getVideoID() {
     return this.post.video_url.substr(this.post.video_url.indexOf('?v=') + 3);
   }
+
+    playVideo($event)
+    {
+        let target = $event.target || $event.srcElement;
+        let videoId = target.id.replace('play-','');
+        let video=(document.getElementById(videoId) as HTMLVideoElement);
+        video.setAttribute("controls","controls");
+        video.play();
+        video.onplaying = () => {
+            (document.getElementById(target.id) as HTMLElement).style.display = 'none';
+        };
+        video.onpause = () => {
+            (document.getElementById(target.id) as HTMLElement).style.display = 'block';
+        };
+
+        //target.style.display = 'none';
+    }
+
+    videoClick($event)
+    {
+        let target = $event.target || $event.srcElement;
+        target.pause();
+        (document.getElementById('play-' + target.id) as HTMLElement).style.display = 'block';
+    }
+
+    getComments()
+    {
+        let promise = new Promise((resolve, reject) => {
+            let parent = this.post.author;
+            let parentPermlink = this.post.permlink;
+            this.comments = [];
+            steem.api.getContentReplies(parent, parentPermlink, (err, result) => {
+                if (err) {
+                    reject();
+                }
+                if (result) {
+                    let tmpAuthors = [];
+                    result.forEach((comment) => {
+                        this.comments.push(
+                            {
+                                author: comment.author,
+                                comment: comment.body,
+                                //date: moment(comment.created, 'YYYY-MM-DDThh:mm:ss').fromNow(),
+                                date: moment(comment.created).fromNow(),
+                                profile_image : ''
+                            }
+                        );
+                        tmpAuthors.push(comment.author);
+                    });
+                    this.comments_cnt_str = '4 of ' + this.comments.length;
+                    this.api.getAvatars({authors: Array.from(new Set(tmpAuthors))}).then((data) => {
+                        this.comments.forEach((comment) => {
+                            comment.profile_image = data.avatars[comment.author];
+                        });
+                    }, (data) => {
+
+                    })
+                }
+            });
+        });
+    }
+
+    postComment(event){
+        let promise = new Promise((resolve, reject) => {
+            let postingKey = APIS['steem'].auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'posting');
+
+            let parentAuthor = this.post.author;
+            let parentPermlink = this.post.permlink;
+            let author = localStorage.getItem('nick');
+            let permlink = steem.formatter.commentPermlink(parentAuthor, parentPermlink);
+            let title = this.comment_text;
+            let body = this.comment_text;
+            let jsonMetadata = JSON.stringify([]);
+
+            APIS['steem'].broadcast.comment(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    //this.errors = ['Timeout limit'];
+                    reject();
+                    return false;
+                } else {
+                    this.comments.push({
+                        author: author,
+                        comment: this.comment_text,
+                        date: moment(moment().format(),  'YYYY-MM-DDThh:mm:ss').fromNow(),
+                        profile_image: this.user.profile_image,
+                    });
+                    this.comment_text = '';
+                    this.comments_cnt_str = '4 of ' + this.comments.length;
+                    resolve();
+                }
+            });
+        });
+
+        this.domService.onFormSubmit(event.target, promise);
+    }
+
 
 }

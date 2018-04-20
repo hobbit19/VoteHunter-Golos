@@ -21,9 +21,9 @@
 		<button class="creatorPosts__button" [routerLink]="'/become-patron/' + post.user_id">Unlock</button>
 	</div>
 	<iframe class="creatorPosts__video" [attr.src]="post.video_url | safe" *ngIf="!post.isLocked && post.youtube"></iframe>
-	<div controls *ngIf="!post.isLocked && !post.youtube">
+	<div class="video__placeholder" *ngIf="!post.isLocked && !post.youtube">
 		<div class="video__play_button" (click)="playVideo($event)" [id]="'play-' + post.permlink"></div>
-		<video  class="creatorPosts__video" [attr.src]="post.video_url" *ngIf="!post.isLocked && !post.youtube" [attr.poster]="post.post_image" [id]="post.permlink" (click)="videoClick($event)">
+		<video  class="creatorPosts__video" [attr.src]="post.video_url" *ngIf="!post.isLocked && !post.youtube" [attr.poster]="post.post_image" [id]="post.permlink" (click)="videoClick($event)" controlsList="nodownload">
 			Your browser doesn't support HTML5 video
 		</video>
 	</div>

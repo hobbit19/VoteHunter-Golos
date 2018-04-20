@@ -26,6 +26,7 @@ class UserController extends Controller
             'status' => 'ok',
             'user_id' => \Yii::$app->user->getId(),
             'golos_nick' => \Yii::$app->user->getIdentity()->golos_nick,
+            'profile_image' => \Yii::$app->user->getIdentity()->profile->profile_image,
         ];
     }
     public function beforeAction($action)

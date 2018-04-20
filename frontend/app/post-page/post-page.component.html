@@ -1,19 +1,44 @@
 <div class="block">
 	<div class="section" *ngIf="post">
-		<h2 class="h2 postPage__title" [innerHTML]="post.title"></h2>
-		<p class="paragraph postPage__desc" [innerHTML]="post.body"></p>
 		<div class="postPage__video js-postPage__video" *ngIf="post.video_url">
 			<iframe width="420" height="315" [attr.src]="getVideoSrc() | safe" frameborder="0" allowfullscreen></iframe>
 		</div>
-		<div class="postPage__video js-postPage__video" *ngIf="post.video_ipfs">
-			<video width="420" height="315" controls >
-				<source [attr.src]="post.video_ipfs" type="video/mp4">
+		<div class="postPage__video" *ngIf="post.video_ipfs">
+			<div class="video__play_button" (click)="playVideo($event)" [id]="'play-' + post.permlink"></div>
+			<video class="js-postPage__video" [attr.src]="post.video_ipfs" [attr.poster]="post.post_image" [id]="post.permlink" (click)="videoClick($event)" controlsList="nodownload">
 				Your browser does not support the video tag.
 			</video>
 		</div>
 
 		<div class="buttons" *ngIf="!post.video_url && !post.video_ipfs">
 			<button class="button button-mode-2" (click)="pay()" i18n="">Pay</button>
+		</div>
+
+		<div>
+			<h2 class="h2 postPage__title" [innerHTML]="post.title"></h2>
+			<p class="paragraph postPage__desc" [innerHTML]="post.body"></p>
+		</div>
+		<div class="postPage__commnets">
+			<div class="postPage__comments_header">
+				<div class="postPage__comments_title">Comments:</div>
+				<div class="postPage__comments_title_count" [innerHTML]="comments_cnt_str"></div>
+			</div>
+			<div *ngFor="let comment of comments" class="postPage__comment_item">
+				<div class="persons__avatar" [style.background-image]="'url(' + comment.profile_image + ')'"></div>
+				<div style="flex-shrink: 1;width: 100%;">
+					<div class="postPage__name" [innerHTML]="comment.author"></div>
+					<div class="postPage__comment" [innerHTML]="comment.comment"></div>
+				</div>
+				<div class="postPage_comment_date" [innerHTML]="comment.date"></div>
+			</div>
+			<form (submit)="postComment($event)">
+			<div class="postPage__comments_header">
+				<input class="section__input" type="text" style="flex-shrink: 1;width: 100%;" placeholder="Write a comment ..." [(ngModel)]="comment_text" name="comment_text">
+				<div class="buttons" style="flex-shrink: 0;width: 150px;">
+					<button class="button button-mode-2 postPage__add_button" i18n="">Add comment</button>
+				</div>
+			</div>
+			</form>
 		</div>
 	</div>
 </div>

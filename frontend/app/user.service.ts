@@ -5,6 +5,7 @@ import { ApiService } from "./api.service";
 export class UserService {
   isLoggedIn = false;
   golos_nick = '';
+  profile_image = '/images/ava_placeholder.svg';
   id?: number;
   dataPromise: Promise<void>;
   loginRedirectionURL = '/dashboard';
@@ -17,6 +18,7 @@ export class UserService {
 
       if (this.isLoggedIn) {
           this.golos_nick = data.golos_nick;
+          this.profile_image = data.profile_image;
       } else {
           localStorage.clear();
       }

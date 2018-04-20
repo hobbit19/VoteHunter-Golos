@@ -400,6 +400,39 @@ class ProfileController extends Controller
             'golos' => sprintf("%01.3f", $fltGolos),
             'sum' => sprintf("%01.2f", $sum)
         ];
+    }
+
+    public function actionAvatars()
+    {
+        $arrAvatars = [];
+        $arrAuthors = \Yii::$app->request->post('authors');
+        if(empty($arrAuthors)) {
+            return [
+                'status' => 'ok',
+                'avatars' => $arrAvatars,
+            ];
+        }
+        $arrAuthors = array_values($arrAuthors);
+        $arrData = User::find()->select(['id','golos_nick'])->where(['golos_nick' => $arrAuthors])->asArray()->all();
+        if(empty($arrData) > 0) {
+            return [
+                'status' => 'ok',
+                'avatars' => $arrAvatars,
+            ];
+        }
+        $arrUsers = [];
+        foreach ($arrData as $arrUser) {
+            $arrUsers[$arrUser['id']] = $arrUser['golos_nick'];
+        }
+        unset($arrData);
+        $arrData = Profile::find()->where(['user_id' => array_keys($arrUsers)])->select(['user_id', 'profile_image'])->asArray()->all();
+        foreach ($arrData as $arrItem) {
+            $arrAvatars[$arrUsers[$arrItem['user_id']]] = $arrItem['profile_image'];
+        }
+        return [
+            'status' => 'ok',
+            'avatars' => $arrAvatars,
+        ];
 
     }
 }

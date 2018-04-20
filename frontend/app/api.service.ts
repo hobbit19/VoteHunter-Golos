@@ -297,5 +297,8 @@ export class ApiService {
       return this.get('/post/is-exists', data);
   }
 
+  getAvatars(data:any) {
+      return this.post('/profile/avatars', data);
+  }
 
 }

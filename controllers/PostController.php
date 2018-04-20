@@ -165,9 +165,9 @@ class PostController extends Controller
         }
 
         $strBody = \Yii::$app->request->post('body');
-        $arrMeta = json_decode(\Yii::$app->request->post('metadata'), true);
-        $strEncryptedData = $arrMeta['encodedData'];
-        $strBody = mb_substr($strBody, 0, mb_strpos($strBody, '<br> !!') -1);
+        $arrMetaData = json_decode(\Yii::$app->request->post('metadata'), true);
+        $strEncryptedData = $arrMetaData['encodedData'];
+        //$strBody = mb_substr($strBody, 0, mb_strpos($strBody, '<br> !!') -1);
         $objAnubis = new Anubis();
         $objAnubis->setKey($objPost->secret_key);
         $strVideoUrl = $objAnubis->decrypt(base64_decode($strEncryptedData));
@@ -181,7 +181,9 @@ class PostController extends Controller
         }
         $arrPost = [
             'id' => $objPost->id,
-            'body' => $strBody,
+            'post_image' => (!empty($arrMetaData['thumbnail']) ? $arrMetaData['thumbnail'] : '/images/default-video.jpg'),
+            'body' => $objPost->body,
+            //'body' => $strBody,
         ];
         if($boolShowVideoLink) {
             $arrPost['video_url'] = $strVideoUrl;
