@@ -1,0 +1,179 @@
+.html-popupActive {
+	position: relative;
+}
+
+.html-popupActive body {
+	// position: relative here is causing background bugs in workspace page popups
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+}
+
+// https://stackoverflow.com/a/34754029/5385623
+.html-popupActive body.body-ios {
+	position: fixed;
+}
+
+.wrapPopup-nonCloseable .popup__close {
+	display: none;
+}
+
+@popupsTransition: 0.15;
+
+.wrapPopup {
+	display: flex;
+	position: fixed;
+	opacity: 1;
+	height: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	background-color: transparent;
+	transition: background-color @popupsTransition, opacity @popupsTransition;
+	flex-direction: column;
+	align-items: stretch;
+	overflow-y: auto;
+	cursor: default;
+
+	// https://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/
+	-webkit-overflow-scrolling: touch;
+}
+
+.wrapPopup-hidden {
+	opacity: 0;
+}
+
+.wrapPopup-withoutScrolling {
+	overflow-y: hidden;
+}
+
+.wrapPopup:after,
+.wrapPopup:before {
+	flex-basis: 40px;
+	height: 40px;
+	flex-shrink: 0;
+	left: 0;
+	right: 0;
+	content: '';
+	display: block;
+}
+
+.wrapPopup-full:after,
+.wrapPopup-full:before {
+	display: none;
+}
+
+.wrapPopup-active:not(.wrapPopup-withoutBg):not(.wrapPopup-full) {
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.guest .wrapPopup-active:not(.wrapPopup-withoutBg):not(.wrapPopup-full) {
+	background-color: rgba(31, 31, 31, 0.74);;
+}
+
+.wrapPopup-full {
+	align-items: flex-start;
+	overflow-x: hidden;
+	background-color: grey;
+}
+
+.wrapPopup-full .popup {
+	width: 100%;
+	background-color: transparent;
+	box-shadow: none;
+	padding-top: 30px;
+}
+
+.wrapPopup-full .popup__close {
+	top: 30px;
+	right: 30px;
+}
+
+.popup {
+	width: 600px;
+	background-color: #ffffff;
+	padding: 30px;
+	display: inline-block;
+	position: relative;
+	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, .1);
+	flex-shrink: 0;
+	margin: auto;
+}
+
+@popupMode2BorderRadius: 10px;
+
+.popup-mode-2 {
+	padding: 0;
+	border-radius: @popupMode2BorderRadius;
+}
+
+.wrapPopup:not(.wrapPopup-withoutAnimation) .popup {
+	transform: scale(.8);
+	opacity: 0;
+	transition: transform @popupsTransition, opacity @popupsTransition;
+}
+
+.wrapPopup-full .popup {
+	margin: 0 auto 0 auto;
+}
+
+.wrapPopup.wrapPopup-active .popup {
+	transform: scale(1);
+	opacity: 1;
+	border-radius: 7px;
+}
+
+.popup__title:extend(.flc all) {
+	font-size: 28px;
+	margin-bottom: 24px;
+}
+
+@popupMode2TitleHeight: 59px;
+
+.popup-mode-2 .popup__title {
+	font-size: 19px;
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #e7e7e7;
+	height: @popupMode2TitleHeight;
+	line-height: @popupMode2TitleHeight;
+	padding-left: 16px;
+	border-top-left-radius: @popupMode2BorderRadius;
+	border-top-right-radius: @popupMode2BorderRadius;
+	margin-bottom: 0;
+}
+
+@popupCloseButtonWidth: 20px;
+@popupCloseButtonHeight: 20px;
+
+.popup-mode-2 .popup__close {
+	background-size: 15px;
+	top: (@popupMode2TitleHeight - @popupCloseButtonWidth) / 2;
+	right: (@popupMode2TitleHeight - @popupCloseButtonWidth) / 2;
+}
+
+.popup-mode-2 .popup__content {
+	padding: 30px;
+}
+
+.popup__close {
+	width: @popupCloseButtonWidth;
+	height: @popupCloseButtonHeight;
+	background-image: url('/images/close-grey.svg');
+	background-size: 18px 18px;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	z-index: 1;
+}
+
+.popup .button-big {
+	display: block;
+	width: 100%;
+}
+
+

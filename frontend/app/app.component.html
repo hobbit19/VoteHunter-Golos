@@ -2,5 +2,6 @@
 <vh-sidebar></vh-sidebar>
 <main class="content">
 	<router-outlet></router-outlet>
+	<div *ngFor="let config of popups.list" nv-popup='' [config]='config'></div>
 </main>
 <vh-footer></vh-footer>

@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {ComponentFactoryResolver, NgModule} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import * as $ from 'jquery';
+window['$'] = $;
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -58,6 +60,12 @@ import { TeamComponent } from './team/team.component';
 import { TeamMemberComponent } from './team-member/team-member.component';
 import { BgiPipe } from './bgi.pipe';
 import {PostPageResolver} from './post-page/post-page-resolver.service';
+import {PopupComponent} from './popup/popup.component';
+import {PopupsService} from './popups.service';
+import {PopupDirective} from './popup.directive';
+import {TestPopupComponent} from './test-popup/test-popup.component';
+import { PopupInnerComponent } from './popup-inner/popup-inner.component';
+
 
 @NgModule({
   declarations: [
@@ -92,7 +100,6 @@ import {PostPageResolver} from './post-page/post-page-resolver.service';
     SidebarComponent,
     WysiwygComponent,
     CategoryPageComponent,
-    SafePipe,
     BecomePatronPageComponent,
     RewardsComponent,
     RequisitesPageComponent,
@@ -102,7 +109,16 @@ import {PostPageResolver} from './post-page/post-page-resolver.service';
     TermsPageComponent,
     TeamComponent,
     TeamMemberComponent,
+    PopupComponent,
+    PopupInnerComponent,
+    TestPopupComponent,
+
+    // pipes
     BgiPipe,
+    SafePipe,
+
+    // directives
+    PopupDirective,
   ],
   imports: [
     BrowserModule,
@@ -121,9 +137,17 @@ import {PostPageResolver} from './post-page/post-page-resolver.service';
     CategoryPageResolverService,
     PostPageResolver,
     BecomePatronPageResolverService,
+    PopupsService,
     AuthGuard,
     SafePipe,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [TestPopupComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(popups: PopupsService, public componentFactoryResolver: ComponentFactoryResolver) {
+    popups.declareModule(this, {
+      test: {component: TestPopupComponent},
+    });
+  }
+}

@@ -1,6 +1,7 @@
 import { Component, Renderer2, ViewEncapsulation } from '@angular/core';
 import { StateService } from "./state.service";
 import { DOMService } from "./dom.service";
+import {PopupsService} from './popups.service';
 let golos = require('golos-js');
 
 //tests
@@ -82,10 +83,15 @@ golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, tit
 export class AppComponent {
   constructor(
     public state: StateService,
-    public domService: DOMService
+    public domService: DOMService,
+    public popups: PopupsService
   ) {
     if (domService.IS_IOS) {
       document.documentElement.classList.add('ios');
     }
+
+    /*setTimeout(() => {
+      this.popups.show('test');
+    }, 2000);*/
   }
 }
