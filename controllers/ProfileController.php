@@ -364,7 +364,7 @@ class ProfileController extends Controller
         if($intUser > 0) {
             $arrProfiles = Profile::find()->where(['user_id' => (new Query())->select(['patron_id'])->from('patrons')->where(['user_id'=>$intUser])])->all();
             foreach ($arrProfiles as $objProfile) {
-                $arrPatrons[] = $objProfile->toArray('name', 'url', 'profile_image');
+                $arrPatrons[] = $objProfile->toArray(['name', 'url', 'profile_image']);
             }
         }
         return [
