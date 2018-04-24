@@ -105,8 +105,13 @@
 	cursor: pointer;
 	display: inline-block;
 	box-sizing: border-box;
+	text-decoration: none;
 }
 
+.creatorBanner__navItem:visited {
+	color: #595959;
+	font-size: 18px;
+}
 .creatorBanner__navItem:first-child {
 	margin-left: 0;
 }
@@ -119,6 +124,11 @@
 	color: @color1;
 	position: relative;
 }
+.creatorBanner__navItem-active:visited {
+	color: @color1;
+	font-size: 18px;
+}
+
 
 .creatorBanner__navItem-active:after {
 	position: absolute;

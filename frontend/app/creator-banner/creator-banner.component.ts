@@ -17,6 +17,7 @@ export class CreatorBannerComponent implements OnInit {
 
   @Input() profile: any;
   @Input() isPatron: boolean;
+  @Input() currentActiveElement: any;
 
   ngOnInit() {
   }

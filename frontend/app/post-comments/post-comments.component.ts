@@ -122,6 +122,7 @@ export class PostCommentsComponent implements OnInit {
     showComments() {
         if(this.comments_visible.length >= this.comments_per_page * 2 && this.comments_per_page < 10) {
             this.router.navigateByUrl(this.post.link);
+            return;
         }
         let i = 0;
         let curLen = this.comments_visible.length;

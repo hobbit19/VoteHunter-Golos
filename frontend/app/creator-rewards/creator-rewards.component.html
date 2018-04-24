@@ -1,4 +1,4 @@
-<div class="creatorRewards__heading">Rewards (<span [innerHTML]="rewards.length"></span>)</div>
+<div class="creatorRewards__heading">Rewards (<span [innerHTML]="rewards?.length"></span>)</div>
 <div class="creatorRewards__items">
 	<div class="creatorRewards__item" *ngFor="let reward of rewards">
 		<p class="paragraph creatorRewards__paragraph_title" [innerHTML]="reward.title"></p>

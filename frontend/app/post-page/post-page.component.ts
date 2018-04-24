@@ -1,7 +1,7 @@
 import {Component, ElementRef, HostBinding, OnInit, ViewEncapsulation} from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { ApiService } from "../api.service";
-import { DomSanitizer } from "@angular/platform-browser";
+import {ActivatedRoute, Router} from '@angular/router';
+import {ApiService} from '../api.service';
+import {DomSanitizer} from '@angular/platform-browser';
 import {DOMService} from '../dom.service';
 import {reject} from 'q';
 import {forEach} from '@angular/router/src/utils/collection';
@@ -14,8 +14,8 @@ golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
 golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
 
 let steem = require('steem');
-steem.config.set('websocket','wss://testnet.steem.vc');
-steem.config.set('uri','https://testnet.steem.vc');
+steem.config.set('websocket', 'wss://testnet.steem.vc');
+steem.config.set('uri', 'https://testnet.steem.vc');
 steem.config.set('address_prefix', 'STX');
 steem.config.set('chain_id', '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673');
 
@@ -26,109 +26,120 @@ let APIS = {
 
 
 interface IPost {
-  author: string,
-  permlink: string,
-  metadata: string,
-  body?: string,
-  title?: string,
-  id?: string,
-  video_url?: string,
-  video_ipfs?: string,
-  post_image?: string,
+    author: string,
+    permlink: string,
+    metadata: string,
+    body?: string,
+    title?: string,
+    id?: string,
+    video_url?: string,
+    video_ipfs?: string,
+    post_image?: string,
 }
 
 @Component({
-  selector: 'vh-post-page',
-  templateUrl: './post-page.component.html',
-  styleUrls: ['./post-page.component.less','../video/video.less', '../persons/persons.component.less', '../section.less'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'vh-post-page',
+    templateUrl: './post-page.component.html',
+    styleUrls: ['./post-page.component.less', '../video/video.less', '../persons/persons.component.less', '../section.less', '../creator-page/creator-page.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 export class PostPageComponent implements OnInit {
-  prepareData : any;
+    prepareData: any;
 
-  constructor(
-    public activatedRoute: ActivatedRoute,
-    public api: ApiService,
-    public router: Router,
-    public sanitizer: DomSanitizer,
-    public elementRef: ElementRef,
-    public domService: DOMService,
-    public user: UserService,
-  ) { }
+    constructor(
+        public activatedRoute: ActivatedRoute,
+        public api: ApiService,
+        public router: Router,
+        public sanitizer: DomSanitizer,
+        public elementRef: ElementRef,
+        public domService: DOMService,
+        public user: UserService,
+    ) {
+    }
 
-  post: IPost;
-  comments: any;
-  comments_cnt_str: string;
-  comment_text: string;
+    post: IPost;
+    comments: any;
+    comments_cnt_str: string;
+    comment_text: string;
+    profile: any;
+    isPatron: any;
 
-  ngOnInit() {
+    ngOnInit() {
 
-      this.activatedRoute.params.subscribe(params => {
-      /**
-       * getContent() receiving a post
-       * @param {String} author - author of the post
-       * @param {String} permlink - url-address of the post
-       */
+        this.activatedRoute.params.subscribe(params => {
+            /**
+             * getContent() receiving a post
+             * @param {String} author - author of the post
+             * @param {String} permlink - url-address of the post
+             */
+            let author = this.activatedRoute.snapshot.data.prepareData.nick;
+            let permlink = params.permlink;
 
-      let author = this.activatedRoute.snapshot.data.prepareData.nick;
-      let permlink = params.permlink;
-        APIS['steem'].api.getContent(author, permlink, (err, post) => {
-        if (!err) {
-          let postData: IPost = {
-            author: author,
-            permlink: permlink,
-            body: post.body,
-            metadata: post.json_metadata
-          };
+            this.api.getProfileByUrl(this.activatedRoute.snapshot.data.prepareData.url).then((data) => {
+                    this.profile = data.profile;
+                    this.isPatron = data.isPatron;
+                },
+                (data) => {
 
-            this.api.postShow(postData).then((data) => {
-            if(data.status == 'ok') {
-              delete postData.metadata;
-              postData.title = post.title;
-              postData.body = data.post.body;
-              postData.id = data.post.id;
-              postData.post_image = data.post.post_image;
-              if(data.post.video_url) {
-                postData.video_url = data.post.video_url;
-              }
-              if(data.post.video_ipfs) {
-                postData.video_ipfs = data.post.video_ipfs;
-              }
-              console.log(this.comments);
-            }
-            this.post = postData;
-            this.getComments();
+                }
+            );
+
+            APIS['steem'].api.getContent(author, permlink, (err, post) => {
+                if (!err) {
+                    let postData: IPost = {
+                        author: author,
+                        permlink: permlink,
+                        body: post.body,
+                        metadata: post.json_metadata
+                    };
+
+                    this.api.postShow(postData).then((data) => {
+                        if (data.status == 'ok') {
+                            delete postData.metadata;
+                            postData.title = post.title;
+                            postData.body = data.post.body;
+                            postData.id = data.post.id;
+                            postData.post_image = data.post.post_image;
+                            if (data.post.video_url) {
+                                postData.video_url = data.post.video_url;
+                            }
+                            if (data.post.video_ipfs) {
+                                postData.video_ipfs = data.post.video_ipfs;
+                            }
+                            console.log(this.comments);
+                        }
+                        this.post = postData;
+                        this.getComments();
+                    });
+                } else {
+                    console.error(err);
+                }
             });
-        } else {
-          console.error(err);
-        }
-      });
 
-    });
-  }
+        });
+    }
 
-  getVideoSrc() {
-    return 'https://www.youtube.com/embed/' + this.getVideoID();
-  }
+    getVideoSrc() {
+        return 'https://www.youtube.com/embed/' + this.getVideoID();
+    }
 
-  pay() {
-    this.router.navigateByUrl('/payment?id=' + this.post.id);
-  }
+    pay() {
+        this.router.navigateByUrl('/payment?id=' + this.post.id);
+    }
 
-  @HostBinding('class') get classStr() {
-    return 'postPage';
-  }
+    @HostBinding('class') get classStr() {
+        return 'postPage';
+    }
 
-  getVideoID() {
-    return this.post.video_url.substr(this.post.video_url.indexOf('?v=') + 3);
-  }
+    getVideoID() {
+        return this.post.video_url.substr(this.post.video_url.indexOf('?v=') + 3);
+    }
 
-    playVideo($event)
-    {
+    playVideo($event) {
         let target = $event.target || $event.srcElement;
-        let videoId = target.id.replace('play-','');
-        let video=(document.getElementById(videoId) as HTMLVideoElement);
-        video.setAttribute("controls","controls");
+        let videoId = target.id.replace('play-', '');
+        let video = (document.getElementById(videoId) as HTMLVideoElement);
+        video.setAttribute('controls', 'controls');
         video.play();
         video.onplaying = () => {
             (document.getElementById(target.id) as HTMLElement).style.display = 'none';
@@ -140,15 +151,13 @@ export class PostPageComponent implements OnInit {
         //target.style.display = 'none';
     }
 
-    videoClick($event)
-    {
+    videoClick($event) {
         let target = $event.target || $event.srcElement;
         target.pause();
         (document.getElementById('play-' + target.id) as HTMLElement).style.display = 'block';
     }
 
-    getComments()
-    {
+    getComments() {
         let promise = new Promise((resolve, reject) => {
             let parent = this.post.author;
             let parentPermlink = this.post.permlink;
@@ -166,7 +175,7 @@ export class PostPageComponent implements OnInit {
                                 comment: comment.body,
                                 //date: moment(comment.created, 'YYYY-MM-DDThh:mm:ss').fromNow(),
                                 date: moment(comment.created).fromNow(),
-                                profile_image : ''
+                                profile_image: ''
                             }
                         );
                         tmpAuthors.push(comment.author);
@@ -184,7 +193,7 @@ export class PostPageComponent implements OnInit {
         });
     }
 
-    postComment(event){
+    postComment(event) {
         let promise = new Promise((resolve, reject) => {
             let postingKey = APIS['steem'].auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'posting');
 
@@ -206,7 +215,7 @@ export class PostPageComponent implements OnInit {
                     this.comments.push({
                         author: author,
                         comment: this.comment_text,
-                        date: moment(moment().format(),  'YYYY-MM-DDThh:mm:ss').fromNow(),
+                        date: moment(moment().format(), 'YYYY-MM-DDThh:mm:ss').fromNow(),
                         profile_image: this.user.profile_image,
                     });
                     this.comment_text = '';

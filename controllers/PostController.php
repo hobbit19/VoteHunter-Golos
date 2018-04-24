@@ -364,7 +364,8 @@ class PostController extends Controller
             if(is_object($objPost)) {
                 return [
                     'status' => 'ok',
-                    'nick' => $objProfile->user->golos_nick
+                    'nick' => $objProfile->user->golos_nick,
+                    'url' => $objProfile->url,
                 ];
             }
         }
