@@ -71,7 +71,9 @@ export class PostCommentsComponent implements OnInit {
                     });
                     this.api.getAvatars({authors: Array.from(new Set(tmpAuthors))}).then((data) => {
                         this.comments.forEach((comment) => {
-                            comment.profile_image = data.avatars[comment.author];
+                            if(data.avatars[comment.author]) {
+                                comment.profile_image = data.avatars[comment.author];
+                            }
                         });
                         this.showComments();
                     }, (data) => {
