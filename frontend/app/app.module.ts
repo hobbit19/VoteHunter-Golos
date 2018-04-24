@@ -66,6 +66,7 @@ import {PopupDirective} from './popup.directive';
 import {TestPopupComponent} from './test-popup/test-popup.component';
 import { PopupInnerComponent } from './popup-inner/popup-inner.component';
 import { SelectCoverPopupComponent } from './select-cover-popup/select-cover-popup.component';
+import { PostCommentsComponent } from './post-comments/post-comments.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,8 @@ import { SelectCoverPopupComponent } from './select-cover-popup/select-cover-pop
     PopupDirective,
 
     SelectCoverPopupComponent,
+
+    PostCommentsComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 
+use app\models\Profile;
 use app\models\User;
 use app\models\Users;
 use yii\web\Controller;
@@ -26,7 +27,7 @@ class UserController extends Controller
             'status' => 'ok',
             'user_id' => \Yii::$app->user->getId(),
             'golos_nick' => \Yii::$app->user->getIdentity()->golos_nick,
-            'profile_image' => \Yii::$app->user->getIdentity()->profile->profile_image,
+            'profile_image' => !empty(\Yii::$app->user->getIdentity()->profile->profile_image) ? \Yii::$app->user->getIdentity()->profile->profile_image : Profile::DEFAULT_AVATAR,
         ];
     }
     public function beforeAction($action)

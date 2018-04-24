@@ -26,6 +26,7 @@ use Yii;
 class Profile extends \yii\db\ActiveRecord
 {
     const DEFAULT_LIST_LIMIT = 10;
+    const DEFAULT_AVATAR = '/images/ava_placeholder.svg';
 
     /**
      * @inheritdoc

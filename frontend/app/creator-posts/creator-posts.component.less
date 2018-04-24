@@ -76,11 +76,20 @@
 	min-height: 189px;
 }
 
+video::-webkit-media-controls {
+	cursor: pointer !important;;
+}
+
+video::-webkit-media-controls-panel {
+	cursor: pointer !important;
+}
+
 .creatorPosts__video {
 	border: 0 solid #ccc;
 	margin-top: 18px;
 //	height: 200px;
 	width: 100%;
+	cursor: pointer;
 }
 
 .creatorPosts__lockImage {
@@ -110,6 +119,9 @@
 .creatorPosts__title {
 	font-size: 21px;
 	margin-top: 16px;
+}
+.creatorPosts__link {
+	text-decoration: none;
 }
 
 .creatorPosts__desc {

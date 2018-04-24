@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<div class="creatorPosts__r">
-			<div class="creatorPosts__money" [innerHTML]="post.price_usd + '$+'"></div>
+			<div class="creatorPosts__money" [innerHTML]="post.price_usd"></div>
 			<!--<div class="creatorPosts__curators">
 				<span [innerHTML]="post.curators"></span>
 				<span i18n=""> supporters</span>
@@ -27,6 +27,7 @@
 			Your browser doesn't support HTML5 video
 		</video>
 	</div>
-	<div class="creatorPosts__title" [innerHTML]="post.title"></div>
+	<a [href]="post.link" class="creatorPosts__link"><div class="creatorPosts__title" [innerHTML]="post.title"></div></a>
 	<p class="paragraph creatorPosts__desc" [innerHTML]="post.body"></p>
+	<vh-post-comments [post]="post" [comments_per_page] = 4></vh-post-comments>
 </div>

@@ -18,6 +18,8 @@
 			<h2 class="h2 postPage__title" [innerHTML]="post.title"></h2>
 			<p class="paragraph postPage__desc" [innerHTML]="post.body"></p>
 		</div>
+		<vh-post-comments [post]="post" [comments_per_page] = 10></vh-post-comments>
+<!--
 		<div class="postPage__commnets">
 			<div class="postPage__comments_header">
 				<div class="postPage__comments_title">Comments:</div>
@@ -40,6 +42,7 @@
 			</div>
 			</form>
 		</div>
+-->
 	</div>
 </div>
 
