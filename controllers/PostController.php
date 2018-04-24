@@ -316,7 +316,7 @@ class PostController extends Controller
             }
             $arrPost = $objPost->toArray(['title', 'body', 'user_id','permlink']) + ['video_url' => str_replace('watch?v=','embed/', $strVideoUrl), 'post_image' => $strPostImage];
             $arrPost += ['profile_image' => $objUser->profile->profile_image, 'price_usd' => $objPost->patrons_only, 'profile_name' =>  $objUser->profile->name, 'isLocked' => $isLocked];
-            $arrPost += ['post.youtube' => (strpos($strVideoUrl, '/ipfs/') === false)];
+            $arrPost += ['youtube' => (strpos($strVideoUrl, '/ipfs/') === false)];
             $arrPosts[] = $arrPost;
         }
         return [
