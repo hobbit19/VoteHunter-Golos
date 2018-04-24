@@ -64,7 +64,7 @@ export class PostCommentsComponent implements OnInit {
                                 comment: comment.body,
                                 //date: moment(comment.created, 'YYYY-MM-DDThh:mm:ss').fromNow(),
                                 date: moment(comment.created).fromNow(),
-                                profile_image: ''
+                                profile_image: '/images/ava_placeholder.svg',
                             }
                         );
                         tmpAuthors.push(comment.author);
