@@ -60,14 +60,14 @@
 					</div>
 					<div class="section__row">
 						<div class="section__left">
-							<div class="section__name" (click)="popups.show('selectCover')">
-								<span i18n="" (click)="popups.show('selectCover')">Cover image</span>
+							<div class="section__name" (click)="showPopup()">
+								<span i18n="" (click)="showPopup()">Cover image</span>
 								<br>
 								<span>(1600 x 400)</span>
 							</div>
 						</div>
 						<div class="section__right">
-							<label class="editProfilePage__image"
+							<label class="editProfilePage__cover"
 								   [style.background-image]="'url(' + (profile.cover_image || '/images/camera.svg') + ')'"
 								   [style.background-size]="profile.cover_image? 'cover': 'auto'" id="new_cover_image">
 								<input class="input-file" type="file" name="new_cover_image"

@@ -67,6 +67,7 @@ import {TestPopupComponent} from './test-popup/test-popup.component';
 import { PopupInnerComponent } from './popup-inner/popup-inner.component';
 import { SelectCoverPopupComponent } from './select-cover-popup/select-cover-popup.component';
 import { PostCommentsComponent } from './post-comments/post-comments.component';
+import { LoginPopupComponent } from './login-popup/login-popup.component';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,8 @@ import { PostCommentsComponent } from './post-comments/post-comments.component';
     SelectCoverPopupComponent,
 
     PostCommentsComponent,
+
+    LoginPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -147,13 +150,14 @@ import { PostCommentsComponent } from './post-comments/post-comments.component';
     SafePipe,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [TestPopupComponent, SelectCoverPopupComponent]
+  entryComponents: [TestPopupComponent, SelectCoverPopupComponent, LoginPopupComponent]
 })
 export class AppModule {
   constructor(popups: PopupsService, public componentFactoryResolver: ComponentFactoryResolver) {
     popups.declareModule(this, {
       test: {component: TestPopupComponent},
       selectCover: {component: SelectCoverPopupComponent},
+      login: {component: LoginPopupComponent},
     });
   }
 }

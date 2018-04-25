@@ -178,6 +178,7 @@ export class EditProfilePageComponent implements OnInit {
       if (this.profile.contents) {
 
       }
+      this.profile.coverById = false;
     }, (data) => {
       //show data.msg
     });
@@ -211,6 +212,7 @@ export class EditProfilePageComponent implements OnInit {
         return (e) => {
           document.getElementById('new_cover_image').style.backgroundImage = 'url(' + e.target.result + ')';
           this.new_cover_image = f;
+          this.profile.coverById = false;
         };
       })(f);
       reader.readAsDataURL(f);
@@ -239,4 +241,20 @@ export class EditProfilePageComponent implements OnInit {
     this.profile.contents = event.contents;
   }
 
+  selectCover(id) {
+    if(id) {
+        this.profile.cover_image = '/covers/'+id+'.jpg';
+        this.profile.coverById = true;
+    }
+  }
+
+  showPopup() {
+      this.popups.show(
+          {
+              name: 'selectCover',
+              callback: (id) => {
+                this.selectCover(id)
+              }
+          });
+  }
 }

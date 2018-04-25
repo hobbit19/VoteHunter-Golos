@@ -13,8 +13,13 @@ export class SelectCoverPopupComponent extends PopupComponent implements OnInit 
       super.ngOnInit();
       this.covers = [];
       for(let i=1; i<=30; i++) {
-          this.covers.push({url: '/covers/th_400_'+i+'.jpg', num: i});
+          this.covers.push({url: '/covers/th_400_'+i+'.jpg', id: i});
       }
+    }
+
+    selectCover(id) {
+        this.callback(id);
+        this.hide();
     }
 
 }

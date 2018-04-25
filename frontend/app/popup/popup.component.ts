@@ -3,6 +3,8 @@ import {ChangeDetectorRef, Component, ElementRef, HostBinding, Renderer2} from '
 import {Listener} from '../../kolos.dom/src/listener';
 import {PopupsService} from '../popups.service';
 import {DOMService} from '../dom.service';
+import {UserService} from '../user.service';
+import {ApiService} from '../api.service';
 
 require('style-loader!./popup.component.less');
 
@@ -32,7 +34,10 @@ export class PopupComponent {
               public elementRef: ElementRef,
               public changeDetectorRef: ChangeDetectorRef,
               public DOM: DOMService,
-              public renderer: Renderer2) {
+              public renderer: Renderer2,
+              public user: UserService,
+              public api: ApiService,
+  ) {
 
   }
 
