@@ -2,7 +2,7 @@
     <h2 class="h2 authors__heading">Choose your reward for unlock posts</h2>
     <form class="rewards__form section" (submit)="submit()">
         <div class="rewards__item" *ngFor="let reward of rewards"
-             [ngClass]="{'rewards__item-chosen': reward === chosenReward}" (click)="chosenReward = reward">
+             [ngClass]="{'rewards__item-chosen': reward === chosenReward}" (click)="chooseReward(reward)">
             <div class="rewards__l">
                 <div class="rewards__radio"></div>
             </div>

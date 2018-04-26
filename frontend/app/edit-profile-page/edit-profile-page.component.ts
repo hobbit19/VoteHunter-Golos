@@ -252,7 +252,7 @@ export class EditProfilePageComponent implements OnInit {
       this.popups.show(
           {
               name: 'selectCover',
-              callback: (id) => {
+              userCallback: (id) => {
                 this.selectCover(id)
               }
           });

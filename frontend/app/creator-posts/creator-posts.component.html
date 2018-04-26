@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<div class="creatorPosts__r">
-			<div class="creatorPosts__money" [innerHTML]="post.price_usd"></div>
+			<div class="creatorPosts__money" [innerHTML]="post.price_usd > 0 ? '\$' + post.price_usd + '+' : post.price_usd"></div>
 			<!--<div class="creatorPosts__curators">
 				<span [innerHTML]="post.curators"></span>
 				<span i18n=""> supporters</span>
@@ -18,7 +18,7 @@
 	<div class="creatorPosts__lock" *ngIf="post.isLocked">
 		<img class="creatorPosts__lockImage" src="/images/lock.svg">
 		<div class="creatorPosts__lockTitle">Only supporters can view this post</div>
-		<button class="creatorPosts__button" [routerLink]="'/become-patron/' + post.user_id">Unlock</button>
+		<button class="creatorPosts__button" [routerLink]="['/become-patron/' + post.user_id, {min: post.price_usd}]">Unlock</button>
 	</div>
 	<iframe class="creatorPosts__video" [attr.src]="post.video_url | safe" *ngIf="!post.isLocked && post.youtube"></iframe>
 	<div class="video__placeholder" *ngIf="!post.isLocked && !post.youtube">

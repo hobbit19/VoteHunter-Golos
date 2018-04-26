@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class RewardsComponent implements OnInit {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
   @Input() rewards: any[];
+  @Input() minValue: number;
 
   chosenReward: any;
 
@@ -16,11 +17,23 @@ export class RewardsComponent implements OnInit {
   ngOnInit() {
     if (this.rewards && this.rewards.length) {
       this.chosenReward = this.rewards[0];
+      this.rewards.forEach((item, key) => {
+        if(item.amount == this.minValue) {
+            this.chosenReward = this.rewards[key];
+        }
+      });
     }
   }
 
   submit() {
     this.onSubmit.emit(this.chosenReward);
+  }
+
+  chooseReward(reward) {
+    if(reward.amount < this.minValue) {
+      return false;
+    }
+    this.chosenReward = reward;
   }
 
 }

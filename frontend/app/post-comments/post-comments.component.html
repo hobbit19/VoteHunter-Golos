@@ -1,6 +1,6 @@
 <div class="postPage__commnets">
   <div class="postPage__comments_header">
-    <div class="postPage__comments_title" (click)="beforePostComment($event)">Comments:</div>
+    <div class="postPage__comments_title" (click)="popups.show('login')">Comments:</div>
     <div class="postPage__comments_title_count" [innerHTML]="comments_cnt_str"></div>
   </div>
   <div class="" *ngIf="!post.isLocked">
@@ -17,7 +17,7 @@
     <div class="postPage__comments_header">
       <input class="section__input" type="text" style="flex-shrink: 1;width: 100%;" placeholder="Write a comment ..." [(ngModel)]="comment_text" name="comment_text">
       <div class="buttons" style="flex-shrink: 0;width: 150px;">
-        <button class="button button-mode-2 postPage__add_button" i18n="">Add comment</button>
+        <button class="button button-mode-2 postPage__add_button" i18n="" [disabled]="comment_text?.length < 2 ? 'disabled' : false" >Add comment</button>
       </div>
     </div>
   </form>

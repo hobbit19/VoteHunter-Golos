@@ -18,7 +18,7 @@ export class LoginPopupComponent extends PopupComponent implements OnInit {
     password: string;
 
     ngOnInit() {
-
+        super.ngOnInit();
     }
 
     submit(event) {
@@ -43,11 +43,13 @@ export class LoginPopupComponent extends PopupComponent implements OnInit {
                             this.user.isLoggedIn = true;
 
                             resolve();
-                            if(this.data.redirectUrl) {
+                            if(this.data && this.data.redirectUrl) {
                                 this.router.navigateByUrl(this.data.redirectUrl);
                             }
-                            if(this.callback) {
-                                this.callback();
+                            if(this.userCallback) {
+                                this.hide();
+                                this.userCallback();
+                                return;
                             }
                             this.router.navigateByUrl(this.user.loginRedirectionURL);
                         } else {

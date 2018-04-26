@@ -21,9 +21,11 @@ export class BecomePatronPageComponent implements OnInit {
     ) { }
 
   rewards: any;
+  minValue: number;
 
   ngOnInit() {
     this.rewards = this.route.snapshot.data.rewards;
+    this.minValue = this.route.snapshot.params.min;
   }
 
   submit(reward) {

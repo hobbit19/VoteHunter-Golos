@@ -87,14 +87,11 @@ export class PostCommentsComponent implements OnInit {
     }
 
     beforePostComment(event) {
-        console.log(this.user.isLoggedIn);
-        this.popups.show('login');
-        return;
         if(!this.user.isLoggedIn) {
             this.popups.show(
                 {
                     name: 'login',
-                    callback: () => {this.postComment(event)}
+                    userCallback: () => {this.postComment(event)}
                 }
             );
         } else {

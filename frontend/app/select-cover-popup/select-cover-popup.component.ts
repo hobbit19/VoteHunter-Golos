@@ -17,7 +17,7 @@ export class SelectCoverPopupComponent extends PopupComponent implements OnInit 
     }
 
     selectCover(id) {
-        this.callback(id);
+        this.userCallback(id);
         this.hide();
     }
 

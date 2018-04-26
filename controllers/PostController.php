@@ -318,7 +318,7 @@ class PostController extends Controller
             $arrPost += [
                 'link' => '/p/' . $objUser->profile->url . '/' . $objPost->permlink,
                 'profile_image' => $objUser->profile->profile_image,
-                'price_usd' => $objPost->patrons_only > 0 ? $objPost->patrons_only . '$+': \Yii::t('app', 'Public'),
+                'price_usd' => $objPost->patrons_only > 0 ? $objPost->patrons_only : \Yii::t('app', 'Public'),
                 'profile_name' =>  $objUser->profile->name,
                 'isLocked' => $isLocked,
                 'author' => $objUser->golos_nick,

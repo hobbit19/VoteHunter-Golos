@@ -1,4 +1,4 @@
-<vh-popup-inner [popup]='self()' style="width: 50px">
+<vh-popup-inner [popup]='self()'>
   <div class="select_covers__div">
     <div class="select_covers__item" *ngFor="let cover of covers" [style.background-image]="'url(' + cover.url + ')'" (click)="selectCover(cover.id)"></div>
   </div>
