@@ -293,6 +293,7 @@ class PostController extends Controller
         $objApi = new SteemApi();
         $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'usource');
         $arrPosts = [];
+        $arrTags = [];
         foreach ($arrObjPosts as $objPost) {
             /* @var $objPost \app\models\Posts */
             $strVideoUrl = null;
@@ -314,7 +315,7 @@ class PostController extends Controller
                 }
                 $arrMetaData = json_decode($arrBCPosts[$objPost->permlink]['json_metadata'], true);
                 $arrTags = $arrMetaData['tags'];
-                array_unshift($arrTags);
+                array_shift($arrTags);
                 if (!empty($arrMetaData['encodedData'])) {
                     $strVideoUrl = $objPost->decryptData($arrMetaData['encodedData']);
                     $strPostImage = (!empty($arrMetaData['thumbnail']) ? $arrMetaData['thumbnail'] : '/images/default-video.jpg');
