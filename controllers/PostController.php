@@ -121,6 +121,18 @@ class PostController extends Controller
         $objPost->cat_id = \Yii::$app->request->post('cat_id');
         $objPost->patrons_only = \Yii::$app->request->post('patrons_only');
         $objPost->thumbnail = $strThumbUrl;
+
+        //post tags
+        $arrTags = \Yii::$app->request->post('tags',[]);
+        if(!is_array($arrTags)) {
+            $arrTags = [];
+        }
+        if(count($arrTags) > 4) {
+            $arrTags = array_slice($arrTags, 0, 4);
+        }
+        array_unshift($arrTags, 'usource');
+        //---------
+
         if($objPost->save()) {
             $objProfile = Profile::findOne(['user_id' => \Yii::$app->user->getId()]);
             $strLink = "https://usource.ru/p/".$objProfile->url."/".$objPost->permlink;
@@ -135,7 +147,7 @@ class PostController extends Controller
                     'author' => \Yii::$app->user->getIdentity()->golos_nick,
                     'permlink' => $objPost->permlink,
                     'jsonMetadata' => [
-                        'tags' => ['usource'],
+                        'tags' => $arrTags,
                         'app' => 'usource.ru',
                         'encodedData' => $strEncryptedData,
                         'encKey' => $strEncKey,
@@ -301,6 +313,8 @@ class PostController extends Controller
                     $objPost->refresh();
                 }
                 $arrMetaData = json_decode($arrBCPosts[$objPost->permlink]['json_metadata'], true);
+                $arrTags = $arrMetaData['tags'];
+                array_unshift($arrTags);
                 if (!empty($arrMetaData['encodedData'])) {
                     $strVideoUrl = $objPost->decryptData($arrMetaData['encodedData']);
                     $strPostImage = (!empty($arrMetaData['thumbnail']) ? $arrMetaData['thumbnail'] : '/images/default-video.jpg');
@@ -322,6 +336,7 @@ class PostController extends Controller
                 'profile_name' =>  $objUser->profile->name,
                 'isLocked' => $isLocked,
                 'author' => $objUser->golos_nick,
+                'tags' => $arrTags,
             ];
             $arrPost += [
                 'youtube' => (strpos($strVideoUrl, '/ipfs/') === false)

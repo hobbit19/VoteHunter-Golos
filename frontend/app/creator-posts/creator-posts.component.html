@@ -28,6 +28,9 @@
 		</video>
 	</div>
 	<a [href]="post.link" class="creatorPosts__link"><div class="creatorPosts__title" [innerHTML]="post.title"></div></a>
+	<div class="creatorPosts__tags">
+		<a [href]="post.link" class="creatorPosts__tags_item" *ngFor="let tag of post.tags" [innerHTML]="tag"></a>
+	</div>
 	<p class="paragraph creatorPosts__desc" [innerHTML]="post.body"></p>
 	<vh-post-comments [post]="post" [comments_per_page] = 4></vh-post-comments>
 </div>

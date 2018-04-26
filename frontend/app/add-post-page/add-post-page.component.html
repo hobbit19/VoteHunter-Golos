@@ -23,6 +23,16 @@
 				</div>
 				<div class="section__row">
 					<div class="section__left">
+						<div class="section__name" i18n="">Tags</div>
+					</div>
+					<div class="section__right addPostPage__tags_wrap">
+						<a class="addPostPage__tags_item" *ngFor="let tag of postData.tags" [innerHTML]="tag" (click)="tagsDelete(tag)"></a>
+						<input class="section__input" i18n-placeholder="" placeholder="Tag" name="title" [(ngModel)]="postData.tagsRaw" (keyup)="tagsChange($event)" (blur)="tagsBlur()" required="required">
+					</div>
+				</div>
+				<div class="addPostPage__tags_error">Maximum 4 tags for video</div>
+				<div class="section__row">
+					<div class="section__left">
 						<div class="section__name" i18n="">Content type</div>
 					</div>
 					<div class="section__right">

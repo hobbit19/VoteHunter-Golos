@@ -51,10 +51,12 @@ export class AddPostPageComponent implements OnInit {
         video_file: null,
         screen_file: null,
         base64: '',
+        tags: [],
+        tagsRaw: '',
     };
 
     isVideoVisible = false;
-
+    backspaceEmpty = 0;
 
     ngOnInit() {
         this.api.getPostPrivacyValues().then(
@@ -234,21 +236,46 @@ export class AddPostPageComponent implements OnInit {
         document.getElementById('screen_file').click();
     }
 
-    chechIfFileSelected($event)
-    {
+    chechIfFileSelected($event) {
         let target = $event.target || $event.srcElement;
         if (target.value.length == 0) {
             console.log("Suspect Cancel was hit, no files selected.");
         }
     }
 
-    onBlueVideoFileSelection($event)
-    {
+    onBlueVideoFileSelection($event) {
         let target = $event.target || $event.srcElement;
         if (target.value.length == 0) {
             this.showHideVideo(false);
         }
 
+    }
+
+    tagsChange($event) {
+        if($event.keyCode == 32 && this.postData.tagsRaw.trim() != '' && this.postData.tags.length < 4) { //SpaceKey
+            this.postData.tags.push(this.postData.tagsRaw.trim());
+            this.postData.tagsRaw = '';
+        }
+        if($event.keyCode == '8') { //Backspace
+            if(this.postData.tagsRaw == '') {
+                this.backspaceEmpty++;
+                if(this.backspaceEmpty == 2) {
+                    this.postData.tags.pop();
+                    this.backspaceEmpty = 0;
+                }
+            }
+        }
+    }
+    tagsBlur() {
+        if( this.postData.tagsRaw.trim()!='' && this.postData.tags.length < 4) {
+            this.postData.tags.push(this.postData.tagsRaw.trim());
+            this.postData.tagsRaw = '';
+        }
+    }
+    tagsDelete(tag) {
+        let index = this.postData.tags.indexOf(tag);
+        if (index !== -1)  this.postData.tags.splice(index, 1);
+        return true;
     }
 
 }
