@@ -3,6 +3,7 @@ import {UserService} from '../user.service';
 import {DOMService} from '../dom.service';
 import {ApiService} from '../api.service';
 import {Router} from '@angular/router';
+import {PopupsService} from '../popups.service';
 
 let moment = require('moment');
 let steem = require('steem');
@@ -33,6 +34,7 @@ export class PostCommentsComponent implements OnInit {
         public user: UserService,
         public api: ApiService,
         private router: Router,
+        public popups: PopupsService,
     ) {
         this.comments_visible_cnt = 0;
         this.comments_visible = [];
@@ -84,6 +86,21 @@ export class PostCommentsComponent implements OnInit {
         });
     }
 
+    beforePostComment(event) {
+        console.log(this.user.isLoggedIn);
+        this.popups.show('login');
+        return;
+        if(!this.user.isLoggedIn) {
+            this.popups.show(
+                {
+                    name: 'login',
+                    callback: () => {this.postComment(event)}
+                }
+            );
+        } else {
+            this.postComment(event);
+        }
+    }
     postComment(event) {
         let promise = new Promise((resolve, reject) => {
             let postingKey = steem.auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'posting');

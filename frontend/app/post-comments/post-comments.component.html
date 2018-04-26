@@ -1,6 +1,6 @@
 <div class="postPage__commnets">
   <div class="postPage__comments_header">
-    <div class="postPage__comments_title">Comments:</div>
+    <div class="postPage__comments_title" (click)="beforePostComment($event)">Comments:</div>
     <div class="postPage__comments_title_count" [innerHTML]="comments_cnt_str"></div>
   </div>
   <div class="" *ngIf="!post.isLocked">
@@ -13,7 +13,7 @@
     <div class="postPage_comment_date" [innerHTML]="comment.date"></div>
   </div>
   <div class="postComments__more" *ngIf="comments_visible.length < comments.length" (click)="showComments()">more ...</div>
-  <form (submit)="postComment($event)">
+  <form (submit)="beforePostComment($event)">
     <div class="postPage__comments_header">
       <input class="section__input" type="text" style="flex-shrink: 1;width: 100%;" placeholder="Write a comment ..." [(ngModel)]="comment_text" name="comment_text">
       <div class="buttons" style="flex-shrink: 0;width: 150px;">

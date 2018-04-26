@@ -63,7 +63,7 @@ export class PopupComponent {
 
   animationDuration: number;
 
-  callback?();
+  callback?(data?: any);
 
   onClick(e) {
     let $target = $(e.target);
