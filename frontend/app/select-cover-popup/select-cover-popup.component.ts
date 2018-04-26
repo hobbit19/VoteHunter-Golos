@@ -8,7 +8,6 @@ import {PopupComponent} from '../popup/popup.component';
 })
 export class SelectCoverPopupComponent extends PopupComponent implements OnInit {
     public covers: any;
-
     ngOnInit() {
       super.ngOnInit();
       this.covers = [];
