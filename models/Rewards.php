@@ -12,6 +12,7 @@ use Yii;
  * @property string $amount
  * @property string $reward
  * @property string $title
+ * @property boolean $deleted
  */
 class Rewards extends \yii\db\ActiveRecord
 {

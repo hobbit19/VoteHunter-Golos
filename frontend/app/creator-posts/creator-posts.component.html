@@ -20,7 +20,7 @@
 		<div class="creatorPosts__lockTitle">Only supporters can view this post</div>
 		<button class="creatorPosts__button" [routerLink]="['/become-patron/' + post.user_id, {min: post.price_usd}]">Unlock</button>
 	</div>
-	<iframe class="creatorPosts__video" [attr.src]="post.video_url | safe" *ngIf="!post.isLocked && post.youtube"></iframe>
+	<iframe class="creatorPosts__video" [attr.src]="post.video_url | safe" *ngIf="!post.isLocked && post.youtube"  frameborder="0" allowfullscreen></iframe>
 	<div class="video__placeholder" *ngIf="!post.isLocked && !post.youtube">
 		<div class="video__play_button" (click)="playVideo($event)" [id]="'play-' + post.permlink"></div>
 		<video  class="creatorPosts__video" [attr.src]="post.video_url" *ngIf="!post.isLocked && !post.youtube" [attr.poster]="post.post_image" [id]="post.permlink" (click)="videoClick($event)" controlsList="nodownload">

@@ -3,6 +3,7 @@ import {ApiService} from '../api.service';
 import {DOMService} from '../dom.service';
 import {PopupComponent} from '../popup/popup.component';
 import {PopupsService} from '../popups.service';
+import {reject} from 'q';
 
 let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
@@ -102,12 +103,12 @@ export class EditProfilePageComponent implements OnInit {
 */
       APIS['steem'].api.getAccounts([localStorage.getItem('nick')], (err, response) => {
           if (err) {
+
           } else {
               const {memo_key, json_metadata} = response[0];
               APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), undefined, undefined, undefined, memo_key, JSON.stringify(dataJson), function (err, result) {
-                  console.log(err, result);
+                  //console.log(err, result);
               });
-
           }
       });
   }
@@ -149,7 +150,30 @@ export class EditProfilePageComponent implements OnInit {
 
   delReward(i) {
     if (confirm('Are you sure?')) {
-
+        let rewardData = {
+            id: this.rewards[i].id,
+            user_id: this.rewards[i].user_id,
+        };
+        let tmpRewards = Array.from(this.rewards);
+        this.api.deleteReward(rewardData).then((data) => {
+            tmpRewards.splice(i,1);
+            let dataJson = this.json_metadata;
+            dataJson['rewards'] = tmpRewards;
+            let wif = APIS['steem'].auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'owner');
+            APIS['steem'].api.getAccounts([localStorage.getItem('nick')], (err, response) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const {memo_key, json_metadata} = response[0];
+                    APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), undefined, undefined, undefined, memo_key, JSON.stringify(dataJson), (err, result) => {
+                        this.api.deleteReward(rewardData).then((data) => {
+                                this.rewards.splice(i,1);
+                        }, () => {}
+                        );
+                    });
+                }
+            });
+        }, () => {});
     }
   }
 

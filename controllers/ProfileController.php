@@ -435,6 +435,45 @@ class ProfileController extends Controller
         ];
 
     }
+
+    public function actionDeleteReward()
+    {
+        if(\Yii::$app->user->isGuest || \Yii::$app->user->getId() != \Yii::$app->request->post('user_id')) {
+            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'Access denied')
+            ];
+        }
+        $objReward = Rewards::findOne(['id' => \Yii::$app->request->post('id'), 'user_id' => \Yii::$app->request->post('user_id')]);
+        if(empty($objReward)) {
+            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'Not found'),
+            ];
+        }
+        if(empty($objReward->deleted)) {
+            $objReward->deleted = true;
+            if($objReward->save()) {
+                return [
+                    'status' => 'ok',
+                ];
+            } else {
+                return [
+                    'status' => 'error',
+                    'msg' => \Yii::t('app', 'Cannot delete reward'),
+                ];
+            }
+        }
+        if($objReward->delete()) {
+            return [
+                'status' => 'ok',
+            ];
+        }
+        return [
+            'status' => 'error',
+            'msg' => \Yii::t('app', 'Cannot delete reward'),
+        ];
+    }
 }
 
 

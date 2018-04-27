@@ -5,17 +5,17 @@
   </div>
   <div class="" *ngIf="!post.isLocked">
   <div *ngFor="let comment of comments_visible" class="postPage__comment_item">
-    <div class="persons__avatar" [style.background-image]="'url(' + comment.profile_image + ')'"></div>
+    <div class="postComments__persons_avatar" [style.background-image]="'url(' + comment.profile_image + ')'"></div>
     <div style="flex-shrink: 1;width: 100%;">
-      <div class="postPage__name" [innerHTML]="comment.author"></div>
+      <div class="postComments__postPage_name" [innerHTML]="comment.author"></div>
       <div class="postPage__comment" [innerHTML]="comment.comment"></div>
     </div>
     <div class="postPage_comment_date" [innerHTML]="comment.date"></div>
   </div>
-  <div class="postComments__more" *ngIf="comments_visible.length < comments.length" (click)="showComments()">more ...</div>
+  <div class="postComments__more" *ngIf="comments_visible.length < comments.length" (click)="showComments()">More comments ...</div>
   <form (submit)="beforePostComment($event)">
     <div class="postPage__comments_header">
-      <input class="section__input" type="text" style="flex-shrink: 1;width: 100%;" placeholder="Write a comment ..." [(ngModel)]="comment_text" name="comment_text">
+      <input class="section__input postComments__input" type="text" style="flex-shrink: 1;width: 100%;" placeholder="Write a comment ..." [(ngModel)]="comment_text" name="comment_text">
       <div class="buttons" style="flex-shrink: 0;width: 150px;">
         <button class="button button-mode-2 postPage__add_button" i18n="" [disabled]="comment_text?.length < 2 ? 'disabled' : false" >Add comment</button>
       </div>

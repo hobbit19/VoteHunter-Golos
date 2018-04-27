@@ -2,7 +2,7 @@
 <div class="posts__items" *ngIf="items?.length">
 	<div class="posts__item" *ngFor="let item of items" [innerHTML]>
 		<div class="posts__img" [style.background-image]="'url(' + item.post_image + ')'"></div>
-		<div class="posts__title" [innerHTML]="item.title"></div>
+		<a [href]="item.link" class="posts__link"><div class="posts__title" [innerHTML]="item.title"></div></a>
 		<p class="paragraph posts__desc" [innerHTML]="item.body"></p>
 	</div>
 </div>

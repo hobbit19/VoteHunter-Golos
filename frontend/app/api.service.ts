@@ -243,8 +243,13 @@ export class ApiService {
     return this.post('/profile/rewards', data);
   }
 
+  deleteReward(data: any) {
+        return this.post('/profile/delete-reward', data);
+  }
 
-  postAdd(data: any) {
+
+
+    postAdd(data: any) {
     return this.postFormData('/post/add', data);
   }
 
