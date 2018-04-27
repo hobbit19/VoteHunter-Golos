@@ -148,13 +148,16 @@ export class EditProfilePageComponent implements OnInit {
     })
   }
 
-  delReward(i) {
+  delReward(i, $event) {
     if (confirm('Are you sure?')) {
+        let target = $($event.target || $event.srcElement);
         let rewardData = {
             id: this.rewards[i].id,
             user_id: this.rewards[i].user_id,
         };
         let tmpRewards = Array.from(this.rewards);
+        let currentImage =target.css('background-image');
+        target.css('background-image', 'url("/images/wait.svg")');
         this.api.deleteReward(rewardData).then((data) => {
             tmpRewards.splice(i,1);
             let dataJson = this.json_metadata;
@@ -163,17 +166,23 @@ export class EditProfilePageComponent implements OnInit {
             APIS['steem'].api.getAccounts([localStorage.getItem('nick')], (err, response) => {
                 if (err) {
                     console.log(err);
+                    target.css('background-image', currentImage);
                 } else {
                     const {memo_key, json_metadata} = response[0];
                     APIS['steem'].broadcast.accountUpdate(wif, localStorage.getItem('nick'), undefined, undefined, undefined, memo_key, JSON.stringify(dataJson), (err, result) => {
                         this.api.deleteReward(rewardData).then((data) => {
-                                this.rewards.splice(i,1);
-                        }, () => {}
+                            target.css('background-image', currentImage);
+                            this.rewards.splice(i,1);
+                        }, () => {
+                            target.css('background-image', currentImage);
+                            }
                         );
                     });
                 }
             });
-        }, () => {});
+        }, () => {
+            target.css('background-image', currentImage);
+        });
     }
   }
 

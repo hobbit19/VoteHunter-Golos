@@ -215,7 +215,7 @@
 									   [(ngModel)]="rewards[i].amount">
 							</div>
 						</div>
-						<div class="section__basket" (click)="delReward(i);"></div>
+						<div class="section__basket" (click)="delReward(i, $event);"></div>
 					</div>
 					<div class="buttons">
 						<button class="button button-mode-2 editProfilePage__button" i18n="">Save</button>
