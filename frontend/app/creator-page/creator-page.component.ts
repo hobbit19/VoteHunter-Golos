@@ -26,9 +26,8 @@ export class CreatorPageComponent implements OnInit {
 
   ngOnInit() {
       this.route.params.subscribe(params => {
-          this.isShowPosts = params['show'];
+          this.isShowPosts = params['show'] == 'posts';
       });
-      console.log(this.isShowPosts);
       this.profile = this.route.snapshot.data.profile.profile;
       this.isPatron = this.route.snapshot.data.profile.isPatron;
 

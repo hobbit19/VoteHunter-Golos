@@ -1,12 +1,12 @@
-<vh-creator-banner [profile]="profile" [isPatron]="isPatron" [currentActiveElement] = "'profile'"></vh-creator-banner>
+<vh-creator-banner [profile]="profile" [isPatron]="isPatron" [currentActiveElement] = "isShowPosts? 'posts' : 'profile'"></vh-creator-banner>
 <div class="block">
 	<div class="creatorPage__content clearfix">
-		<div class="creatorPage__col creatorPage__col-left">
+		<div class="creatorPage__col creatorPage__col-left" *ngIf="!isShowPosts">
 			<vh-creator-stats [data]="{patrons_count: profile?.patrons_count, total_received: profile?.total_received}"></vh-creator-stats>
 			<vh-creator-goal [goals]="profile?.goals"></vh-creator-goal>
 		</div>
 		<div class="creatorPage__col creatorPage__col-center">
-			<vh-creator-overview [profile]="profile" *ngIf="profile"></vh-creator-overview>
+			<vh-creator-overview [profile]="profile" *ngIf="profile && !isShowPosts"></vh-creator-overview>
 			<vh-creator-posts [posts]="posts"></vh-creator-posts>
 		</div>
 		<div class="creatorPage__col creatorPage__col-right">
