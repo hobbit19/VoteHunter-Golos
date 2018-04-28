@@ -1,5 +1,5 @@
 <div class="block">
-	<vh-main-nav></vh-main-nav>
+	<vh-main-nav [profileUrl]="profile.url"></vh-main-nav>
 	<div class="editProfilePage__content">
 		<div class="editProfilePage__left">
 			<form class="editProfile__form" (submit)="submit($event)" *ngIf='profile'>
