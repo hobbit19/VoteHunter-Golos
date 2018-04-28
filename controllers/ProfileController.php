@@ -264,7 +264,11 @@ class ProfileController extends Controller
 
     public function actionList()
     {
-        $objQuery = Profile::find()->limit((int) \Yii::$app->request->get('limit', Profile::DEFAULT_LIST_LIMIT));
+        $objQuery = Profile::find()->where(['<>', 'cover_image', ''])
+            ->andWhere(['<>', 'list_image', ''])
+            ->andWhere(['<>', 'profile_image', ''])
+            ->andWhere(['<>', 'cover_image', ''])
+            ->limit((int) \Yii::$app->request->get('limit', Profile::DEFAULT_LIST_LIMIT));
         switch(\Yii::$app->request->get('order')) {
             case 'last':
                 $objQuery->orderBy(['id' => SORT_DESC]);

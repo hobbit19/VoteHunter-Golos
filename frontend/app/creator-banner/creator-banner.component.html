@@ -18,8 +18,8 @@
 		<div class="creatorBanner__bottom">
 			<div class="creatorBanner__l">
 				<nav class="creatorBanner__nav">
-					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'profile'}" i18n="" [href]="profile.url">Profile</a>
-					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'posts'}" i18n="">Posts</a>
+					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'profile'}" i18n="" [routerLink]="'/' +profile.url">Profile</a>
+					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'posts'}" i18n="" [routerLink]="['/' +profile.url, { show: 'posts'}]">Posts</a>
 					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'community'}" i18n="">Community</a>
 				</nav>
 			</div>

@@ -2,6 +2,7 @@ import { Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core
 import { ApiService } from "../api.service";
 import { UserService } from "../user.service";
 import {ActivatedRoute} from '@angular/router';
+import {isNull} from 'util';
 
 @Component({
   selector: 'vh-creator-page',
@@ -12,16 +13,22 @@ import {ActivatedRoute} from '@angular/router';
 export class CreatorPageComponent implements OnInit {
   profile: any;
   isPatron?: boolean;
-
+  isShowPosts: boolean;
   constructor(
     public api: ApiService,
     public user: UserService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+
+  }
 
   posts: any;
 
   ngOnInit() {
+      this.route.params.subscribe(params => {
+          this.isShowPosts = params['show'];
+      });
+      console.log(this.isShowPosts);
       this.profile = this.route.snapshot.data.profile.profile;
       this.isPatron = this.route.snapshot.data.profile.isPatron;
 
