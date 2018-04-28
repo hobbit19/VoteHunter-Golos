@@ -30,7 +30,8 @@ export class RewardsComponent implements OnInit {
   }
 
   chooseReward(reward) {
-    if(reward.amount < this.minValue) {
+    if(parseInt(reward.amount) < this.minValue) {
+
       return false;
     }
     this.chosenReward = reward;
