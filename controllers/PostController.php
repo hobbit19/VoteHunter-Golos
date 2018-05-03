@@ -225,7 +225,6 @@ class PostController extends Controller
             'post_image' => (!empty($arrMetaData['thumbnail']) ? $arrMetaData['thumbnail'] : '/images/default-video.jpg'),
             'body' => $objPost->body,
             'patrons_only' => $objPost->patrons_only,
-            ''
             //'body' => $strBody,
         ];
         if($boolShowVideoLink) {
