@@ -97,7 +97,7 @@
 
 			</div>
 			<div class="buttons">
-				<button class="button button-mode-2" i18n="">Post</button>
+				<button class="button button-mode-2" i18n="" [innerHTML]="isEditing? 'Update post' : 'Post'"></button>
 			</div>
 		</form>
 		<div class="errors" *ngIf="errors.length">
