@@ -153,10 +153,6 @@ class PostController extends Controller
         $objPost->cat_id = \Yii::$app->request->post('cat_id');
         $objPost->patrons_only = \Yii::$app->request->post('patrons_only');
         $objPost->thumbnail = $strThumbUrl;
-        print_r($objPost->attributes);
-        var_dump($strVideoUrl);
-        exit();
-
         //post tags
         $arrTags = \Yii::$app->request->post('tags',[]);
         if(!is_array($arrTags)) {
