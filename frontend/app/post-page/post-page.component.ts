@@ -41,7 +41,7 @@ interface IPost {
 @Component({
     selector: 'vh-post-page',
     templateUrl: './post-page.component.html',
-    styleUrls: ['./post-page.component.less', '../video/video.less', '../persons/persons.component.less', '../section.less', '../creator-page/creator-page.component.less'],
+    styleUrls: ['./post-page.component.less', '../video/video.less', '../persons/persons.component.less', '../section.less', '../creator-page/creator-page.component.less', '../creator-posts/creator-posts.component.less'],
     encapsulation: ViewEncapsulation.None
 })
 export class PostPageComponent implements OnInit {
@@ -124,7 +124,8 @@ export class PostPageComponent implements OnInit {
 
     getPostContent(postData) {
         this.post = postData;
-        this.post.tags = postData.metadata['tags'].slice(1);
+        let metadata = JSON.parse(postData.metadata);
+        this.post.tags = metadata['tags'].slice(1);
         this.getComments();
     }
     
