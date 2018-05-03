@@ -12,6 +12,7 @@ export class CreatorPostsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
   @HostBinding('class') get classStr() {

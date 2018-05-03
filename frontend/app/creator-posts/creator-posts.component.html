@@ -34,6 +34,6 @@
 	<p class="paragraph creatorPosts__desc" [innerHTML]="post.body"></p>
 	<vh-post-comments [post]="post" [comments_per_page] = 4></vh-post-comments>
 </div>
-<div class="creatorPosts__item section creatorPosts__no_posts" *ngIf="posts.length === 0">
+<div class="creatorPosts__item section creatorPosts__no_posts" *ngIf="posts && posts.length === 0">
 No posts yet :(
 </div>
