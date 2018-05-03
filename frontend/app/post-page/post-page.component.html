@@ -19,6 +19,10 @@
 
 					<div>
 						<h2 class="h2 postPage__title" [innerHTML]="post.title"></h2>
+						<div class="creatorPosts__tags">
+							<a [href]="" class="creatorPosts__tags_item" *ngFor="let tag of post.tags" [innerHTML]="tag"></a>
+						</div>
+
 						<p class="paragraph postPage__desc" [innerHTML]="post.body"></p>
 					</div>
 					<vh-post-comments [post]="post" [comments_per_page] = 10></vh-post-comments>

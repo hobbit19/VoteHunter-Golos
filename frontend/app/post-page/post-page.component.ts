@@ -35,6 +35,7 @@ interface IPost {
     video_url?: string,
     video_ipfs?: string,
     post_image?: string,
+    tags: any,
 }
 
 @Component({
@@ -123,6 +124,7 @@ export class PostPageComponent implements OnInit {
 
     getPostContent(postData) {
         this.post = postData;
+        this.post.tags = postData.metadata['tags'].slice(1);
         this.getComments();
     }
     
