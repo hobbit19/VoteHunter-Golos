@@ -3,14 +3,38 @@ import {HttpClient} from '@angular/common/http';
 import {HttpHeaders} from '@angular/common/http';
 import {DOMService} from './dom.service';
 
+/*
 let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
 golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
+*/
+
+let steem = require('steem');
+steem.config.set('websocket', 'wss://testnet.steem.vc');
+steem.config.set('uri', 'https://testnet.steem.vc');
+steem.config.set('address_prefix', 'STX');
+steem.config.set('chain_id', '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673');
+
+interface IPost {
+    author: string,
+    permlink: string,
+    metadata: string,
+    body?: string,
+    title?: string,
+    id?: string,
+    video_url?: string,
+    video_ipfs?: string,
+    post_image?: string,
+}
+
+
 
 @Injectable()
 export class ApiService {
   constructor(public http: HttpClient, public domService: DOMService,) {
   }
+
+
 
   request(method: string, options: any): Promise<any> {
     let promise;
@@ -306,4 +330,40 @@ export class ApiService {
       return this.post('/profile/avatars', data);
   }
 
+  getPostContent(author: string, permlink: string, callback?: any) {
+      steem.api.getContent(author, permlink, (err, post) => {
+          if (!err) {
+              let postData: IPost = {
+                  author: author,
+                  permlink: permlink,
+                  body: post.body,
+                  metadata: post.json_metadata
+              };
+
+              this.postShow(postData).then((data) => {
+                  if (data.status == 'ok') {
+                      //delete postData.metadata;
+                      postData.title = post.title;
+                      postData.body = data.post.body;
+                      postData.id = data.post.id;
+                      postData.post_image = data.post.post_image;
+                      if (data.post.video_url) {
+                          postData.video_url = data.post.video_url;
+                      }
+                      if (data.post.video_ipfs) {
+                          postData.video_ipfs = data.post.video_ipfs;
+                      }
+                  }
+                  if(callback) {
+                    callback(postData);
+                  }
+//                  this.post = postData;
+//                  this.getComments();
+              });
+          } else {
+              console.error(err);
+          }
+      });
+
+  }
 }

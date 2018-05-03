@@ -9,6 +9,7 @@ export class UserService {
   id?: number;
   dataPromise: Promise<void>;
   loginRedirectionURL = '/dashboard';
+  profile_url = '';
 
   constructor(
     public api: ApiService
@@ -19,6 +20,7 @@ export class UserService {
       if (this.isLoggedIn) {
           this.golos_nick = data.golos_nick;
           this.profile_image = data.profile_image;
+          this.profile_url = data.profile_url;
       } else {
           localStorage.clear();
       }

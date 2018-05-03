@@ -1,7 +1,8 @@
 <div class="block">
 	<vh-main-nav></vh-main-nav>
 	<div class="addPostPage__content">
-		<h2 class="h2" i18n="">Create a post</h2>
+		<h2 class="h2" i18n="" *ngIf="!isEditing">Create a post</h2>
+		<h2 class="h2" i18n="" *ngIf="isEditing">Edit post</h2>
 		<p class="paragraph desc" i18n="">Previously upload your video to youtube and set privacy to unlisted</p>
 		<form (submit)="post($event)">
 			<div class="section">
@@ -27,7 +28,7 @@
 					</div>
 					<div class="section__right addPostPage__tags_wrap">
 						<a class="addPostPage__tags_item" *ngFor="let tag of postData.tags" [innerHTML]="tag" (click)="tagsDelete(tag)"></a>
-						<input class="section__input" i18n-placeholder="" placeholder="Tag" name="title" [(ngModel)]="postData.tagsRaw" (keyup)="tagsChange($event)" (blur)="tagsBlur()" required="required">
+						<input class="section__input" i18n-placeholder="" placeholder="Tag" name="tags" [(ngModel)]="postData.tagsRaw" (keyup)="tagsChange($event)" (blur)="tagsBlur()" required="required">
 					</div>
 				</div>
 				<div class="addPostPage__tags_error">Maximum 4 tags for video</div>

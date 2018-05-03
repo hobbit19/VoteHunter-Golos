@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {UserService} from '../user.service';
 
 @Component({
   selector: 'vh-main-nav',
@@ -9,10 +10,14 @@ export class MainNavComponent implements OnInit {
 
   @Input() profileUrl: string;
 
-  constructor() { }
+  constructor(
+      public user: UserService,
+  ) { }
 
   ngOnInit() {
-
+    if(!this.profileUrl && this.user.isLoggedIn) {
+        this.profileUrl = this.user.profile_url;
+    }
   }
 
 }

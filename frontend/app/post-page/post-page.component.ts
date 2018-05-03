@@ -83,7 +83,9 @@ export class PostPageComponent implements OnInit {
 
                 }
             );
+            this.api.getPostContent(author, permlink, this.getPostContent.bind(this));
 
+/*
             APIS['steem'].api.getContent(author, permlink, (err, post) => {
                 if (!err) {
                     let postData: IPost = {
@@ -106,7 +108,6 @@ export class PostPageComponent implements OnInit {
                             if (data.post.video_ipfs) {
                                 postData.video_ipfs = data.post.video_ipfs;
                             }
-                            console.log(this.comments);
                         }
                         this.post = postData;
                         this.getComments();
@@ -115,10 +116,16 @@ export class PostPageComponent implements OnInit {
                     console.error(err);
                 }
             });
+*/
 
         });
     }
 
+    getPostContent(postData) {
+        this.post = postData;
+        this.getComments();
+    }
+    
     getVideoSrc() {
         return 'https://www.youtube.com/embed/' + this.getVideoID();
     }

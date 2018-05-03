@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit, ViewEncapsulation} from '@angular/core';
 import {ApiService} from '../api.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DOMService} from '../dom.service';
 
 let golos = require('golos-js');
@@ -35,9 +35,11 @@ export class AddPostPageComponent implements OnInit {
 
     constructor(public api: ApiService,
                 public router: Router,
-                public domService: DOMService) {
+                public domService: DOMService,
+                private route: ActivatedRoute,
+    ) {
     }
-
+    isEditing = false;
     POST_PRIVACY: any;
     POST_CONTENT_TYPES = POST_CONTENT_TYPES;
 
@@ -59,6 +61,13 @@ export class AddPostPageComponent implements OnInit {
     backspaceEmpty = 0;
 
     ngOnInit() {
+        this.route.params.subscribe(params => {
+            if(params['edit']) {
+                this.api.getPostContent(localStorage.getItem('nick'),params['edit'], this.getPostContent.bind(this));
+            }
+
+        });
+
         this.api.getPostPrivacyValues().then(
             (data) => {
                 this.POST_PRIVACY = data.privacy;
@@ -68,6 +77,24 @@ export class AddPostPageComponent implements OnInit {
             }
         );
     }
+
+    getPostContent(postData) {
+        console.log(postData);
+        for(let k in postData) {
+            this.postData[k] = postData[k];
+        }
+        let metadata = JSON.parse(postData.metadata);
+        this.postData.tags = metadata['tags'].slice(1);
+        this.postData.screen_file = postData.post_image;
+        this.isEditing = true;
+        if(postData.video_ipfs) {
+            let videoNode = document.querySelector('video');
+            videoNode.src = postData.video_ipfs;
+            this.isVideoVisible = true;
+        }
+        (document.getElementById('video_url') as HTMLInputElement).readOnly = true;
+    }
+
 
     findByProp(arr, prop, val) {
         let result;
