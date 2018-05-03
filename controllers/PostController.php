@@ -79,6 +79,24 @@ class PostController extends Controller
             }
             $mixIPFS = IPFSHelper::uploadFile('video_file');
         }
+        if(!empty($mixIPFS)) {
+            if(!empty(\Yii::$app->params['isDevelopment'])) {
+                $strVideoUrl = 'http://localhost:8080/ipfs/' .  $mixIPFS['Hash'];
+            } else {
+                $strVideoUrl = 'https://usource.ru/ipfs/' .  $mixIPFS['Hash'];
+            }
+        } else {
+            //youtube link
+            if(empty(\Yii::$app->request->post('updatePost'))) {
+                $strThumbUrl = ImageHelper::getYouTubeImg($strVideoUrl);
+                if ($strThumbUrl == '') {
+                    return [
+                        'status' => 'error',
+                        'msg' => \Yii::t('app', 'Wrong youtube video url'),
+                    ];
+                }
+            }
+        }
 
         //Update POST
         if(!empty(\Yii::$app->request->post('updatePost'))) {
@@ -102,24 +120,6 @@ class PostController extends Controller
 
 
 
-        if(!empty($mixIPFS)) {
-            if(!empty(\Yii::$app->params['isDevelopment'])) {
-                $strVideoUrl = 'http://localhost:8080/ipfs/' .  $mixIPFS['Hash'];
-            } else {
-                $strVideoUrl = 'https://usource.ru/ipfs/' .  $mixIPFS['Hash'];
-            }
-        } else {
-            //youtube link
-            if(empty(\Yii::$app->request->post('updatePost'))) {
-                $strThumbUrl = ImageHelper::getYouTubeImg($strVideoUrl);
-                if ($strThumbUrl == '') {
-                    return [
-                        'status' => 'error',
-                        'msg' => \Yii::t('app', 'Wrong youtube video url'),
-                    ];
-                }
-            }
-        }
         $strKey = str_replace(['_', '/', '-'], '', \Yii::$app->security->generateRandomString());
         $objAnubis = new Anubis();
         $objAnubis->setKey($strKey);
