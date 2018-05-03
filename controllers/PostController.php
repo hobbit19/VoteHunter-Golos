@@ -50,8 +50,6 @@ class PostController extends Controller
 
     public function actionAdd()
     {
-        print_r(\Yii::$app->request->post());
-        exit();
         if(\Yii::$app->user->isGuest) {
             return [
                 'status' => 'Need login'
@@ -81,6 +79,29 @@ class PostController extends Controller
             }
             $mixIPFS = IPFSHelper::uploadFile('video_file');
         }
+
+        //Update POST
+        if(!empty(\Yii::$app->request->post('updatePost'))) {
+            if (!empty($_FILES['screen_file']) || \Yii::$app->request->post('base64') !== null) {
+                $mixIPFS = IPFSHelper::uploadFile('screen_file', ['base64' => \Yii::$app->request->post('base64')]);
+                if (empty($mixIPFS)) {
+                    return [
+                        'status' => 'error',
+                        'msg' => \Yii::t('app', 'Cannot upload thumbnail to IPFS.'),
+                    ];
+                }
+                if (!empty(\Yii::$app->params['isDevelopment'])) {
+                    $strThumbUrl = 'https://usource.ru/ipfs/' . $mixIPFS['Hash'];
+                } else {
+                    $strThumbUrl = 'https://usource.ru/ipfs/' . $mixIPFS['Hash'];
+                }
+            } else {
+                $strThumbUrl = \Yii::$app->request->post('post_image');
+            }
+        }
+
+
+
         if(!empty($mixIPFS)) {
             if(!empty(\Yii::$app->params['isDevelopment'])) {
                 $strVideoUrl = 'http://localhost:8080/ipfs/' .  $mixIPFS['Hash'];
@@ -89,12 +110,14 @@ class PostController extends Controller
             }
         } else {
             //youtube link
-            $strThumbUrl = ImageHelper::getYouTubeImg($strVideoUrl);
-            if($strThumbUrl == '') {
-                return [
-                    'status' => 'error',
-                    'msg' => \Yii::t('app', 'Wrong youtube video url'),
-                ];
+            if(empty(\Yii::$app->request->post('updatePost'))) {
+                $strThumbUrl = ImageHelper::getYouTubeImg($strVideoUrl);
+                if ($strThumbUrl == '') {
+                    return [
+                        'status' => 'error',
+                        'msg' => \Yii::t('app', 'Wrong youtube video url'),
+                    ];
+                }
             }
         }
         $strKey = str_replace(['_', '/', '-'], '', \Yii::$app->security->generateRandomString());
