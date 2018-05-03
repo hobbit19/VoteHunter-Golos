@@ -55,6 +55,7 @@ export class AddPostPageComponent implements OnInit {
         base64: '',
         tags: [],
         tagsRaw: '',
+        updatePost: false,
     };
 
     isVideoVisible = false;
@@ -90,6 +91,8 @@ export class AddPostPageComponent implements OnInit {
         if(postData.video_ipfs) {
             let videoNode = document.querySelector('video');
             videoNode.src = postData.video_ipfs;
+            let thumb = (document.getElementById('video_thumbnail') as HTMLImageElement);
+            thumb.src = this.postData.screen_file;
             this.isVideoVisible = true;
         }
         (document.getElementById('video_url') as HTMLInputElement).readOnly = true;
@@ -122,10 +125,10 @@ export class AddPostPageComponent implements OnInit {
         if(this.postData.title == '') {
             this.errors.push("Please input 'Video name'");
         }
-        if(this.postData.video_file == null && this.postData.video_url == '') {
+        if(this.postData.video_file == null && this.postData.video_url == '' && !this.isEditing) {
             this.errors.push("Please specify 'URL' or select video to upload");
         }
-        if(this.postData.video_file != null && (this.postData.screen_file == null && this.postData.base64 == null)) {
+        if(this.postData.video_file != null && (this.postData.screen_file == null && this.postData.base64 == null) && !this.isEditing) {
             this.errors.push("Please select thumbnail image for you video");
         }
         return this.errors.length == 0;
@@ -138,6 +141,7 @@ export class AddPostPageComponent implements OnInit {
                 reject();
                 return false;
             }
+            this.postData.updatePost = this.isEditing;
             this.api.postAdd(this.postData).then((data) => {
                 if (!data.status || data.status !== 'ok') {
                     reject();

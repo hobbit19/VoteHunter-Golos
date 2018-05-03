@@ -52,7 +52,7 @@
 						</vh-dropdown>
 					</div>
 				</div>
-				<div class="section__row">
+				<div class="section__row" *ngIf="!isEditing">
 					<div class="section__left">
 						<div class="section__name" i18n="">URL</div>
 					</div>
@@ -60,7 +60,7 @@
 						<input class="section__input" placeholder="https://www.youtube.com/watch?v=xxxxxxxx" [(ngModel)]="postData.video_url" name="video_url" id="video_url" (ngModelChange)="clearErrors()">
 					</div>
 				</div>
-				<div class="section__row">
+				<div class="section__row" *ngIf="!isEditing">
 					<div class="section__left">
 						<div class="section__name" i18n="">Video</div>
 					</div>
@@ -79,7 +79,7 @@
 					</video>
 					<canvas style="display: none;"></canvas>
 				</div>
-				<div class="section__row" *ngIf="isVideoVisible">
+				<div class="section__row" [ngClass]="{'addPostPage__show_video': isVideoVisible, 'addPostPage__hide_video': !isVideoVisible}">
 					<div class="section__left">
 						<div class="section__name" i18n="">Thumbnail</div>
 					</div>

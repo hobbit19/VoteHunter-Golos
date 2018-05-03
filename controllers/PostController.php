@@ -50,6 +50,7 @@ class PostController extends Controller
 
     public function actionAdd()
     {
+        print_r(\Yii::$app->request->post());
         if(\Yii::$app->user->isGuest) {
             return [
                 'status' => 'Need login'
@@ -101,12 +102,16 @@ class PostController extends Controller
         $strEncryptedData = base64_encode($objAnubis->encrypt($strVideoUrl));
         $objAnubis->setKey(\Yii::$app->request->post('pKey'));
         $strEncKey = base64_encode($objAnubis->encrypt($strKey));
-        //$strPermLink = strtolower(preg_replace("/[^a-zA-Z0-9]/", '-',Transliterator::encode(\Yii::$app->request->post('title'), Transliterator::LANG_RU)));
-        $objHashUrl = HashUrl::findOne(['used' => 0]);
-        $strPermLink = $objHashUrl->hash;
-        $objHashUrl->used = 1;
-        $objHashUrl->save();
-        $objPost = Posts::findOne(['permlink' => $strPermLink, 'user_id' => \Yii::$app->user->getId()]);
+        if(!empty(\Yii::$app->request->post('updatePost'))) {
+            $strPermLink = \Yii::$app->request->post('permlink');
+            $objPost = Posts::findOne(['permlink' => $strPermLink, 'user_id' => \Yii::$app->user->getId()]);
+        } else {
+            $objHashUrl = HashUrl::findOne(['used' => 0]);
+            $strPermLink = $objHashUrl->hash;
+            $objHashUrl->used = 1;
+            $objHashUrl->save();
+            $objPost = Posts::findOne(['permlink' => $strPermLink, 'user_id' => \Yii::$app->user->getId()]);
+        }
         if(!is_object($objPost)) {
             $objPost = new Posts();
         }

@@ -25,6 +25,7 @@ interface IPost {
     video_url?: string,
     video_ipfs?: string,
     post_image?: string,
+    patrons_only?: number,
 }
 
 
@@ -355,6 +356,7 @@ export class ApiService {
                       if (data.post.video_ipfs) {
                           postData.video_ipfs = data.post.video_ipfs;
                       }
+                      postData.patrons_only = data.post.patrons_only;
                   }
                   if(callback) {
                     callback(postData);
