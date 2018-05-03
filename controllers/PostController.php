@@ -56,6 +56,9 @@ class PostController extends Controller
             ];
         }
         $strVideoUrl = \Yii::$app->request->post('video_url');
+        if(empty($strVideoUrl)) {
+            $strVideoUrl = \Yii::$app->request->post('video_ipfs');
+        }
         $mixIPFS = null;
         if(!empty($_FILES['video_file'])) {
             if(!empty($_FILES['screen_file']) || \Yii::$app->request->post('base64') !== null) {
