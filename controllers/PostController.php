@@ -51,6 +51,7 @@ class PostController extends Controller
     public function actionAdd()
     {
         print_r(\Yii::$app->request->post());
+        exit();
         if(\Yii::$app->user->isGuest) {
             return [
                 'status' => 'Need login'
