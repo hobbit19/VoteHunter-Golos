@@ -309,12 +309,14 @@ export class ApiService {
     return this.get('/profile/get-rewards', params);
   }
 
+/*
   transferFunds() {
     let wif = golos.auth.toWif('gaidar', 'qwerty12345', 'active');
     golos.broadcast.transfer(wif, 'gaidar', 'vasya', '1.000 GOLOS', 'Patron', function (err, result) {
       console.log(err, result);
     });
   }
+*/
 
   setAsPatron(data: any)
   {
