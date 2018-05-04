@@ -20,7 +20,7 @@
 				<nav class="creatorBanner__nav">
 					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'profile'}" i18n="" [routerLink]="'/' +profile.url">Profile</a>
 					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'posts'}" i18n="" [routerLink]="['/' +profile.url, { show: 'posts'}]">Posts</a>
-					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'community'}" i18n="">Community</a>
+					<a class="creatorBanner__navItem" [ngClass]="{'creatorBanner__navItem-active': currentActiveElement === 'community'}" i18n="" [routerLink]="['/' +profile.url + '/community' ]">Community</a>
 				</nav>
 			</div>
 			<div class="creatorBanner__r">

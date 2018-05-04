@@ -68,6 +68,8 @@ import { PopupInnerComponent } from './popup-inner/popup-inner.component';
 import { SelectCoverPopupComponent } from './select-cover-popup/select-cover-popup.component';
 import { PostCommentsComponent } from './post-comments/post-comments.component';
 import { LoginPopupComponent } from './login-popup/login-popup.component';
+import { CreatorCommunityComponent } from './creator-community/creator-community.component';
+import { CreatorCommunityResolver} from './creator-community/creator-community-resolver.service';
 
 @NgModule({
   declarations: [
@@ -114,19 +116,15 @@ import { LoginPopupComponent } from './login-popup/login-popup.component';
     PopupComponent,
     PopupInnerComponent,
     TestPopupComponent,
-
     // pipes
     BgiPipe,
     SafePipe,
-
     // directives
     PopupDirective,
-
     SelectCoverPopupComponent,
-
     PostCommentsComponent,
-
     LoginPopupComponent,
+    CreatorCommunityComponent,
   ],
   imports: [
     BrowserModule,
@@ -148,6 +146,7 @@ import { LoginPopupComponent } from './login-popup/login-popup.component';
     PopupsService,
     AuthGuard,
     SafePipe,
+    CreatorCommunityResolver,
   ],
   bootstrap: [AppComponent],
   entryComponents: [TestPopupComponent, SelectCoverPopupComponent, LoginPopupComponent]

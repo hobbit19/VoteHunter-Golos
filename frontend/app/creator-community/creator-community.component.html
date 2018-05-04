@@ -1,0 +1,29 @@
+<vh-creator-banner [profile]="profile" [isPatron]="isPatron" [currentActiveElement] = "'community'"></vh-creator-banner>
+<div class="block">
+  <div class="creatorPage__content clearfix">
+    <div class="creatorPage__col creatorPage__col-center">
+
+      <div class="creatorCommunity__item section" *ngFor="let post of posts">
+        <div class="creatorCommunity__top">
+          <div class="creatorCommunity__l">
+            <div class="creatorCommunity__ava" [style.background-image]="'url(' + post.profile_image + ')'"></div>
+            <div class="creatorCommunity__info">
+              <div class="creatorCommunity__author" [innerHTML]="post.author"></div>
+              <div class="creatorCommunity__date" [innerHTML]="post.date"></div>
+            </div>
+          </div>
+        </div>
+        <div class="creatorCommunity__title" [innerHTML]="post.title"></div>
+        <p class="paragraph creatorCommunity__boby" [innerHTML]="post.body"></p>
+      </div>
+      <div class="creatorCommunity__item section creatorCommunity__no_posts" *ngIf="posts && posts.length === 0">
+        No posts yet :(
+      </div>
+    </div>
+
+
+    <div class="creatorPage__col creatorPage__col-right">
+      <vh-creator-rewards [rewards]="profile?.rewards"></vh-creator-rewards>
+    </div>
+  </div>
+</div>
