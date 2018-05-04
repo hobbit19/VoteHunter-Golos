@@ -84,8 +84,8 @@ export class AddPostPageComponent implements OnInit {
         for(let k in postData) {
             this.postData[k] = postData[k];
         }
-        let metadata = JSON.parse(postData.metadata);
-        this.postData.tags = metadata['tags'].slice(1);
+        let json_metadata = JSON.parse(postData.json_metadata);
+        this.postData.tags = json_metadata['tags'].slice(1);
         this.postData.screen_file = postData.post_image;
         this.isEditing = true;
         if(postData.video_ipfs) {

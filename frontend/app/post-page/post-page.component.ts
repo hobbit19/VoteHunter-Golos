@@ -28,7 +28,7 @@ let APIS = {
 interface IPost {
     author: string,
     permlink: string,
-    metadata: string,
+    json_metadata: string,
     body?: string,
     title?: string,
     id?: string,
@@ -36,6 +36,10 @@ interface IPost {
     video_ipfs?: string,
     post_image?: string,
     tags: any,
+    isLocked?: boolean,
+    user_id: number,
+    price_usd: number,
+    patrons_only?: number,
 }
 
 @Component({
@@ -124,8 +128,8 @@ export class PostPageComponent implements OnInit {
 
     getPostContent(postData) {
         this.post = postData;
-        let metadata = JSON.parse(postData.metadata);
-        this.post.tags = metadata['tags'].slice(1);
+        let json_metadata = JSON.parse(postData.json_metadata);
+        this.post.tags = json_metadata['tags'].slice(1);
         this.getComments();
     }
     

@@ -74,4 +74,51 @@ class Posts extends \yii\db\ActiveRecord
         return $objAnubis->decrypt(base64_decode($strEncryptedData));
     }
 
+    public function getArray(array $arrBCPost, $objUser)
+    {
+        $boolNeedToSave = false;
+        if (!empty($arrBCPost['title']) && $this->title != $arrBCPost['title']) {
+            $this->title = $arrBCPost['title'];
+            $boolNeedToSave = true;
+        }
+        if ($boolNeedToSave) {
+            $this->save();
+            $this->refresh();
+        }
+
+        $strVideoUrl = null;
+        $strPostImage = null;
+        $isLocked = true;
+        $arrMetaData = !is_array($arrBCPost['json_metadata']) ? json_decode($arrBCPost['json_metadata'], true) : $arrBCPost['json_metadata'];
+        $arrTags = $arrMetaData['tags'];
+        array_shift($arrTags);
+        if (!empty($arrMetaData['encodedData'])) {
+            $strVideoUrl = $this->decryptData($arrMetaData['encodedData']);
+        }
+        $strPostImage = (!empty($arrMetaData['thumbnail']) ? $arrMetaData['thumbnail'] : '/images/default-video.jpg');
+        $intCurrentUser = \Yii::$app->user->isGuest ? 0 : \Yii::$app->user->getId();
+        $objPatron = Patron::findOne(['user_id' => $this->user_id, 'patron_id' => $intCurrentUser, 'status' => Patron::STATUS_ACTIVE]);
+        if(is_object($objPatron) && $objPatron->patron_sum >= $this->patrons_only || $this->user_id == $intCurrentUser || $this->patrons_only == 0) {
+            $isLocked = false;
+        } else {
+            $strVideoUrl = null;
+//            $strPostImage = null;
+        }
+
+        $arrPost = $this->toArray(['title', 'body', 'user_id','permlink']) + ['video_url' => str_replace('watch?v=','embed/', $strVideoUrl), 'post_image' => $strPostImage];
+        $arrPost += [
+            'link' => '/p/' . $objUser->profile->url . '/' . $this->permlink,
+            'profile_image' => $objUser->profile->profile_image,
+            'price_usd' => $this->patrons_only > 0 ? $this->patrons_only : \Yii::t('app', 'Public'),
+            'profile_name' =>  $objUser->profile->name,
+            'isLocked' => $isLocked,
+            'author' => $objUser->golos_nick,
+            'tags' => $arrTags,
+        ];
+        $arrPost += [
+            'youtube' => (strpos($strVideoUrl, '/ipfs/') === false)
+        ];
+        return $arrPost;
+    }
+
 }

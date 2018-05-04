@@ -71,8 +71,8 @@ export class EditProfilePageComponent implements OnInit {
     }
     this.domService.onFormSubmit(event.target, this.api.updateProfile(data).then((data) =>{
         let dataJson = this.json_metadata;
-        dataJson['yousource'] = this.profile;
-        delete(dataJson['yousource']['contents']);
+        dataJson['usource'] = this.profile;
+        delete(dataJson['usource']['contents']);
         this.updateBCData(dataJson);
     }, () => true));
   }

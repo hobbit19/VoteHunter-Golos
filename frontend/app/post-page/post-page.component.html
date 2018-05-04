@@ -3,6 +3,14 @@
 	<div class="creatorPage__content clearfix">
 		<div class="creatorPage__col creatorPage__col-center">
 				<div class="section" *ngIf="post">
+					<div class="creatorPosts__lock" *ngIf="post.isLocked"
+						 [style.background-image]="'url(' + post.post_image +')'">
+						<div class="creatorPosts__lock_div"></div>
+						<img class="creatorPosts__lockImage" src="/images/lock.svg">
+						<div class="creatorPosts__lockTitle">Only supporters can view this post</div>
+						<button class="creatorPosts__button" [routerLink]="['/become-patron/' + post.user_id, {min: post.price_usd}]">Unlock</button>
+					</div>
+
 					<div class="postPage__video js-postPage__video" *ngIf="post.video_url">
 						<iframe width="420" height="315" [attr.src]="getVideoSrc() | safe" frameborder="0" allowfullscreen></iframe>
 					</div>
@@ -13,12 +21,14 @@
 						</video>
 					</div>
 
+<!--
 					<div class="buttons" *ngIf="!post.video_url && !post.video_ipfs">
 						<button class="button button-mode-2" (click)="pay()" i18n="">Pay</button>
 					</div>
+-->
 
 					<div>
-						<h2 class="h2 postPage__title" [innerHTML]="post.title"></h2>
+						<h2 class="h2 creatorPosts__title" [innerHTML]="post.title"></h2>
 						<div class="creatorPosts__tags">
 							<a [href]="" class="creatorPosts__tags_item" *ngFor="let tag of post.tags" [innerHTML]="tag"></a>
 						</div>
@@ -33,5 +43,51 @@
 		</div>
 	</div>
 </div>
+<!--
+<div class="block">
+	<div class="creatorPage__content clearfix">
+		<div class="creatorPage__col creatorPage__col-center">
+				<div class="section" *ngIf="post">
+					<div class="creatorPosts__lock" *ngIf="post.isLocked"
+						 [style.background-image]="'url(' + post.post_image +')'">
+						<div class="creatorPosts__lock_div"></div>
+						<img class="creatorPosts__lockImage" src="/images/lock.svg">
+						<div class="creatorPosts__lockTitle">Only supporters can view this post</div>
+						<button class="creatorPosts__button" [routerLink]="['/become-patron/' + post.user_id, {min: post.price_usd}]">Unlock</button>
+					</div>
+
+					<div class="postPage__video js-postPage__video" *ngIf="post.video_url">
+						<iframe width="420" height="315" [attr.src]="getVideoSrc() | safe" frameborder="0" allowfullscreen></iframe>
+					</div>
+					<div class="postPage__video" *ngIf="post.video_ipfs">
+						<div class="video__play_button" (click)="playVideo($event)" [id]="'play-' + post.permlink"></div>
+						<video class="js-postPage__video" [attr.src]="post.video_ipfs" [attr.poster]="post.post_image" [id]="post.permlink" (click)="videoClick($event)" controlsList="nodownload">
+							Your browser does not support the video tag.
+						</video>
+					</div>
+
+&lt;!&ndash;
+					<div class="buttons" *ngIf="!post.video_url && !post.video_ipfs">
+						<button class="button button-mode-2" (click)="pay()" i18n="">Pay</button>
+					</div>
+&ndash;&gt;
+
+					<div>
+						<h2 class="h2 creatorPosts__title" [innerHTML]="post.title"></h2>
+						<div class="creatorPosts__tags">
+							<a [href]="" class="creatorPosts__tags_item" *ngFor="let tag of post.tags" [innerHTML]="tag"></a>
+						</div>
+
+						<p class="paragraph postPage__desc" [innerHTML]="post.body"></p>
+					</div>
+					<vh-post-comments [post]="post" [comments_per_page] = 10></vh-post-comments>
+				</div>
+		</div>
+		<div class="creatorPage__col creatorPage__col-right">
+			<vh-creator-rewards [rewards]="profile?.rewards"></vh-creator-rewards>
+		</div>
+	</div>
+</div>
+-->
 
 

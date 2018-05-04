@@ -190,7 +190,7 @@ class PostController extends Controller
         }
     }
 
-    public function actionShow()
+    public function actionShowOld()
     {
         $author = Users::findOne(['golos_nick' => \Yii::$app->request->post('author')]);
         if(!is_object($author)) {
@@ -227,8 +227,16 @@ class PostController extends Controller
             'post_image' => (!empty($arrMetaData['thumbnail']) ? $arrMetaData['thumbnail'] : '/images/default-video.jpg'),
             'body' => $objPost->body,
             'patrons_only' => $objPost->patrons_only,
+            'user_id' => $objPost->author->id,
             //'body' => $strBody,
         ];
+        if(!$boolShowVideoLink) {
+            $arrPost['isLocked'] = true;
+            return [
+                'status' => 'ok',
+                'post' => $arrPost,
+            ];
+        }
         if($boolShowVideoLink) {
             $arrPost['video_url'] = $strVideoUrl;
         }
@@ -240,6 +248,38 @@ class PostController extends Controller
             unset($arrPost['video_url']);
         }
 
+        return [
+            'status' => 'ok',
+            'post' => $arrPost,
+            ];
+    }
+
+    public function actionShow()
+    {
+        $objUser = Users::findOne(['golos_nick' => \Yii::$app->request->post('author')]);
+        if(!is_object($objUser)) {
+            return [
+                'status' => 'error',
+                'msg' => 'Post not found'
+            ];
+        }
+        $objPost = Posts::findOne(['user_id' => $objUser->id, 'permlink' => \Yii::$app->request->post('permlink')]);
+        if(!is_object($objPost)) {
+            return [
+                'status' => 'error',
+                'msg' => 'Post not found'
+            ];
+        }
+
+        $arrBCPost = [];
+        $arrBCPost['json_metadata'] = json_decode(\Yii::$app->request->post('json_metadata'), true);
+        $arrPost = $objPost->getArray($arrBCPost, $objUser);
+        //ipfs or not?
+        if(ImageHelper::getYouTubeImg($arrPost['video_url']) == '') {
+            //ipfs link
+            $arrPost['video_ipfs'] = $arrPost['video_url'];
+            unset($arrPost['video_url']);
+        }
         return [
             'status' => 'ok',
             'post' => $arrPost,
@@ -308,7 +348,7 @@ class PostController extends Controller
         }
     }
 
-    public function actionList()
+    public function actionListOld()
     {
         $intUserId = \Yii::$app->request->get('user_id', (\Yii::$app->user->isGuest ? '0' : \Yii::$app->user->getId()));
         if ($intUserId == 0) {
@@ -375,6 +415,36 @@ class PostController extends Controller
                 'youtube' => (strpos($strVideoUrl, '/ipfs/') === false)
             ];
             $arrPosts[] = $arrPost;
+        }
+        return [
+            'status' => 'ok',
+            'posts' => $arrPosts
+        ];
+    }
+    public function actionList()
+    {
+        $intUserId = \Yii::$app->request->get('user_id', (\Yii::$app->user->isGuest ? '0' : \Yii::$app->user->getId()));
+        if ($intUserId == 0) {
+            return [
+                'status' => 'ok',
+                'posts' => [],
+            ];
+
+        }
+        $objUser = Users::findOne($intUserId);
+        $arrObjPosts = Posts::find()->where(['user_id' => $intUserId])->orderBy('')->all();
+
+        //get post from blockchain
+        $objApi = new SteemApi();
+        $arrBCPosts= $objApi->getDiscussionsByBlog($objUser->golos_nick, 'usource');
+        $arrPosts = [];
+        $arrTags = [];
+        foreach ($arrObjPosts as $objPost) {
+            /* @var $objPost \app\models\Posts */
+            if(!isset($arrBCPosts[$objPost->permlink])) {
+                continue;
+            }
+            $arrPosts[] = $objPost->getArray($arrBCPosts[$objPost->permlink], $objUser);
         }
         return [
             'status' => 'ok',

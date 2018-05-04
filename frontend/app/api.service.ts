@@ -18,16 +18,19 @@ steem.config.set('chain_id', '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478d
 interface IPost {
     author: string,
     permlink: string,
-    metadata: string,
+    json_metadata: string,
     body?: string,
     title?: string,
     id?: string,
     video_url?: string,
     video_ipfs?: string,
     post_image?: string,
+    tags?: any,
+    isLocked?: boolean,
+    user_id?: number,
+    price_usd?: number,
     patrons_only?: number,
 }
-
 
 
 @Injectable()
@@ -340,16 +343,17 @@ export class ApiService {
                   author: author,
                   permlink: permlink,
                   body: post.body,
-                  metadata: post.json_metadata
+                  json_metadata: post.json_metadata,
+                  title: post.title,
               };
 
               this.postShow(postData).then((data) => {
                   if (data.status == 'ok') {
                       //delete postData.metadata;
-                      postData.title = post.title;
-                      postData.body = data.post.body;
-                      postData.id = data.post.id;
-                      postData.post_image = data.post.post_image;
+                      for(let k in data.post) {
+                          postData[k] = data.post[k];
+                      }
+/*
                       if (data.post.video_url) {
                           postData.video_url = data.post.video_url;
                       }
@@ -357,6 +361,7 @@ export class ApiService {
                           postData.video_ipfs = data.post.video_ipfs;
                       }
                       postData.patrons_only = data.post.patrons_only;
+*/
                   }
                   if(callback) {
                     callback(postData);

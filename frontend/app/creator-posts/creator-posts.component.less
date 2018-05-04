@@ -73,7 +73,18 @@
 	align-items: center;
 	justify-content: center;
 	margin-top: 18px;
-	min-height: 189px;
+	min-height: 300px;
+	width: 100%;
+	background-size: cover;
+	position: relative;
+}
+
+.creatorPosts__lock_div {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #1b1a1a;
+	opacity: 0.8;
 }
 
 video::-webkit-media-controls {
@@ -98,6 +109,7 @@ video::-webkit-media-controls-panel {
 
 .creatorPosts__lockImage {
 	width: 50px;
+	z-index: 10;
 }
 
 .creatorPosts__lockTitle {
@@ -106,6 +118,7 @@ video::-webkit-media-controls-panel {
 	color: #fff;
 	padding: 0 10px;
 	text-align: center;
+	z-index: 10;
 }
 
 .creatorPosts__button {
@@ -118,6 +131,7 @@ video::-webkit-media-controls-panel {
 	border: 2px solid #fff;
 	margin-top: 18px;
 	color: #1f1e1e;
+	z-index: 10;
 }
 
 .creatorPosts__title {
