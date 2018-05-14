@@ -10,6 +10,7 @@ export class UserService {
   dataPromise: Promise<void>;
   loginRedirectionURL = '/dashboard';
   profile_url = '';
+  community_permlink = '';
 
   constructor(
     public api: ApiService
@@ -21,6 +22,7 @@ export class UserService {
           this.golos_nick = data.golos_nick;
           this.profile_image = data.profile_image;
           this.profile_url = data.profile_url;
+          this.community_permlink = data.profile_url;
       } else {
           localStorage.clear();
       }

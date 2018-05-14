@@ -454,16 +454,21 @@ class PostController extends Controller
 
     public function actionPrivacyList()
     {
-        if(\Yii::$app->user->isGuest) {
-            return [
-                'status' => 'error',
-                'msg' => \Yii::t('app', 'You are not logged in')
-            ];
-        }
         $arrPrivacy = [
             [ 'str' => 'Public', 'value' => 0 ],
             [ 'str' => 'Supporters only', 'value' => 1 ],
         ];
+
+        if(\Yii::$app->user->isGuest || !empty(\Yii::$app->request->get('community'))) {
+            return [
+                'status' => 'ok',
+                'privacy' => $arrPrivacy,
+            ];
+/*            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'You are not logged in')
+            ];*/
+        }
         $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->user->getId()])->asArray()->all();
         foreach ($arrRewards as $arrReward) {
             $arrPrivacy[] = [ 'str' => 'Supporters $' . $arrReward['amount'] . '+', 'value' => $arrReward['amount']];

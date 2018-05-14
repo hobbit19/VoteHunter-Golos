@@ -101,14 +101,15 @@ export class PostCommentsComponent implements OnInit {
     postComment(event) {
         let promise = new Promise((resolve, reject) => {
             let postingKey = steem.auth.toWif(localStorage.getItem('nick'), localStorage.getItem('password'), 'posting');
-
             let parentAuthor = this.post.author;
             let parentPermlink = this.post.permlink;
             let author = localStorage.getItem('nick');
             let permlink = steem.formatter.commentPermlink(parentAuthor, parentPermlink);
             let title = this.comment_text;
             let body = this.comment_text;
-            let jsonMetadata = JSON.stringify([]);
+            //let jsonMetadata = JSON.stringify([]);
+            let jsonMetadata = [];
+            jsonMetadata['author_avatar'] = this.user.profile_image;
 
             steem.broadcast.comment(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
                 if (err) {

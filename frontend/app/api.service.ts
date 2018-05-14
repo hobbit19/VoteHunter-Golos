@@ -305,8 +305,9 @@ export class ApiService {
     return this.get('/cat/list');
   }
 
-  getPostPrivacyValues() {
-    return this.get('/post/privacy-list');
+  getPostPrivacyValues(data?: any) {
+    let getData =data || {};
+    return this.get('/post/privacy-list', getData);
   }
 
   getUserRewards(params?: { user_id?: number }) {

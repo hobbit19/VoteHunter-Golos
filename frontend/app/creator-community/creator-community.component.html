@@ -2,7 +2,34 @@
 <div class="block">
   <div class="creatorPage__content clearfix">
     <div class="creatorPage__col creatorPage__col-center">
-
+      <form class="" (submit)="makePost($event)">
+      <div class="section">
+<!--
+        <div class="creatorCommunity__becomeSupporter_layer">
+        </div>
+-->
+        <div class="creatorCommunity__becomeSupporter">
+          <a class="" [routerLink]="'/become-patron/' + profile?.user_id" *ngIf="!isPatron">Become a supporter</a> to post to <span [innerHTML]="profile.url + '\'s'"></span> page
+        </div>
+        <div class="section__row">
+          <input class="section__input" placeholder="Title ..." [(ngModel)]="postData.title" name="newPost.title" [ngClass]="{'!isPatron' : ''}" [disabled]="!isPatron" >
+        </div>
+        <div class="section__row">
+          <textarea class="section__textarea" i18n-placeholder=""
+                                  placeholder="Text ..."
+                                  [(ngModel)]="postData.body" name="newPost.body" [disabled]="!isPatron">
+          </textarea>
+        </div>
+        <div class="section__row">
+          <div class="creatorCommunity__newPostButtons">
+            <vh-dropdown [title]="findByProp(POST_PRIVACY, 'value', postData.privacy)?.str" tabindex="1" >
+              <vh-dropdown-option (click)="postData.privacy = privacy.value" *ngFor="let privacy of POST_PRIVACY" [innerHTML]="privacy.str"></vh-dropdown-option>
+            </vh-dropdown>
+            <button class="button button-mode-2 editProfilePage__button" i18n=""  [disabled]="!isPatron">Post</button>
+          </div>
+        </div>
+      </div>
+      </form>
       <div class="creatorCommunity__item section" *ngFor="let post of posts">
         <div class="creatorCommunity__top">
           <div class="creatorCommunity__l">
@@ -15,6 +42,8 @@
         </div>
         <div class="creatorCommunity__title" [innerHTML]="post.title"></div>
         <p class="paragraph creatorCommunity__boby" [innerHTML]="post.body"></p>
+        <div class="creatorCommunity__post_line"></div>
+        <vh-post-comments [post]="post" [comments_per_page] = 4></vh-post-comments>
       </div>
       <div class="creatorCommunity__item section creatorCommunity__no_posts" *ngIf="posts && posts.length === 0">
         No posts yet :(

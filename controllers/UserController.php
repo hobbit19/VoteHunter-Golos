@@ -29,6 +29,7 @@ class UserController extends Controller
             'golos_nick' => \Yii::$app->user->getIdentity()->golos_nick,
             'profile_image' => !empty(\Yii::$app->user->getIdentity()->profile->profile_image) ? \Yii::$app->user->getIdentity()->profile->profile_image : Profile::DEFAULT_AVATAR,
             'profile_url' => !empty(\Yii::$app->user->getIdentity()->profile->url) ? \Yii::$app->user->getIdentity()->profile->url :  \Yii::$app->user->getIdentity()->golos_nick,
+            'community_permlink' => empty(\Yii::$app->user->getIdentity()->community_permlink) ? \Yii::$app->user->getIdentity()->makeCommunityPermLink() :  \Yii::$app->user->getIdentity()->community_permlink,
         ];
     }
     public function beforeAction($action)

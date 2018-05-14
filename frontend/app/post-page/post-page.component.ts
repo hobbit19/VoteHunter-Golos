@@ -82,7 +82,8 @@ export class PostPageComponent implements OnInit {
 
             this.api.getProfileByUrl(this.activatedRoute.snapshot.data.prepareData.url).then((data) => {
                     this.profile = data.profile;
-                    this.isPatron = data.isPatron;
+                    //this.isPatron = data.isPatron;
+                    this.isPatron = data.profile.isPatron;
                 },
                 (data) => {
 
@@ -132,7 +133,7 @@ export class PostPageComponent implements OnInit {
         this.post.tags = json_metadata['tags'].slice(1);
         this.getComments();
     }
-    
+
     getVideoSrc() {
         return 'https://www.youtube.com/embed/' + this.getVideoID();
     }

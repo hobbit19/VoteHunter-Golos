@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $golos_nick
  * @property string $golos_pub_key
+ * @property string $community_permlink
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -46,5 +47,12 @@ class Users extends \yii\db\ActiveRecord
     public function getProfile()
     {
         return self::hasOne(Profile::className(), ['user_id' => 'id']);
+    }
+
+    public function makeCommunityPermLink()
+    {
+        $this->community_permlink = 'usource-' . $this->golos_nick . '-community-' . strtolower(\Yii::$app->security->generateRandomString(4));
+        $this->updateAttributes(['community_permlink']);
+        return $this->community_permlink;
     }
 }

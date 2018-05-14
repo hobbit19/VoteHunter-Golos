@@ -70,8 +70,11 @@ class ProfileController extends Controller
             $intTotalReceived = Operation::find()->where(['user_to' => $objProfile->user->golos_nick])->sum('sum_usd');
             return [
                 'status' => 'ok',
-                'profile' => $objProfile->toArray() + ['goals' => $arrGoals, 'rewards' => $arrRewards] + ['patrons_count' => $intPatronsCount, 'total_received' => $intTotalReceived],
-                'isPatron' => empty($isPatron) ? false : true,
+                'profile' => $objProfile->toArray() +
+                    ['goals' => $arrGoals, 'rewards' => $arrRewards] + ['patrons_count' => $intPatronsCount, 'total_received' => $intTotalReceived] +
+                    ['nick' => $objProfile->user->golos_nick]+
+                    ['community_permlink' => empty($objProfile->user->community_permlink) ? $objProfile->user->makeCommunityPermLink() :  $objProfile->user->community_permlink] +
+                    ['isPatron' => empty($isPatron) ? false : true]
             ];
         }
         return [
@@ -142,7 +145,7 @@ class ProfileController extends Controller
 
         return [
             'status' => 'ok',
-            'profile' => $objProfile->toArray() + ['contents' => $objProfile->editorContents->contents],
+            'profile' => $objProfile->toArray() + ['contents' => $objProfile->editorContents->contents] + ['community_permlink' => !empty($objProfile->user->community_permlink) ? $objProfile->user->makeCommunityPermLink() :  $objProfile->user->community_permlink],
             'json_metadata' => $arrBlockChainData['json_metadata'],
             'goals' => $arrGoals,
             'rewards' => $arrRewards,
