@@ -146,7 +146,7 @@ class ProfileController extends Controller
 
         return [
             'status' => 'ok',
-            'profile' => $objProfile->toArray() + ['contents' => $objProfile->editorContents->contents] + ['community_permlink' => !empty($objProfile->user->community_permlink) ? $objProfile->user->makeCommunityPermLink() :  $objProfile->user->community_permlink],
+            'profile' => $objProfile->toArray() + ['contents' => $objProfile->editorContents->contents] + ['community_permlink' => empty($objProfile->user->community_permlink) ? $objProfile->user->makeCommunityPermLink() :  $objProfile->user->community_permlink],
             'json_metadata' => $arrBlockChainData['json_metadata'],
             'goals' => $arrGoals,
             'rewards' => $arrRewards,

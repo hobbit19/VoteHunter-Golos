@@ -23,13 +23,16 @@ class UserController extends Controller
                 'status' => 'error'
             ];
         }
+
+        $objUser = \Yii::$app->user->getIdentity();
+        /* @var $objUser \app\models\Users */
         return [
             'status' => 'ok',
             'user_id' => \Yii::$app->user->getId(),
-            'golos_nick' => \Yii::$app->user->getIdentity()->golos_nick,
-            'profile_image' => !empty(\Yii::$app->user->getIdentity()->profile->profile_image) ? \Yii::$app->user->getIdentity()->profile->profile_image : Profile::DEFAULT_AVATAR,
-            'profile_url' => !empty(\Yii::$app->user->getIdentity()->profile->url) ? \Yii::$app->user->getIdentity()->profile->url :  \Yii::$app->user->getIdentity()->golos_nick,
-            'community_permlink' => empty(\Yii::$app->user->getIdentity()->community_permlink) ? \Yii::$app->user->getIdentity()->makeCommunityPermLink() :  \Yii::$app->user->getIdentity()->community_permlink,
+            'golos_nick' => $objUser->golos_nick,
+            'profile_image' => !empty($objUser->profile->profile_image) ? $objUser->profile->profile_image : Profile::DEFAULT_AVATAR,
+            'profile_url' => !empty($objUser->profile->url) ? $objUser->profile->url : $objUser->golos_nick,
+            'community_permlink' => empty($objUser->community_permlink) ? $objUser->makeCommunityPermLink() :  $objUser->community_permlink,
         ];
     }
     public function beforeAction($action)
