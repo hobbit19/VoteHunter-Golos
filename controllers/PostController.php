@@ -15,6 +15,7 @@ use app\api\steem\SteemApi;
 use app\helpers\ImageHelper;
 use app\helpers\IPFSHelper;
 use app\models\Anubis;
+use app\models\CommunityPosts;
 use app\models\HashUrl;
 use app\models\PaidPosts;
 use app\models\Patron;
@@ -498,4 +499,78 @@ class PostController extends Controller
 
     }
 
+    public function actionEncrypt()
+    {
+        if(\Yii::$app->user->isGuest) {
+            return [
+                'status' => 'error'
+            ];
+        }
+        $strKey = str_replace(['_', '/', '-'], '', \Yii::$app->security->generateRandomString());
+        $objAnubis = new Anubis();
+        $objAnubis->setKey($strKey);
+        $arrData = [
+            'title' => \Yii::$app->request->post('title', ''),
+            'body' => \Yii::$app->request->post('body', ''),
+        ];
+        $strEncryptedData = base64_encode($objAnubis->encrypt(json_encode($arrData)));
+        $objAnubis->setKey(\Yii::$app->request->post('pKey'));
+        $strEncKey = base64_encode($objAnubis->encrypt($strKey));
+        $objPost = CommunityPosts::findOne(['author' => \Yii::$app->request->post('author'), 'permlink' => \Yii::$app->request->post('permlink')]);
+        if(!is_object($objPost)) {
+            $objPost = new CommunityPosts();
+            $objPost->user_id = \Yii::$app->user->getId();
+            $objPost->author = \Yii::$app->request->post('author');
+            $objPost->permlink = \Yii::$app->request->post('permlink');
+        }
+        $objPost->secret = $strKey;
+        if($objPost->save()) {
+            return [
+                'status' => 'ok',
+                'strEncryptedData' => $strEncryptedData,
+                'strEncKey' => $strEncKey
+            ];
+        }
+        return [
+            'status' => 'error',
+        ];
+    }
+
+    public function actionDecrypt()
+    {
+        if(\Yii::$app->user->isGuest) {
+            return [
+                'status' => 'error'
+            ];
+        }
+        $objPost = CommunityPosts::findOne(['author' => \Yii::$app->request->post('author'), 'permlink' => \Yii::$app->request->post('permlink')]);
+        if(!is_object($objPost)) {
+            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'Post not found'),
+            ];
+        }
+        $objPatron = Patron::findOne(['user_id' => $objPost->user_id, 'patron_id' => \Yii::$app->user->getId(), 'status' => Patron::STATUS_ACTIVE]);
+        if(is_object($objPatron)) {
+            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'Supporters only'),
+            ];
+        }
+
+
+        $objAnubis = new Anubis();
+        $objAnubis->setKey($objPost->secret);
+        $strData = $objAnubis->decrypt(base64_decode(\Yii::$app->request->post('encodedData')));
+        $arrData = json_decode($strData, true);
+        if(!is_array($arrData)) {
+            return [
+                'status' => 'error',
+                'msg' => \Yii::t('app', 'Bad data'),
+            ];
+        }
+        return [
+            'status' => 'ok'
+        ] + $arrData;
+    }
 }

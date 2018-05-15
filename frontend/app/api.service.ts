@@ -376,4 +376,14 @@ export class ApiService {
       });
 
   }
+
+  encryptPost(data: any) {
+    return this.post('/post/encrypt', data);
+  }
+
+  decryptPost(data: any) {
+    return this.post('/post/decrypt', data);
+  }
+
+
 }
