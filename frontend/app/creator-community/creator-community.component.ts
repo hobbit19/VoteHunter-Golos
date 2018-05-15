@@ -128,9 +128,11 @@ export class CreatorCommunityComponent implements OnInit {
                     this.postData.jsonMetadata['encodedData'] = data.strEncryptedData;
                     this.postData.jsonMetadata['encKey'] = data.strEncKey;
                     let jsonMetadata = JSON.stringify(this.postData.jsonMetadata);
+                    let origTitle = title;
+                    let origBody = body;
                     title = '[hidden]';
                     body = '[hidden]';
-                    this.postToSteemit(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, resolve, reject);
+                    this.postToSteemit(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, resolve, reject, origTitle, origBody);
                 }, (data) => {
                     reject();
                 });
@@ -181,7 +183,7 @@ export class CreatorCommunityComponent implements OnInit {
 
     }
 
-    postToSteemit(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, resolve, reject) {
+    postToSteemit(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, resolve, reject, origTitle?, origBody?) {
         steem.broadcast.comment(postingKey, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, result) => {
             if (err) {
                 reject();
@@ -190,8 +192,8 @@ export class CreatorCommunityComponent implements OnInit {
                 this.posts.unshift(
                     {
                         author: author,
-                        body: body,
-                        title: title,
+                        body: origBody || body,
+                        title: origTitle|| title,
                         date: moment(moment().format(), 'YYYY-MM-DDThh:mm:ss').fromNow(),
                         profile_image: this.user.profile_image,
                         parentPermlink: parentPermlink,
@@ -238,13 +240,17 @@ export class CreatorCommunityComponent implements OnInit {
     getPosts() {
         let promise = new Promise((resolve, reject) => {
             this.posts = [];
-            steem.api.getDiscussionsByCreated({ tag: this.profile.community_permlink, limit: this.postsLimit}, (err, result) => {
+            //steem.api.getDiscussionsByCreated({ tag: this.profile.community_permlink, start_permlink: this.profile.community_permlink, limit: this.postsLimit}, (err, result) => {
+
+            //steem.api.getDiscussionsByTrending({tag: this.profile.community_permlink, limit: this.postsLimit}, (err, result) => {
+            steem.api.getDiscussionsByCreated({tag: this.profile.community_permlink, limit: this.postsLimit}, (err, result) => {
                 if (err) {
                     reject();
                 }
                 if (result) {
                     let tmpAuthors = [];
                     result.forEach((post) => {
+                        console.log(post);
                         let comments = [];
                         if(post.replies.length > 0) {
                             comments = this.getPostComments(post);
