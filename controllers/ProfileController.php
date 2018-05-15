@@ -74,7 +74,8 @@ class ProfileController extends Controller
                     ['goals' => $arrGoals, 'rewards' => $arrRewards] + ['patrons_count' => $intPatronsCount, 'total_received' => $intTotalReceived] +
                     ['nick' => $objProfile->user->golos_nick]+
                     ['community_permlink' => empty($objProfile->user->community_permlink) ? $objProfile->user->makeCommunityPermLink() :  $objProfile->user->community_permlink] +
-                    ['isPatron' => empty($isPatron) ? false : true]
+                    ['isPatron' => empty($isPatron) ? false : true],
+                'isPatron' => empty($isPatron) ? false : true,
             ];
         }
         return [
@@ -305,7 +306,7 @@ class ProfileController extends Controller
         $arrRewards = Rewards::find()->where(['user_id' => \Yii::$app->request->get('user_id')])
             ->select(['id', 'reward', 'amount', 'title'])->asArray()->all();
 
-        $arrRates = Rates::findOne(['symbol' => 'GOLOS']);
+        $arrRates = Rates::findOne(['symbol' => 'STEEM']);
         array_unshift($arrRewards, [
            'id' => 0,
            'reward' => 'No reward, I just want to support',
@@ -314,7 +315,7 @@ class ProfileController extends Controller
         ]);
 
         array_walk($arrRewards, function (&$item, $key, $arrRates) use ($objUser) {
-           $item['golos'] = sprintf('%01.3f GOLOS', $item['amount'] / $arrRates['price_usd']);
+           $item['steem'] = sprintf('%01.3f STEEM', $item['amount'] / $arrRates['price_usd']);
            $item['nick'] = $objUser->golos_nick;
         }, $arrRates);
 
@@ -331,9 +332,9 @@ class ProfileController extends Controller
         $objOperation = new Operation();
         $objOperation->user_from = \Yii::$app->request->post('user_from');
         $objOperation->user_to = $arrOper['nick'];
-        $objOperation->symbol = 'GOLOS';
+        $objOperation->symbol = 'STEEM';
         $objOperation->sum_usd = $arrOper['amount'];
-        $objOperation->sum_coin = floatval($arrOper['golos']);
+        $objOperation->sum_coin = floatval($arrOper['steem']);
         if($objOperation->save()) {
             $objUser = User::findOne(['golos_nick' => $objOperation->user_to]);
             $objUserPatron = User::findOne(['golos_nick' => $objOperation->user_from]);

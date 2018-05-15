@@ -33,6 +33,8 @@ export class CreatorCommunityComponent implements OnInit {
             app: 'usource.ru',
             author_avatar: '/images/ava_placeholder.svg',
         },
+        parentPermlink: '',
+        permlink: '',
     };
     postsLimit = 30;
     constructor(
@@ -127,6 +129,8 @@ export class CreatorCommunityComponent implements OnInit {
                             title: title,
                             date: moment(moment().format(), 'YYYY-MM-DDThh:mm:ss').fromNow(),
                             profile_image: this.user.profile_image,
+                            parentPermlink: parentPermlink,
+                            permlink: permlink,
                         }
                     );
                     this.postData = {
@@ -138,6 +142,9 @@ export class CreatorCommunityComponent implements OnInit {
                             app: 'usource.ru',
                             author_avatar: '/images/ava_placeholder.svg',
                         },
+                        parentPermlink: '',
+                        permlink: '',
+
                     };
 
 
@@ -191,6 +198,7 @@ export class CreatorCommunityComponent implements OnInit {
                                 date: moment(post.created).fromNow(),
                                 profile_image: '/images/ava_placeholder.svg',
                                 comments: comments,
+                                permlink: post.permlink,
                             }
                         );
                         tmpAuthors.push(post.author);

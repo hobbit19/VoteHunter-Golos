@@ -8,8 +8,8 @@
         <div class="creatorCommunity__becomeSupporter_layer">
         </div>
 -->
-        <div class="creatorCommunity__becomeSupporter">
-          <a class="" [routerLink]="'/become-patron/' + profile?.user_id" *ngIf="!isPatron">Become a supporter</a> to post to <span [innerHTML]="profile.url + '\'s'"></span> page
+        <div class="creatorCommunity__becomeSupporter" *ngIf="!isPatron">
+          <a class="" [routerLink]="'/become-patron/' + profile?.user_id">Become a supporter</a> to post to <span [innerHTML]="profile.url + '\'s'"></span> page
         </div>
         <div class="section__row">
           <input class="section__input" placeholder="Title ..." [(ngModel)]="postData.title" name="newPost.title" [ngClass]="{'!isPatron' : ''}" [disabled]="!isPatron" >

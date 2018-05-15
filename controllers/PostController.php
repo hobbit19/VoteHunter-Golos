@@ -309,14 +309,14 @@ class PostController extends Controller
 //        Debug::dump($fltSum * (1 - $fltPercent) . ' GOLOS');
 //        exit();
 
-        $connector = new GolosWSConnector();
+        $connector = new SteemTestWSConnector();
         try{
             $answer = OpTransfer::doSynchronous(
                 $connector,
                 $strWifFrom,
                 $strUserFrom,
                 $strUserTo,
-                sprintf('%01.3f GOLOS', $fltSum * (1 - $fltPercent)),
+                sprintf('%01.3f STEEM', $fltSum * (1 - $fltPercent)),
                 $strPostPermlink
             );
 
@@ -325,7 +325,7 @@ class PostController extends Controller
                 $strWifFrom,
                 $strUserFrom,
                 $strUserFee,
-                sprintf('%01.3f GOLOS', $fltSum * $fltPercent),
+                sprintf('%01.3f STEEM', $fltSum * $fltPercent),
                 'Fee from: ' . $strUserTo . '/' . $strPostPermlink
             );
 

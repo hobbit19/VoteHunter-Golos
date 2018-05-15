@@ -7,6 +7,13 @@ let golos = require('golos-js');
 golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
 golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
 
+let steem = require('steem');
+steem.config.set('websocket', 'wss://testnet.steem.vc');
+steem.config.set('uri', 'https://testnet.steem.vc');
+steem.config.set('address_prefix', 'STX');
+steem.config.set('chain_id', '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673');
+
+
 @Component({
   selector: 'vh-become-patron-page',
   templateUrl: './become-patron-page.component.html',
@@ -30,7 +37,7 @@ export class BecomePatronPageComponent implements OnInit {
 
   submit(reward) {
     this.mediator.requisitesCallback = (wif, login, postingWif, resolve) => {
-        golos.broadcast.transfer(wif, login, reward.nick , reward.golos, login + ' is now a supporter for ' +reward.nick, (err, result) => {
+        steem.broadcast.transfer(wif, login, reward.nick , reward.steem, login + ' is now a supporter for ' +reward.nick, (err, result) => {
             if(err) {
                 alert('Cannot make transfer, please check username or password/active key');
                 resolve(true);
@@ -51,7 +58,7 @@ export class BecomePatronPageComponent implements OnInit {
                                 what: ['blog']
                             }]
                         );
-                        golos.broadcast.customJson(
+                        steem.broadcast.customJson(
                             postingWif,
                             [], // Required_auths
                             [follower], // Required Posting Auths

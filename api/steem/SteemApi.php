@@ -89,18 +89,17 @@ class SteemApi
 
     public function transfer($strWifFrom, $strUserFrom, $strUserTo, $fltSum, $strMemo)
     {
-        $connector = new SteemitWSConnector();
+        $connector = new SteemTestWSConnector();
         try{
             $answer = OpTransfer::doSynchronous(
                 $connector,
                 $strWifFrom,
                 $strUserFrom,
                 $strUserTo,
-                sprintf('%01.3f GOLOS', $fltSum),
+                sprintf('%01.3f STEEM', $fltSum),
                 $strMemo
             );
 
-            print_r($answer);
 
         }catch (Exception $e){
             return [
