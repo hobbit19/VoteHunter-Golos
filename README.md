@@ -8,7 +8,7 @@ Was developed by "Vote Hunter" team for the Blockchain Hackathon DApp Hack 1.0 o
 - set data base user/pass
 - ./yii migrate
 - npm install
-- git clone git@github.com:kolosovskiy/kolos.dom.git frontend/kolos.dom
+- git clone git@github.com:kolosovsky/kolos.dom.git frontend/kolos.dom
 - npm build
 
 ## Production
